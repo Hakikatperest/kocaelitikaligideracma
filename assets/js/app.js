@@ -94,6 +94,15 @@
     kart.addEventListener('focus', ac); kart.addEventListener('blur', kapa);
   });
 
+  // ── ⚡ ekran dışındaki animasyonlu bölümleri duraklat (mobil kaydırma takılmasının ana sebeplerinden) ──
+  // Gözcü yalnız duraklatma için: çalışmazsa animasyonlar sadece çalışmaya devam eder, içerik etkilenmez.
+  if ('IntersectionObserver' in window) {
+    var durGozcu = new IntersectionObserver(function (kayit) {
+      kayit.forEach(function (k) { k.target.classList.toggle('durdur', !k.isIntersecting); });
+    }, { rootMargin: '120px 0px' });
+    [].forEach.call(document.querySelectorAll('.hero, .kamera-blok, .harita-kap, .surec-kap, .cta, .servis-no, .kutu-uyari h2'), function (el) { durGozcu.observe(el); });
+  }
+
   // ── 3D katmanı ──────────────────────────────────────────────────────────
   var azHareket = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var inceIsaret = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -147,7 +156,8 @@
   if (sayac && bas && bas.getAnimations) {
     var sayacGuncelle = function () {
       var a = bas.getAnimations()[0];
-      if (a && a.currentTime != null) {
+      var kb = bas.closest('.kamera-blok');
+      if (a && a.currentTime != null && !(kb && kb.classList.contains('durdur'))) {   // ekran dışında metin yazma
         var t = (a.currentTime % 8000) / 8000, ilerle = t < 0.6 ? t / 0.6 : (t < 0.92 ? 1 : 1 - (t - 0.92) / 0.08);
         var en = 1 - Math.pow(1 - ilerle, 2);
         sayac.textContent = (en * 3.2).toFixed(1).replace('.', ',');
@@ -169,9 +179,10 @@
     });
     hero.addEventListener('pointerleave', function () { fare.hx = 0; fare.hy = 0; });
   }
-  if (!tuval || !tuval.getContext) return;
+  // ⚡ mobilde/dokunmatikte kabarcık tuvali yok (4x yavaş işlemcide kare başına ~25 ms yiyordu); ızgara + nabızlar yeterli
+  if (!tuval || !tuval.getContext || !inceIsaret || window.innerWidth < 861) { if (tuval) tuval.style.display = 'none'; return; }
   var ctx = tuval.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
-  var adet = window.innerWidth < 760 ? 26 : 60, F = 420, kabarciklar = [];
+  var adet = window.innerWidth < 760 ? 16 : 60, F = 420, kabarciklar = [];
   // tek seferlik kabarcık görseli (her karede gradyan çizmemek için)
   var sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
   var sc = sprite.getContext('2d');
@@ -192,17 +203,28 @@
     return b;
   };
   for (var k = 0; k < adet; k++) kabarciklar.push(yeni({}, true));
+  var sonG = 0;
   var boyut = function () {
-    var r = hero.getBoundingClientRect(); W = r.width; H = r.height;
+    var r = hero.getBoundingClientRect();
+    if (Math.abs(r.width - sonG) < 2 && tuval.width) return;   // yalnız yükseklik değiştiyse (adres çubuğu) dokunma
+    sonG = r.width; W = r.width; H = r.height;
     tuval.width = Math.round(W * dpr); tuval.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
   boyut(); window.addEventListener('resize', boyut);
-  var gorunur = true;
+  var fonGorunur = fon && fon.offsetParent !== null;   // mobilde .hero-fon gizli → her karede stil yazma
+  var calisiyor = false;
+  var baslat = function () {
+    if (calisiyor || document.hidden || window.scrollY > H + 50) return;
+    calisiyor = true; requestAnimationFrame(ciz);
+  };
+  window.addEventListener('scroll', baslat, { passive: true });
+  document.addEventListener('visibilitychange', baslat);
   var ciz = function (t) {
-    fare.x += (fare.hx - fare.x) * 0.06; fare.y += (fare.hy - fare.y) * 0.06;
     var sy = window.scrollY;
-    gorunur = sy < H + 50 && !document.hidden;
-    if (fon) fon.style.transform = 'translate3d(' + (fare.x * -24).toFixed(1) + 'px,' + (sy * 0.28 + fare.y * -16).toFixed(1) + 'px,0) scale(1.06)';
+    if (sy > H + 50 || document.hidden) { calisiyor = false; return; }   // ⚡ ekran dışında döngü tamamen durur
+    fare.x += (fare.hx - fare.x) * 0.06; fare.y += (fare.hy - fare.y) * 0.06;
+    var gorunur = true;
+    if (fonGorunur) fon.style.transform = 'translate3d(' + (fare.x * -24).toFixed(1) + 'px,' + (sy * 0.28 + fare.y * -16).toFixed(1) + 'px,0) scale(1.06)';
     if (gorunur) {
       ctx.clearRect(0, 0, W, H);
       var cx = W * (0.62 + fare.x * 0.08), cy = H * (0.5 + fare.y * 0.08);
@@ -223,5 +245,5 @@
     }
     requestAnimationFrame(ciz);
   };
-  requestAnimationFrame(ciz);
+  baslat();
 })();

@@ -110,13 +110,13 @@ def tel_btn(metin=None, sinif="dg dg-ara", ust="7/24 Hemen Ara"):
     yazi = (f'<span class="dg-yazi"><small>{e(ust)}</small><b>{S["tel_goster"]}</b></span>' if metin is None
             else f'<span class="dg-yazi"><b>{e(metin)}</b></span>')
     return (f'<a class="{sinif}" href="tel:{S["tel_link"]}" aria-label="Telefonla ara: {S["tel_goster"]}">'
-            f'<span class="dg-ik">{svg("tel")}</span>{yazi}</a>')
+            f'<span class="dg-isik"></span><span class="dg-ik">{svg("tel")}</span>{yazi}</a>')
 
 def wa_btn(mesaj, metin=None, sinif="dg dg-wa", ust="WhatsApp'tan"):
     yazi = (f'<span class="dg-yazi"><small>{e(ust)}</small><b>Hemen Yazın</b></span>' if metin is None
             else f'<span class="dg-yazi"><b>{e(metin)}</b></span>')
     return (f'<a class="{sinif}" href="https://wa.me/{S["wa"]}?text={quote(mesaj)}" target="_blank" '
-            f'rel="noopener" aria-label="WhatsApp ile yazın"><span class="dg-ik">{svg("wa")}</span>{yazi}</a>')
+            f'rel="noopener" aria-label="WhatsApp ile yazın"><span class="dg-isik"></span><span class="dg-ik">{svg("wa")}</span>{yazi}</a>')
 
 def wa_mesaj(h=None, i=None):
     if h and i: return f"Merhaba, {i['ad']} için {kucuk(h['kisa'])} hizmeti almak istiyorum."
