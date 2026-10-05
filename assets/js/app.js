@@ -179,10 +179,12 @@
     });
     hero.addEventListener('pointerleave', function () { fare.hx = 0; fare.hy = 0; });
   }
-  // ⚡ mobilde/dokunmatikte kabarcık tuvali yok (4x yavaş işlemcide kare başına ~25 ms yiyordu); ızgara + nabızlar yeterli
-  if (!tuval || !tuval.getContext || !inceIsaret || window.innerWidth < 861) { if (tuval) tuval.style.display = 'none'; return; }
-  var ctx = tuval.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
-  var adet = window.innerWidth < 760 ? 16 : 60, F = 420, kabarciklar = [];
+  if (!tuval || !tuval.getContext) return;
+  // Mobilde kabarcıklar AÇIK (kullanıcı 2026-10-05: "baloncuklar güzel duruyordu, geri getir") ama hafif:
+  // az kabarcık + düşük çizim çözünürlüğü; hero ekran dışındayken döngü tamamen durur.
+  var mobil = !inceIsaret || window.innerWidth < 861;
+  var ctx = tuval.getContext('2d'), dpr = mobil ? 1 : Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
+  var adet = mobil ? 14 : 60, F = 420, kabarciklar = [];
   // tek seferlik kabarcık görseli (her karede gradyan çizmemek için)
   var sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
   var sc = sprite.getContext('2d');
@@ -205,7 +207,7 @@
   for (var k = 0; k < adet; k++) kabarciklar.push(yeni({}, true));
   var sonG = 0;
   var boyut = function () {
-    var r = hero.getBoundingClientRect();
+    var r = tuval.getBoundingClientRect();   // mobilde tuval hero'nun yalnız üst kısmını kaplar (CSS)
     if (Math.abs(r.width - sonG) < 2 && tuval.width) return;   // yalnız yükseklik değiştiyse (adres çubuğu) dokunma
     sonG = r.width; W = r.width; H = r.height;
     tuval.width = Math.round(W * dpr); tuval.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -219,9 +221,12 @@
   };
   window.addEventListener('scroll', baslat, { passive: true });
   document.addEventListener('visibilitychange', baslat);
+  var sonKare = 0;
   var ciz = function (t) {
     var sy = window.scrollY;
     if (sy > H + 50 || document.hidden) { calisiyor = false; return; }   // ⚡ ekran dışında döngü tamamen durur
+    if (mobil && t - sonKare < 30) { requestAnimationFrame(ciz); return; }   // ⚡ mobilde ~30 kare/sn yeter
+    sonKare = t;
     fare.x += (fare.hx - fare.x) * 0.06; fare.y += (fare.hy - fare.y) * 0.06;
     var gorunur = true;
     if (fonGorunur) fon.style.transform = 'translate3d(' + (fare.x * -24).toFixed(1) + 'px,' + (sy * 0.28 + fare.y * -16).toFixed(1) + 'px,0) scale(1.06)';

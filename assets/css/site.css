@@ -598,6 +598,7 @@ p{margin:0 0 1em}
   .surec li{background:var(--kart)}
   .kam-panel{animation:none;border-color:var(--cizgi-2);background:rgba(8,16,30,.9)}
   .isik{display:none}
+  .hero .kabarcik{height:720px;bottom:auto;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent);mask-image:linear-gradient(180deg,#000 75%,transparent)}
   .hb-nabiz,.dalga{animation:none}
   .hb-nabiz{opacity:0}
   .rv:not([data-egim]){rotate:none}
