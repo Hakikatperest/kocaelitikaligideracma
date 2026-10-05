@@ -199,7 +199,7 @@ p{margin:0 0 1em}
 
 /* alt bilgi */
 .alt{padding:44px 0 90px;background:#04080F}
-.alt-izgara{display:grid;grid-template-columns:1.5fr 1fr 1.1fr 1fr;gap:32px}
+.alt-izgara{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px}
 .alt-marka p{color:var(--metin-2);font-size:.93rem;margin:.8em 0}
 .alt-sat{display:flex;gap:10px;align-items:flex-start}
 .alt-sat .ik{color:var(--mavi);margin-top:4px}
@@ -267,12 +267,19 @@ p{margin:0 0 1em}
 .alt-not{margin-top:12px}
 
 /* CTA + teklif formu */
+.cta-tel{display:inline-flex;align-items:center;gap:14px;margin-top:6px;color:#fff;text-decoration:none}
+.cta-tel-ik{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;
+  background:linear-gradient(135deg,#FF9A3D,#EA580C);box-shadow:0 10px 24px -8px rgba(234,88,12,.7)}
+.cta-tel-ik .ik{width:24px;height:24px}
+.cta-tel small{display:block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--metin-2)}
+.cta-tel b{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:.01em;line-height:1.1}
+.cta-tel:hover b{color:#FFB36B}
 .cta-liste{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.92rem;color:var(--metin-2)}
 .cta-liste li{display:flex;align-items:center;gap:6px}.cta-liste .ik{color:var(--mavi)}
 .teklif{display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:var(--r);background:rgba(8,16,30,.78);border:1px solid var(--cizgi-2);box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 50px -20px rgba(34,184,255,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .teklif-b{display:flex;align-items:center;gap:8px;margin:0;font-weight:800;color:var(--baslik);font-size:1.15rem}.teklif-b .ik{color:var(--yesil)}
 .teklif-k{margin:0;font-size:.86rem;color:var(--gri)}
-.teklif-iki{display:grid;grid-template-columns:.75fr 1.25fr;gap:12px}
+.teklif-iki{display:grid;grid-template-columns:1fr;gap:12px}
 .teklif label{display:flex;flex-direction:column;gap:6px;font-size:.85rem;font-weight:650;color:var(--metin-2)}
 .teklif select,.teklif textarea{font:inherit;font-size:.95rem;color:#fff;background:#0B1628;border:1px solid var(--cizgi);border-radius:10px;padding:11px 12px;width:100%}
 .teklif select:focus,.teklif textarea:focus{outline:2px solid var(--mavi);outline-offset:1px;border-color:transparent}
@@ -524,6 +531,7 @@ p{margin:0 0 1em}
   .bolge-ana{grid-template-columns:1fr}
   .ikart-2{grid-template-columns:repeat(4,1fr)}
   .alt-izgara{grid-template-columns:1fr 1fr}
+  .alt-marka{grid-column:1/-1}
 }
 @media (max-width:860px){
   .hero-izgara,.hero-ana-ic{grid-template-columns:1fr}

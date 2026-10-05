@@ -215,15 +215,11 @@ def alt():
    {logo()}
    <p>İzmit, Başiskele, Gölcük, Derince, Körfez, Kartepe ve Karamürsel'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı gider görüntüleme. 7 gün 24 saat.</p>
    <p class="alt-sat">{svg('tel')}<a href="tel:{S['tel_link']}">{S['tel_goster']}</a></p>
+   <p class="alt-sat">{svg('wa')}<a href="https://wa.me/{S['wa']}?text={quote(wa_mesaj())}" target="_blank" rel="noopener">WhatsApp'tan yazın</a></p>
    <p class="alt-sat">{svg('konum')}<a href="{S['harita']}" target="_blank" rel="noopener">{e(S['adres'])}</a></p>
    <p class="alt-sat">{svg('saat')}<span>7 gün 24 saat</span></p>
   </div>
   <div><h2 class="alt-b">Hizmetler</h2><ul class="alt-liste">{hiz}</ul></div>
-  <div><h2 class="alt-b">Hemen ulaşın</h2>
-   <p class="durum-rozet"><span class="canli"></span>Şu an hizmet veriyoruz</p>
-   <div class="alt-dg">{tel_btn(S['tel_goster'], 'dg dg-ara dg-k')}{wa_btn(wa_mesaj(), 'WhatsApp', 'dg dg-wa dg-k')}</div>
-   <p class="alt-not"><a href="#teklif">Hızlı fiyat bilgisi al {svg('ok')}</a></p>
-  </div>
   <div><h2 class="alt-b">İlçeler</h2><ul class="alt-liste">{ilc}<li><a href="{ic('hizmet-bolgeleri/')}">Tüm hizmet bölgeleri</a></li></ul></div>
  </div>
  <div class="kap alt-son">
@@ -285,7 +281,7 @@ def teklif_formu(h=None, i=None):
   <p class="teklif-k">Seçimlerinizi yapın; bilgiler WhatsApp mesajı olarak hazırlansın, siz gönderin. Sitede hiçbir bilgi saklanmaz.</p>
   <div class="teklif-iki">
    <label>İlçe<select name="ilce"><option value="">Seçin</option>{ilce}</select></label>
-   <label>Sorun<select name="sorun">{sorun}</select></label>
+   <label class="teklif-genis">Sorun<select name="sorun">{sorun}</select></label>
   </div>
   <label>Mahalle ve kısa not<textarea name="text" rows="3" placeholder="Örnek: Yeniköy Mah., 3. kat, mutfak evyesi doluyor"></textarea></label>
   <button class="dg dg-wa" type="submit"><span class="dg-ik">{svg('wa')}</span><span class="dg-yazi"><small>Bilgileriniz hazır</small><b>WhatsApp'ta gönder</b></span></button>
@@ -296,7 +292,7 @@ def cta(baslik, metin, h=None, i=None):
  <div class="cta-sol">
   <p class="durum-rozet"><span class="canli"></span>Şu an hizmet veriyoruz · <span class="durum-saat">7/24</span></p>
   <h2>{e(baslik)}</h2><p>{e(metin)}</p>
-  <div class="cta-dg">{tel_btn()}{wa_btn(wa_mesaj(h, i))}</div>
+  <a class="cta-tel" href="tel:{S['tel_link']}"><span class="cta-tel-ik">{svg('tel')}</span><span><small>7/24 arayın</small><b>{S['tel_goster']}</b></span></a>
   <ul class="cta-liste"><li>{svg('tik')}Ortalama 30 dakikada adreste</li><li>{svg('tik')}Fiyat işe başlamadan söylenir</li><li>{svg('tik')}Kırmadan, gerekirse kameralı</li></ul>
  </div>
  {teklif_formu(h, i)}

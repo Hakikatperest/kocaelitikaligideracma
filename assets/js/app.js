@@ -34,7 +34,10 @@
     var kontrol = function () {
       bekle = false;
       var kalan = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
-      dock.classList.toggle('gizli', kalan < 140 || window.scrollY < 380);  // sayfa başında hero düğmeleri zaten görünüyor
+      // sayfa başında hero düğmeleri, sonda #teklif (numara + form) zaten görünüyor → yüzen butonlar çekilir (tekrar olmasın)
+      var tk = document.getElementById('teklif');
+      var teklifte = tk && tk.getBoundingClientRect().top < window.innerHeight * 0.85;
+      dock.classList.toggle('gizli', kalan < 140 || window.scrollY < 380 || teklifte);
     };
     window.addEventListener('scroll', function () { if (!bekle) { bekle = true; requestAnimationFrame(kontrol); } }, { passive: true });
     kontrol();
