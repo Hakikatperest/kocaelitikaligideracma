@@ -1059,6 +1059,7 @@ def main():
     yaz("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
     yaz("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {ALAN}/sitemap.xml\n")
     yaz("CNAME", S["cname"] + "\n")
+    # IndexNow anahtarı (Bing/Yandex; Google kullanmaz) — kökteki dcba226538277f4dda1e62b717c061c0.txt build'den bağımsız durur, ⛔ silme
     print(f"{len(yollar)} sayfa üretildi")
 
 if __name__ == "__main__":
