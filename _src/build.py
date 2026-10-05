@@ -261,8 +261,11 @@ def cta(baslik, metin, h=None, i=None):
  <div class="cta-dg">{tel_btn()}{wa_btn(wa_mesaj(h, i))}</div>
 </div></section>"""
 
+SAHNE = ('<div class="sahne" aria-hidden="true"><div class="zemin-izgara"></div>'
+         '<canvas class="kabarcik"></canvas><span class="isik isik-1"></span><span class="isik isik-2"></span></div>')
+
 def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic"):
-    return f"""<section class="hero {sinif}"><div class="kap hero-izgara">
+    return f"""<section class="hero {sinif}">{SAHNE}<div class="kap hero-izgara">
  <div class="hero-metin">
   {kir}
   <p class="ust-etiket"><span class="nokta"></span>{e(etiket)}</p>
@@ -270,18 +273,18 @@ def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic"):
   <p class="hero-p">{e(p)}</p>
   <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj(h, i))}</div>
  </div>
- <figure class="hero-gorsel">{gorsel_html}</figure>
+ <div class="hero-derin"><figure class="hero-gorsel" data-egim>{gorsel_html}</figure><span class="hero-golge"></span></div>
 </div></section>"""
 
 def kart_hizmet(h, i=None):
     yol = ilce_yolu(i, h) if i else hiz_yolu(h)
     ad = h["h1"].format(ad=i["ad"]) if i else h["ad"]
-    return (f'<a class="hkart" href="{ic(yol)}"><span class="hkart-g">{gorsel(h["galeri"][0][0], "", boy="(min-width:980px) 280px, 100vw")}</span>'
+    return (f'<a class="hkart" data-egim href="{ic(yol)}"><span class="hkart-g">{gorsel(h["galeri"][0][0], "", boy="(min-width:980px) 280px, 100vw")}</span>'
             f'<span class="hkart-ic"><span class="hkart-ik">{svg(h["ikon"])}</span>'
             f'<b>{e(ad)}</b><span>{e(h["ozet"])}</span><em>Ayrıntılar {svg("ok")}</em></span></a>')
 
 def ilce_kart(i):
-    return (f'<a class="ikart" href="{ic(ilce_yolu(i))}">{svg("konum")}<b>{e(i["ad"])}</b>'
+    return (f'<a class="ikart" data-egim href="{ic(ilce_yolu(i))}">{svg("konum")}<b>{e(i["ad"])}</b>'
             f'<span>{e(", ".join(i["mahalle"][:3]))}…</span></a>')
 
 # ── ilçe × hizmet sayfası ───────────────────────────────────────────────────
@@ -468,7 +471,8 @@ def anasayfa():
                 "Kocaeli'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı görüntüleme. "
                 f"7/24 hizmet, ortalama 30 dakikada adreste, kırmadan. {S['tel_goster']}", "", sema) + ust() + f"""
 <section class="hero hero-ana">
- <div class="hero-fon">{gorsel('hero', '', oncelik=True, boy='100vw')}</div>
+ <div class="hero-fon" data-paralaks>{gorsel('hero', '', oncelik=True, boy='100vw')}</div>
+ {SAHNE}
  <div class="kap hero-ana-ic">
   <div class="hero-metin">
    <p class="ust-etiket"><span class="nokta"></span>Kocaeli · 7 ilçe · 7/24</p>
@@ -476,7 +480,7 @@ def anasayfa():
    <p class="hero-p">Lavabo, mutfak ve banyo gideri, tuvalet tıkanıklığı ve taşan rögar için 7 gün 24 saat ulaşabileceğiniz ekibiz. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; fiyatı işe başlamadan söylüyoruz.</p>
    <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj())}</div>
   </div>
-  <a class="kam-panel" href="{ic(hiz_yolu(kam))}">
+  <a class="kam-panel" data-egim href="{ic(hiz_yolu(kam))}">
    <span class="kam-b">{svg('kamera')} Kamera ile gider tespiti</span>
    <span class="kam-p">Hattın içini kamerayla görüyor, tıkanıklığın yerini ve sebebini kırmadan buluyoruz.</span>
    <span class="kam-l"><span>{svg('tik')}Tıkanıklığın yeri ve sebebi</span><span>{svg('tik')}Kırmadan karar</span><span>{svg('tik')}Görüntüyü sizinle paylaşma</span></span>
@@ -493,12 +497,13 @@ def anasayfa():
   <p class="blok-giris">İlçenizi seçin; o ilçedeki dört hizmetin sayfasına oradan ulaşabilirsiniz. Merkezimiz Başiskele'de.</p>
   <div class="ikart-izgara">{ilceler}</div></section>
  <section class="blok"><p class="bolum-ust">Süreç</p><h2>Nasıl çalışıyoruz?</h2>
+  <div class="surec-kap"><div class="boru" aria-hidden="true"><span class="boru-su"></span></div>
   <ol class="surec">
    <li><b>Arayın ya da yazın</b><span>Sorunu anlatın; mümkünse WhatsApp'tan fotoğraf ya da kısa video gönderin.</span></li>
    <li><b>Ekip yola çıksın</b><span>Adresinize en yakın ekibi yönlendiriyoruz; ortalama 30 dakikada adresteyiz.</span></li>
    <li><b>Yerinde tespit ve fiyat</b><span>Usta tıkanıklığın yerini gerekirse kamerayla görüyor, fiyatı işe başlamadan söylüyor.</span></li>
    <li><b>Kırmadan açma ve kontrol</b><span>Gideri makineyle açıyor, akışı birlikte test ediyor, ortamı temiz bırakıyoruz.</span></li>
-  </ol></section>
+  </ol></div></section>
  {galeri(saha, "Sahadan fotoğraflar")}
  {sss_html(ANA_SSS)}
 </div>

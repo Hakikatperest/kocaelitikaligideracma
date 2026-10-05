@@ -1,6 +1,8 @@
 /* Kocaeli Tıkalı Gider Açma — app.js
    1) mobil menü  2) dock sayfa dibinde gizlenir (imzayı örtmesin)
-   3) Google Ads dönüşümü: tel: ve wa.me tıklaması → window.W4_ADS.tel / .wa (send_to etiketi) */
+   3) Google Ads dönüşümü: tel: ve wa.me tıklaması → window.W4_ADS.tel / .wa (send_to etiketi)
+   4) 3D katmanı: kabarcık sahnesi (canvas, kütüphanesiz izdüşüm) · [data-egim] kart eğimi · hero paralaksı · .rv açılışı
+   ⚠️ Açılışta IntersectionObserver KULLANMA (Tessa'da 20 öğe hiç açılmadı) — rAF + dikdörtgen kontrolü + 6 sn güvenlik ağı. */
 (function () {
   var dg = document.querySelector('.menu-ac'), menu = document.getElementById('menu');
   if (dg && menu) {
@@ -34,4 +36,113 @@
     if (!tur || !ads[tur]) return;
     window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads[tur] });
   });
+  // ── 3D katmanı ──────────────────────────────────────────────────────────
+  var azHareket = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var inceIsaret = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (azHareket) return;
+
+  // a) kaydırınca derinlikten açılış — .rv'yi JS ekler; JS patlarsa içerik zaten görünür
+  var hedefler = [].slice.call(document.querySelectorAll(
+    '.govde .blok>h2,.bolum-ust,.blok-giris,.hkart,.ikart,.is,.tik-liste li,.galeri figure,.surec li,.sss-oge,.guven li,.bolge,.ilt-kart,.kutu-vurgu,.mah-liste li,.ilce-izgara li,.cta-ic>*'));
+  hedefler.forEach(function (el) {
+    var kardes = el.parentElement ? [].indexOf.call(el.parentElement.children, el) : 0;
+    el.style.setProperty('--gec', Math.min(kardes, 6) * 70 + 'ms');
+    el.classList.add('rv');
+  });
+  var acBekle = false;
+  var ac = function () {
+    acBekle = false;
+    var alt = window.innerHeight * 0.92;
+    for (var i = hedefler.length - 1; i >= 0; i--) {
+      var r = hedefler[i].getBoundingClientRect();
+      // geçilip gidilenler de açılsın (hızlı kaydırma, # bağlantısı) → yalnız üst sınır
+      if (r.top < alt) { hedefler[i].classList.add('gor'); hedefler.splice(i, 1); }
+    }
+  };
+  window.addEventListener('scroll', function () { if (!acBekle) { acBekle = true; requestAnimationFrame(ac); } }, { passive: true });
+  window.addEventListener('resize', ac);
+  requestAnimationFrame(ac);
+  setTimeout(function () { hedefler.forEach(function (el) { el.classList.add('gor'); }); hedefler = []; }, 6000); // ⛔ güvenlik ağı — kaldırma
+
+  // b) fareyle eğilen kartlar (yalnız fare/kalem; dokunmatikte kapalı)
+  if (inceIsaret) {
+    [].forEach.call(document.querySelectorAll('[data-egim]'), function (el) {
+      var guc = el.classList.contains('hero-gorsel') ? 6 : (el.classList.contains('kam-panel') ? 8 : 10);
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        el.style.setProperty('--ry', ((x - 0.5) * guc).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', ((0.5 - y) * guc).toFixed(2) + 'deg');
+        el.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        el.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+        el.classList.add('egim-aktif');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.classList.remove('egim-aktif');
+        el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  // c) hero: kabarcık sahnesi + paralaks
+  var hero = document.querySelector('.hero');
+  var tuval = hero && hero.querySelector('.kabarcik');
+  var fon = document.querySelector('[data-paralaks]');
+  var fare = { x: 0, y: 0, hx: 0, hy: 0 };
+  if (hero && inceIsaret) {
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      fare.hx = (e.clientX - r.left) / r.width - 0.5; fare.hy = (e.clientY - r.top) / r.height - 0.5;
+    });
+    hero.addEventListener('pointerleave', function () { fare.hx = 0; fare.hy = 0; });
+  }
+  if (!tuval || !tuval.getContext) return;
+  var ctx = tuval.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
+  var adet = window.innerWidth < 760 ? 26 : 60, F = 420, kabarciklar = [];
+  // tek seferlik kabarcık görseli (her karede gradyan çizmemek için)
+  var sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
+  var sc = sprite.getContext('2d');
+  var g = sc.createRadialGradient(24, 22, 2, 32, 32, 31);
+  g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.18, 'rgba(190,235,255,.55)');
+  g.addColorStop(.6, 'rgba(34,184,255,.12)'); g.addColorStop(.9, 'rgba(34,184,255,.45)'); g.addColorStop(1, 'rgba(34,184,255,0)');
+  sc.fillStyle = g; sc.beginPath(); sc.arc(32, 32, 31, 0, Math.PI * 2); sc.fill();
+  var yeni = function (b, bas) {
+    b.x = (Math.random() - 0.5) * 1600; b.y = (Math.random() - 0.5) * 900;
+    b.z = bas ? 200 + Math.random() * 1400 : 1600; b.r = 6 + Math.random() * 16;
+    b.vz = 1.2 + Math.random() * 2.2; b.vy = -0.25 - Math.random() * 0.6; b.f = Math.random() * 6.28;
+    return b;
+  };
+  for (var k = 0; k < adet; k++) kabarciklar.push(yeni({}, true));
+  var boyut = function () {
+    var r = hero.getBoundingClientRect(); W = r.width; H = r.height;
+    tuval.width = Math.round(W * dpr); tuval.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  boyut(); window.addEventListener('resize', boyut);
+  var gorunur = true;
+  var ciz = function (t) {
+    fare.x += (fare.hx - fare.x) * 0.06; fare.y += (fare.hy - fare.y) * 0.06;
+    var sy = window.scrollY;
+    gorunur = sy < H + 50 && !document.hidden;
+    if (fon) fon.style.transform = 'translate3d(' + (fare.x * -24).toFixed(1) + 'px,' + (sy * 0.28 + fare.y * -16).toFixed(1) + 'px,0) scale(1.06)';
+    if (gorunur) {
+      ctx.clearRect(0, 0, W, H);
+      var cx = W * (0.62 + fare.x * 0.08), cy = H * (0.5 + fare.y * 0.08);
+      kabarciklar.sort(function (a, b) { return b.z - a.z; });
+      for (var i = 0; i < kabarciklar.length; i++) {
+        var b = kabarciklar[i];
+        b.z -= b.vz; b.y += b.vy; b.f += 0.02;
+        if (b.z < 40) yeni(b, false);
+        var olcek = F / b.z;
+        var px = cx + (b.x + Math.sin(b.f) * 18 - fare.x * 160) * olcek;
+        var py = cy + (b.y - fare.y * 100) * olcek;
+        var rr = b.r * olcek;
+        if (px < -rr || px > W + rr || py < -rr || py > H + rr) { if (b.z < 300) yeni(b, false); continue; }
+        ctx.globalAlpha = Math.max(0, Math.min(1, (1600 - b.z) / 900)) * Math.min(1, b.z / 160) * 0.85;
+        ctx.drawImage(sprite, px - rr, py - rr, rr * 2, rr * 2);
+      }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(ciz);
+  };
+  requestAnimationFrame(ciz);
 })();
