@@ -279,3 +279,8 @@ KOPRU = {
  "rogar-temizleme":     "{ad}{loc} rögar çağrısında önce rögarı açıp suyun nereden geldiğine ve nereye gidemediğine bakıyor, sorun parsel içinde mi şehir hattında mı onu netleştiriyoruz.",
  "kamerali-goruntuleme":"{ad}{loc} kameralı görüntülemeyi en çok tekrarlayan tıkanıklıklarda ve kırma kararı verilmeden önce yapıyoruz; görüntü, gereksiz kırmanın önüne geçiyor.",
 }
+
+# ── Müşteri yorumları ───────────────────────────────────────────────────────
+# ⛔ YALNIZ GERÇEK yorum (Google İşletme Profili vb.). Uydurma yorum = Google yaptırımı + Ticari Reklam Yönetmeliği.
+# Biçim: ("Ad S.", "İlçe", puan 1-5, "yorum metni", "Google yorumu")   Boşken bölüm sitede görünmez.
+YORUMLAR = []

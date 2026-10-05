@@ -36,6 +36,48 @@
     if (!tur || !ads[tur]) return;
     window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads[tur] });
   });
+  // ── PRO bileşenler (hareket tercihinden bağımsız çalışır) ─────────────
+  // canlı saat (7/24 açık olduğu için durum hep "açık"; yalnız Türkiye saati gösterilir)
+  var saatYaz = function () {
+    var t;
+    try { t = new Intl.DateTimeFormat('tr-TR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' }).format(new Date()); } catch (x) { return; }
+    [].forEach.call(document.querySelectorAll('.durum-saat'), function (el) { el.textContent = 'saat ' + t; });
+  };
+  saatYaz(); setInterval(saatYaz, 30000);
+
+  // teklif formu → WhatsApp mesajı (sitede veri saklanmaz)
+  [].forEach.call(document.querySelectorAll('form[data-teklif]'), function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var ilce = f.elements.ilce.value, sorun = f.elements.sorun.value, not = f.elements.text.value.trim();
+      var msj = 'Merhaba, fiyat bilgisi almak istiyorum.\n' + (ilce ? 'İlçe: ' + ilce + '\n' : '') + 'Sorun: ' + sorun + (not ? '\nNot: ' + not : '');
+      var ads = window.W4_ADS;
+      if (ads && ads.wa && typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads.wa });
+      window.open(f.getAttribute('action') + '?text=' + encodeURIComponent(msj), '_blank', 'noopener');
+    });
+  });
+
+  // harita: tıklanana kadar Google Haritalar yüklenmez (üçüncü parti istek 0)
+  [].forEach.call(document.querySelectorAll('[data-harita]'), function (k) {
+    var b = k.querySelector('.harita-ac');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var fr = document.createElement('iframe');
+      fr.src = k.getAttribute('data-harita'); fr.title = 'Konum haritası'; fr.loading = 'lazy';
+      fr.referrerPolicy = 'no-referrer-when-downgrade';
+      k.innerHTML = ''; k.appendChild(fr);
+    });
+  });
+
+  // ilçe kartı ↔ şematik harita vurgusu
+  [].forEach.call(document.querySelectorAll('.ikart[data-ilce]'), function (kart) {
+    var hb = document.querySelector('.hb[data-ilce="' + kart.getAttribute('data-ilce') + '"]');
+    if (!hb) return;
+    var ac = function () { hb.classList.add('vurgu'); }, kapa = function () { hb.classList.remove('vurgu'); };
+    kart.addEventListener('pointerenter', ac); kart.addEventListener('pointerleave', kapa);
+    kart.addEventListener('focus', ac); kart.addEventListener('blur', kapa);
+  });
+
   // ── 3D katmanı ──────────────────────────────────────────────────────────
   var azHareket = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var inceIsaret = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -82,6 +124,21 @@
         el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg');
       });
     });
+  }
+
+  // kamera demosu: mesafe sayacı kafanın animasyonuyla eşzamanlı (0 → 3,2 m, temsilî)
+  var sayac = document.querySelector('.m-sayac'), bas = document.querySelector('.kam-bas');
+  if (sayac && bas && bas.getAnimations) {
+    var sayacGuncelle = function () {
+      var a = bas.getAnimations()[0];
+      if (a && a.currentTime != null) {
+        var t = (a.currentTime % 8000) / 8000, ilerle = t < 0.6 ? t / 0.6 : (t < 0.92 ? 1 : 1 - (t - 0.92) / 0.08);
+        var en = 1 - Math.pow(1 - ilerle, 2);
+        sayac.textContent = (en * 3.2).toFixed(1).replace('.', ',');
+      }
+      setTimeout(sayacGuncelle, 120);
+    };
+    sayacGuncelle();
   }
 
   // c) hero: kabarcık sahnesi + paralaks

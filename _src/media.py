@@ -30,6 +30,7 @@ def turev():
             k = im.copy()
             if k.width > g: k = k.resize((g, round(k.height * g / k.width)), Image.LANCZOS)
             k.save(os.path.join(CIKTI, f"{taban}-{g}.webp"), "WEBP", quality=78 if g < 1000 else 74, method=6)
+            k.save(os.path.join(CIKTI, f"{taban}-{g}.avif"), "AVIF", quality=55 if g < 1000 else 50, speed=4)
         print(taban, genler)
     # og:image için JPEG (bazı paylaşım önizlemeleri WebP okumuyor)
     Image.open(os.path.join(KAYNAK, "hero.webp")).convert("RGB").resize((1200, 806), Image.LANCZOS).save(
