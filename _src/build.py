@@ -23,6 +23,8 @@ ALAN = S["alan"]
 ILCE = {i["slug"]: i for i in D.ILCELER}
 HIZ = {h["slug"]: h for h in D.HIZMETLER}
 ONEK = ""   # sayfa derinliğine göre göreli yol öneki
+HERO_KOYU = S.get("hero_tema", "koyu") == "koyu"
+HK = "koyu" if HERO_KOYU else "hero-acik"   # hero tema sınıfı
 
 # ── yardımcılar ─────────────────────────────────────────────────────────────
 def e(t): return html.escape(str(t), quote=True)
@@ -142,7 +144,7 @@ def head(baslik, aciklama, yol, sema=None, robots="index,follow", og="images/og-
 <meta property="og:description" content="{e(aciklama)}">
 <meta property="og:url" content="{kanonik}">
 <meta property="og:image" content="{ALAN}/{og}">
-<meta name="theme-color" content="#060B14">
+<meta name="theme-color" content="{"#060B14" if HERO_KOYU else "#FFFFFF"}">
 <link rel="icon" href="{ic('favicon.ico')}" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="{ic('images/favicon-192.png')}">
 <link rel="apple-touch-icon" href="{ic('images/favicon-180.png')}">
@@ -162,7 +164,7 @@ def ust(aktif=""):
     hiz = "".join(f'<a{" class=aktif" if aktif == h["slug"] else ""} href="{ic(hiz_yolu(h))}">{svg(h["ikon"])}{e(h["ad"])}</a>'
                   for h in D.HIZMETLER)
     ilc = "".join(f'<a href="{ic(ilce_yolu(i))}">{svg("konum")}{e(i["ad"])}</a>' for i in ILCE_SIRALI)
-    return f"""<header class="ust koyu">
+    return f"""<header class="ust{" koyu" if HERO_KOYU else ""}">
  <div class="kap ust-ic">
   {logo()}
   <nav class="menu" id="menu" aria-label="Ana menü">
@@ -413,7 +415,7 @@ SAHNE = ('<div class="sahne" aria-hidden="true"><div class="zemin-izgara"></div>
          '<canvas class="kabarcik"></canvas><span class="isik isik-1"></span><span class="isik isik-2"></span></div>')
 
 def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic"):
-    return f"""<section class="hero koyu {sinif}">{SAHNE}<div class="kap hero-izgara">
+    return f"""<section class="hero {HK} {sinif}">{SAHNE}<div class="kap hero-izgara">
  <div class="hero-metin">
   {kir}
   <p class="ust-etiket"><span class="nokta"></span>{e(etiket)}</p>
@@ -607,6 +609,35 @@ ANA_SSS = [
  ("Fiyatı ne zaman öğrenirim?", "Fotoğraf ya da videoyla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde baktıktan sonra, işe başlamadan önce söylüyor."),
 ]
 
+def ana_hero(kam):
+    """Anasayfa hero'su. Koyu: tam ekran boru görseli + paralaks. Açık: görsel sağda 3D çerçevede, kamera kartı üstüne biner."""
+    kart = f'''<a class="kam-panel koyu" data-egim href="{ic(hiz_yolu(kam))}">
+   <span class="kam-b">{svg('kamera')} Kamera ile gider tespiti</span>
+   <span class="kam-p">Hattın içini kamerayla görüyor, tıkanıklığın yerini ve sebebini kırmadan buluyoruz.</span>
+   <span class="kam-l"><span>{svg('tik')}Tıkanıklığın yeri ve sebebi</span><span>{svg('tik')}Kırmadan karar</span><span>{svg('tik')}Görüntüyü sizinle paylaşma</span></span>
+   <em>Nasıl çalışır? {svg('ok')}</em>
+  </a>'''
+    metin = f'''  <div class="hero-metin">
+   <p class="ust-etiket"><span class="canli"></span>Şu an hizmet veriyoruz · Kocaeli · 7/24</p>
+   <h1><span class="ad">Kocaeli Tıkalı Gider Açma</span> <span class="vurgu">ortalama 30 dakikada</span> kapınızda</h1>
+   <p class="hero-p">Lavabo, mutfak ve banyo gideri, tuvalet tıkanıklığı ve taşan rögar için 7 gün 24 saat ulaşabileceğiniz ekibiz. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; fiyatı işe başlamadan söylüyoruz.</p>
+   <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj())}</div>
+  </div>'''
+    if HERO_KOYU:
+        return f'''<section class="hero koyu hero-ana">
+ <div class="hero-fon" data-paralaks>{gorsel('hero', '', oncelik=True, boy='100vw')}</div>
+ {SAHNE}
+ <div class="kap hero-ana-ic">
+{metin}
+  {kart}
+ </div>
+</section>'''
+    return f'''<section class="hero hero-acik hero-ana-acik">{SAHNE}<div class="kap hero-izgara">
+{metin}
+ <div class="hero-derin hero-derin-ana"><figure class="hero-gorsel" data-egim>{gorsel('hero', 'Kocaeli tıkalı gider açma: hızlı ve kırmadan çözüm', oncelik=True, boy='(min-width:980px) 560px, 100vw')}</figure><span class="hero-golge"></span>
+  {kart.replace('class="kam-panel koyu"', 'class="kam-panel koyu kam-ust"')}</div>
+</div></section>'''
+
 def anasayfa():
     kartlar = "".join(kart_hizmet(h) for h in D.HIZMETLER)
     ilceler = "".join(ilce_kart(i) for i in ILCE_SIRALI)
@@ -619,24 +650,7 @@ def anasayfa():
     return head("Kocaeli Tıkalı Gider Açma | Tuvalet, Rögar, Kameralı · 7/24",
                 "Kocaeli'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı görüntüleme. "
                 f"7/24 hizmet, ortalama 30 dakikada adreste, kırmadan. {S['tel_goster']}", "", sema) + ust() + f"""
-<section class="hero koyu hero-ana">
- <div class="hero-fon" data-paralaks>{gorsel('hero', '', oncelik=True, boy='100vw')}</div>
- {SAHNE}
- <div class="kap hero-ana-ic">
-  <div class="hero-metin">
-   <p class="ust-etiket"><span class="canli"></span>Şu an hizmet veriyoruz · Kocaeli · 7/24</p>
-   <h1>Kocaeli Tıkalı Gider Açma <span class="vurgu">ortalama 30 dakikada</span> kapınızda</h1>
-   <p class="hero-p">Lavabo, mutfak ve banyo gideri, tuvalet tıkanıklığı ve taşan rögar için 7 gün 24 saat ulaşabileceğiniz ekibiz. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; fiyatı işe başlamadan söylüyoruz.</p>
-   <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj())}</div>
-  </div>
-  <a class="kam-panel" data-egim href="{ic(hiz_yolu(kam))}">
-   <span class="kam-b">{svg('kamera')} Kamera ile gider tespiti</span>
-   <span class="kam-p">Hattın içini kamerayla görüyor, tıkanıklığın yerini ve sebebini kırmadan buluyoruz.</span>
-   <span class="kam-l"><span>{svg('tik')}Tıkanıklığın yeri ve sebebi</span><span>{svg('tik')}Kırmadan karar</span><span>{svg('tik')}Görüntüyü sizinle paylaşma</span></span>
-   <em>Nasıl çalışır? {svg('ok')}</em>
-  </a>
- </div>
-</section>
+{ana_hero(kam)}
 <div class="kap">{guven()}</div>
 <div class="kap govde">
  {sorun_secici()}
@@ -669,7 +683,7 @@ def anasayfa():
 def basit(baslik, aciklama, yol, h1, govde, aktif="", robots="index,follow"):
     kir_html, kir_ld = kirinti([("Anasayfa", ""), (h1, None)])
     return head(baslik, aciklama, yol, [kir_ld], robots) + ust(aktif) + f"""
-<section class="hero koyu hero-dar"><div class="kap"><div class="hero-metin">{kir_html}<h1>{e(h1)}</h1></div></div></section>
+<section class="hero {HK} hero-dar"><div class="kap"><div class="hero-metin">{kir_html}<h1>{e(h1)}</h1></div></div></section>
 <div class="kap govde">{govde}</div>
 {cta("Gideriniz mi tıkandı?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.")}
 """ + alt()

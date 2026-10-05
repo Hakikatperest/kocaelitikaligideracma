@@ -160,8 +160,14 @@
   var sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
   var sc = sprite.getContext('2d');
   var g = sc.createRadialGradient(24, 22, 2, 32, 32, 31);
-  g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.18, 'rgba(190,235,255,.55)');
-  g.addColorStop(.6, 'rgba(34,184,255,.12)'); g.addColorStop(.9, 'rgba(34,184,255,.45)'); g.addColorStop(1, 'rgba(34,184,255,0)');
+  var acik = hero.classList.contains('hero-acik');
+  if (acik) {   // açık zeminde beyaz parlama kaybolur → kenarı koyu mavi kabarcık
+    g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.2, 'rgba(186,230,253,.7)');
+    g.addColorStop(.6, 'rgba(14,165,233,.14)'); g.addColorStop(.88, 'rgba(3,105,161,.55)'); g.addColorStop(1, 'rgba(3,105,161,0)');
+  } else {
+    g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.18, 'rgba(190,235,255,.55)');
+    g.addColorStop(.6, 'rgba(34,184,255,.12)'); g.addColorStop(.9, 'rgba(34,184,255,.45)'); g.addColorStop(1, 'rgba(34,184,255,0)');
+  }
   sc.fillStyle = g; sc.beginPath(); sc.arc(32, 32, 31, 0, Math.PI * 2); sc.fill();
   var yeni = function (b, bas) {
     b.x = (Math.random() - 0.5) * 1600; b.y = (Math.random() - 0.5) * 900;
@@ -192,9 +198,9 @@
         var olcek = F / b.z;
         var px = cx + (b.x + Math.sin(b.f) * 18 - fare.x * 160) * olcek;
         var py = cy + (b.y - fare.y * 100) * olcek;
-        var rr = b.r * olcek;
+        var rr = Math.min(b.r * olcek, acik ? 34 : 999);   // açık zeminde dev kabarcık yazıyı bulandırıyordu
         if (px < -rr || px > W + rr || py < -rr || py > H + rr) { if (b.z < 300) yeni(b, false); continue; }
-        ctx.globalAlpha = Math.max(0, Math.min(1, (1600 - b.z) / 900)) * Math.min(1, b.z / 160) * 0.85;
+        ctx.globalAlpha = Math.max(0, Math.min(1, (1600 - b.z) / 900)) * Math.min(1, b.z / 160) * (acik ? 0.6 : 0.85);
         ctx.drawImage(sprite, px - rr, py - rr, rr * 2, rr * 2);
       }
       ctx.globalAlpha = 1;
