@@ -6,13 +6,26 @@
 (function () {
   var dg = document.querySelector('.menu-ac'), menu = document.getElementById('menu');
   if (dg && menu) {
-    dg.addEventListener('click', function () {
-      var acik = menu.classList.toggle('acik');
+    // Menü açıkken arka plan kaydırılmaz: html'e .menu-acik → CSS overflow:hidden + touchmove kilidi (eski iOS overflow'u yok sayar).
+    // ⚠️ body'yi position:fixed yapma — sticky başlık sayfayla birlikte yukarı kayıp kaybolur.
+    var ayarla = function (acik) {
+      menu.classList.toggle('acik', acik);
+      document.documentElement.classList.toggle('menu-acik', acik);
       dg.setAttribute('aria-expanded', acik ? 'true' : 'false');
+      dg.setAttribute('aria-label', acik ? 'Menüyü kapat' : 'Menüyü aç');
+    };
+    dg.addEventListener('click', function () { ayarla(!menu.classList.contains('acik')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) ayarla(false); });
+    // perdeye (menü ve başlık dışına) dokununca kapan
+    document.addEventListener('click', function (e) {
+      if (menu.classList.contains('acik') && !e.target.closest('.ust')) ayarla(false);
     });
-    menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) { menu.classList.remove('acik'); dg.setAttribute('aria-expanded', 'false'); }
-    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('acik')) { ayarla(false); dg.focus(); } });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1080 && menu.classList.contains('acik')) ayarla(false); });
+    // menü dışındaki dokunmatik kaydırmayı engelle; menünün kendi içi (uzunsa) kayabilir
+    document.addEventListener('touchmove', function (e) {
+      if (menu.classList.contains('acik') && !e.target.closest('#menu')) e.preventDefault();
+    }, { passive: false });
   }
 
   var dock = document.getElementById('dock');

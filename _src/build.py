@@ -70,6 +70,7 @@ IK = {
  "tik": '<path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>',
  "ok": '<path d="M12 4l-1.4 1.4 5.6 5.6H4v2h12.2l-5.6 5.6L12 20l8-8z"/>',
  "menu": '<path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>',
+ "kapat": '<path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/>',
  "uyari": '<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>',
  "anahtar": '<path d="M22.7 19 13.6 9.9c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>',
  "evye": '<path d="M2 11h20v1.5A6.5 6.5 0 0 1 15.5 19h-7A6.5 6.5 0 0 1 2 12.5V11zm9-8h5a2 2 0 0 1 2 2v2h-2V5h-5v5h-2V5a2 2 0 0 1 2-2z"/>',
@@ -180,7 +181,7 @@ def ust(aktif=""):
   </nav>
   <div class="ust-sag">
    <a class="ust-tel" href="tel:{S['tel_link']}">{svg('saat')}<span><small class="durum"><span class="canli"></span>Şu an açığız · 7/24</small><b>{S['tel_goster']}</b></span></a>
-   <button class="menu-ac" type="button" aria-controls="menu" aria-expanded="false" aria-label="Menüyü aç">{svg('menu')}</button>
+   <button class="menu-ac" type="button" aria-controls="menu" aria-expanded="false" aria-label="Menüyü aç">{svg('menu', 'ik ik-ac')}{svg('kapat', 'ik ik-kapat')}</button>
   </div>
  </div>
 </header>

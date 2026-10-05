@@ -72,6 +72,9 @@ p{margin:0 0 1em}
 .ust-tel b{font-size:1rem;font-weight:780;letter-spacing:.01em}
 .menu-ac{display:none;width:46px;height:46px;border-radius:12px;border:1px solid var(--cizgi);background:var(--kart);color:var(--baslik);align-items:center;justify-content:center;cursor:pointer}
 .menu-ac .ik{width:24px;height:24px}
+.menu-ac .ik-kapat,.menu-ac[aria-expanded="true"] .ik-ac{display:none}
+.menu-ac[aria-expanded="true"] .ik-kapat{display:block}
+.menu-ac[aria-expanded="true"]{border-color:var(--cizgi-2);background:var(--kart-2)}
 
 /* hero */
 .hero{position:relative;padding:40px 0 64px;overflow:hidden;background:var(--zemin)}
@@ -504,6 +507,10 @@ p{margin:0 0 1em}
 @media (max-width:1080px){
   .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:10px 16px 18px;background:var(--menu-zemin);border-bottom:1px solid var(--cizgi);max-height:calc(100vh - var(--ust-h));overflow:auto}
   .menu.acik{display:flex}
+  .menu{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:calc(100dvh - var(--ust-h))}
+  html.menu-acik{overflow:hidden}  /* ⛔ body EKLEME: body kaydırma kabına döner, sticky başlık ölür */
+  html.menu-acik body::before{content:"";position:fixed;inset:0;z-index:45;background:rgba(3,7,14,.55);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+  html.menu-acik .hizli{display:none}
   .menu-alt{display:block;position:static;min-width:0;padding:0 0 8px;background:none;border:0;box-shadow:none}
   .menu-baslik{display:block;padding:12px 4px 4px;color:var(--gri);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
   .menu>a{padding:12px 4px;border-top:1px solid var(--cizgi);border-radius:0}
