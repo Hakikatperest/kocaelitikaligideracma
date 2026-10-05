@@ -102,13 +102,18 @@ def galeri(oge, baslik):
                     for t, a in oge) + '</div></section>')
 
 # ── düğmeler ────────────────────────────────────────────────────────────────
-def tel_btn(metin=None, sinif="dg dg-ara"):
-    metin = metin or f"Hemen Ara: {S['tel_goster']}"
-    return f'<a class="{sinif}" href="tel:{S["tel_link"]}">{svg("tel")}<span>{e(metin)}</span></a>'
+def tel_btn(metin=None, sinif="dg dg-ara", ust="7/24 Hemen Ara"):
+    """metin yoksa iki satır: küçük üst etiket + büyük numara (hero ve CTA). metin verilirse tek satır (dock, footer)."""
+    yazi = (f'<span class="dg-yazi"><small>{e(ust)}</small><b>{S["tel_goster"]}</b></span>' if metin is None
+            else f'<span class="dg-yazi"><b>{e(metin)}</b></span>')
+    return (f'<a class="{sinif}" href="tel:{S["tel_link"]}" aria-label="Telefonla ara: {S["tel_goster"]}">'
+            f'<span class="dg-ik">{svg("tel")}</span>{yazi}</a>')
 
-def wa_btn(mesaj, metin="WhatsApp'tan Yaz", sinif="dg dg-wa"):
+def wa_btn(mesaj, metin=None, sinif="dg dg-wa", ust="WhatsApp'tan"):
+    yazi = (f'<span class="dg-yazi"><small>{e(ust)}</small><b>Hemen Yazın</b></span>' if metin is None
+            else f'<span class="dg-yazi"><b>{e(metin)}</b></span>')
     return (f'<a class="{sinif}" href="https://wa.me/{S["wa"]}?text={quote(mesaj)}" target="_blank" '
-            f'rel="noopener">{svg("wa")}<span>{e(metin)}</span></a>')
+            f'rel="noopener" aria-label="WhatsApp ile yazın"><span class="dg-ik">{svg("wa")}</span>{yazi}</a>')
 
 def wa_mesaj(h=None, i=None):
     if h and i: return f"Merhaba, {i['ad']} için {kucuk(h['kisa'])} hizmeti almak istiyorum."
@@ -226,9 +231,9 @@ def alt():
  {w4_imza()}
 </footer>
 <div class="dock koyu" id="dock">
- {tel_btn('Ara', 'dg dg-ara')}
- {wa_btn(wa_mesaj(), 'WhatsApp')}
- <a class="dg dg-teklif" href="#teklif">{svg('lira')}<span>Teklif</span></a>
+ {tel_btn('Hemen Ara', 'dg dg-ara dg-dock')}
+ {wa_btn(wa_mesaj(), 'WhatsApp', 'dg dg-wa dg-dock')}
+ <a class="dg dg-teklif dg-dock" href="#teklif" aria-label="Hızlı fiyat bilgisi al"><span class="dg-ik">{svg('lira')}</span><span class="dg-yazi"><b>Teklif Al</b></span></a>
 </div>
 <script src="{ic(surum('assets/js/app.js'))}" defer></script>
 </body>
@@ -283,7 +288,7 @@ def teklif_formu(h=None, i=None):
    <label>Sorun<select name="sorun">{sorun}</select></label>
   </div>
   <label>Mahalle ve kısa not<textarea name="text" rows="3" placeholder="Örnek: Yeniköy Mah., 3. kat, mutfak evyesi doluyor"></textarea></label>
-  <button class="dg dg-wa" type="submit">{svg('wa')}<span>WhatsApp'ta mesajı hazırla</span></button>
+  <button class="dg dg-wa" type="submit"><span class="dg-ik">{svg('wa')}</span><span class="dg-yazi"><small>Bilgileriniz hazır</small><b>WhatsApp'ta gönder</b></span></button>
  </form>"""
 
 def cta(baslik, metin, h=None, i=None):
@@ -386,7 +391,7 @@ def fiyat_faktor():
     return f"""<section class="blok fiyat-blok"><p class="bolum-ust">Şeffaf fiyat</p><h2>Fiyatı neler belirler?</h2>
   <p class="blok-giris">Her tıkanıklık farklı olduğu için telefonda kesin fiyat vermiyoruz; fotoğraf ya da videoyla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde gördükten sonra, <b>işe başlamadan</b> söylüyor; onayınız olmadan işe başlamıyoruz.</p>
   <div class="fiyat-izgara">{''.join(f'<div class="fkart"><span class="guven-ik">{svg(ik)}</span><h3>{e(a)}</h3><p>{e(m)}</p></div>' for ik, a, m in f)}</div>
-  <p><a class="dg dg-hayalet" href="#teklif">{svg('wa')}<span>Fotoğraf gönderip yaklaşık fiyat öğrenin</span></a></p></section>"""
+  <p><a class="dg dg-hayalet" href="#teklif"><span class="dg-ik">{svg('wa')}</span><span class="dg-yazi"><b>Fotoğraf gönderip yaklaşık fiyat öğrenin</b></span></a></p></section>"""
 
 def konum_blok():
     q = quote("Kılıçarslan Mah. Hürriyet Cad. No:1 Başiskele Kocaeli")

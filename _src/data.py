@@ -19,7 +19,7 @@ SITE = {
     "adres_sema": {"streetAddress": "Kılıçarslan Mah. Hürriyet Cad. No:1", "addressLocality": "Başiskele",
                    "addressRegion": "Kocaeli", "addressCountry": "TR"},
     # "acik" | "koyu" — hero ve başlık çubuğunun teması (2026-10-05: kullanıcı "heroyu da açık yap bakalım" dedi)
-    "hero_tema":  "acik",
+    "hero_tema":  "koyu",
     "harita":     "https://www.google.com/maps/search/?api=1&query=K%C4%B1l%C4%B1%C3%A7arslan+Mah.+H%C3%BCrriyet+Cad.+No%3A1+Ba%C5%9Fiskele+Kocaeli",
 }
 
