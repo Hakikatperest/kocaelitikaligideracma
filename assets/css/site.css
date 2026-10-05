@@ -384,6 +384,7 @@ p{margin:0 0 1em}
 @keyframes isik-yuz{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-60px,40px,0) scale(1.25)}}
 .hero-ana .sahne{z-index:1}.hero-ana .zemin-izgara{opacity:.4}
 .hero-fon{will-change:transform}
+.hero-mobil{display:none}  /* mobilde boru görseli arka plandan çıkıp tam kart olarak görünür (kullanıcı: "ne olduğu belli olmuyor") */
 
 /* hero görseli: perspektifte duran, hafif yüzen panel */
 .hero-derin{position:relative;perspective:1300px;animation:yuz 7s ease-in-out infinite}
@@ -502,7 +503,11 @@ p{margin:0 0 1em}
   .hero-ana-acik .hero-izgara{grid-template-columns:1fr}
   .kam-ust{position:static;width:auto;margin-top:22px}
   .kam-ust .kam-p{display:block}
-  .hero-fon::after{background:linear-gradient(180deg,rgba(6,11,20,.55) 0%,rgba(6,11,20,.85) 45%,var(--zemin) 100%)}
+  .hero-ana .hero-fon{display:none}
+  .hero-ana{background:radial-gradient(90% 50% at 80% 0%,rgba(34,184,255,.18),transparent 60%),var(--zemin)}
+  .hero-mobil{display:block;margin:6px 0 4px}
+  .hero-mobil .hero-gorsel{transform:rotateY(-8deg) rotateX(4deg)}
+  .hero-mobil .hero-gorsel img{max-height:none;aspect-ratio:1168/784;object-fit:cover}
   .tik-liste,.is-izgara,.ag,.iletisim,.hkart-3,.cta-ic,.kamera-izgara,.konum-izgara{grid-template-columns:1fr}
   .kamera-blok{padding:20px}
   .ikart-2{grid-template-columns:repeat(2,1fr)}

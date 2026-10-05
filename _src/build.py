@@ -634,6 +634,7 @@ def ana_hero(kam):
  {SAHNE}
  <div class="kap hero-ana-ic">
 {metin}
+  <div class="hero-derin hero-mobil"><figure class="hero-gorsel">{gorsel('hero', 'Kocaeli tıkalı gider açma: boru hattında akan su', boy='100vw')}</figure><span class="hero-golge"></span></div>
   {kart}
  </div>
 </section>'''
