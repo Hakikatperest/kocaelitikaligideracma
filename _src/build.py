@@ -162,7 +162,7 @@ def ust(aktif=""):
     hiz = "".join(f'<a{" class=aktif" if aktif == h["slug"] else ""} href="{ic(hiz_yolu(h))}">{svg(h["ikon"])}{e(h["ad"])}</a>'
                   for h in D.HIZMETLER)
     ilc = "".join(f'<a href="{ic(ilce_yolu(i))}">{svg("konum")}{e(i["ad"])}</a>' for i in ILCE_SIRALI)
-    return f"""<header class="ust">
+    return f"""<header class="ust koyu">
  <div class="kap ust-ic">
   {logo()}
   <nav class="menu" id="menu" aria-label="Ana menü">
@@ -201,7 +201,7 @@ def alt():
     hiz = "".join(f'<li><a href="{ic(hiz_yolu(h))}">{e(h["ad"])}</a></li>' for h in D.HIZMETLER)
     ilc = "".join(f'<li><a href="{ic(ilce_yolu(i))}">{e(i["ad"])} gider açma</a></li>' for i in ILCE_SIRALI)
     return f"""</main>
-<footer class="alt">
+<footer class="alt koyu">
  <div class="kap alt-izgara">
   <div class="alt-marka">
    {logo()}
@@ -223,7 +223,7 @@ def alt():
  </div>
  {w4_imza()}
 </footer>
-<div class="dock" id="dock">
+<div class="dock koyu" id="dock">
  {tel_btn('Ara', 'dg dg-ara')}
  {wa_btn(wa_mesaj(), 'WhatsApp')}
  <a class="dg dg-teklif" href="#teklif">{svg('lira')}<span>Teklif</span></a>
@@ -285,7 +285,7 @@ def teklif_formu(h=None, i=None):
  </form>"""
 
 def cta(baslik, metin, h=None, i=None):
-    return f"""<section class="cta" id="teklif"><div class="kap cta-ic">
+    return f"""<section class="cta koyu" id="teklif"><div class="kap cta-ic">
  <div class="cta-sol">
   <p class="durum-rozet"><span class="canli"></span>Şu an hizmet veriyoruz · <span class="durum-saat">7/24</span></p>
   <h2>{e(baslik)}</h2><p>{e(metin)}</p>
@@ -312,7 +312,7 @@ def sorun_secici():
 
 def kamera_demo():
     kam = HIZ["kamerali-goruntuleme"]
-    return f"""<section class="blok kamera-blok"><div class="kamera-izgara">
+    return f"""<section class="blok kamera-blok koyu"><div class="kamera-izgara">
  <div class="kamera-metin"><p class="bolum-ust">Kameralı görüntüleme</p>
   <h2>Tıkanıklığı tahmin etmiyoruz, görüyoruz</h2>
   <p>Makaralı kamerayı gider ağzından hattın içine sürüyoruz. Ekranda tıkanıklığın kaç metre ileride olduğunu, sebebinin yağ mı, kök mü, düşen bir cisim mi olduğunu ve borunun sağlam olup olmadığını birlikte görüyoruz.</p>
@@ -352,7 +352,7 @@ def kocaeli_harita():
                  f'<circle class="hb-pin" cx="{x}" cy="{y-22}" r="5"/>'
                  f'<text x="{x}" y="{y+4}" class="hb-ad">{e(i["ad"])}</text>'
                  + (f'<text x="{x}" y="{y+22}" class="hb-alt">Merkezimiz</text>' if merkez else "") + '</a>')
-    return f"""<div class="harita-kap"><svg class="kharita" viewBox="0 0 800 420" role="img" aria-label="Hizmet verdiğimiz Kocaeli ilçeleri, şematik harita">
+    return f"""<div class="harita-kap koyu"><svg class="kharita" viewBox="0 0 800 420" role="img" aria-label="Hizmet verdiğimiz Kocaeli ilçeleri, şematik harita">
   <defs><linearGradient id="su" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0B3A66"/><stop offset="1" stop-color="#1679B8"/></linearGradient></defs>
   <path class="korfez-su" d="M0 214 L250 190 L412 180 L578 216 L622 204 L600 222 L578 226 L432 252 L252 258 L0 252 Z" fill="url(#su)"/>
   <path class="dalga" d="M30 236 C120 226 200 238 300 228 S480 222 560 222"/>
@@ -413,7 +413,7 @@ SAHNE = ('<div class="sahne" aria-hidden="true"><div class="zemin-izgara"></div>
          '<canvas class="kabarcik"></canvas><span class="isik isik-1"></span><span class="isik isik-2"></span></div>')
 
 def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic"):
-    return f"""<section class="hero {sinif}">{SAHNE}<div class="kap hero-izgara">
+    return f"""<section class="hero koyu {sinif}">{SAHNE}<div class="kap hero-izgara">
  <div class="hero-metin">
   {kir}
   <p class="ust-etiket"><span class="nokta"></span>{e(etiket)}</p>
@@ -619,7 +619,7 @@ def anasayfa():
     return head("Kocaeli Tıkalı Gider Açma | Tuvalet, Rögar, Kameralı · 7/24",
                 "Kocaeli'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı görüntüleme. "
                 f"7/24 hizmet, ortalama 30 dakikada adreste, kırmadan. {S['tel_goster']}", "", sema) + ust() + f"""
-<section class="hero hero-ana">
+<section class="hero koyu hero-ana">
  <div class="hero-fon" data-paralaks>{gorsel('hero', '', oncelik=True, boy='100vw')}</div>
  {SAHNE}
  <div class="kap hero-ana-ic">
@@ -669,7 +669,7 @@ def anasayfa():
 def basit(baslik, aciklama, yol, h1, govde, aktif="", robots="index,follow"):
     kir_html, kir_ld = kirinti([("Anasayfa", ""), (h1, None)])
     return head(baslik, aciklama, yol, [kir_ld], robots) + ust(aktif) + f"""
-<section class="hero hero-dar"><div class="kap"><div class="hero-metin">{kir_html}<h1>{e(h1)}</h1></div></div></section>
+<section class="hero koyu hero-dar"><div class="kap"><div class="hero-metin">{kir_html}<h1>{e(h1)}</h1></div></div></section>
 <div class="kap govde">{govde}</div>
 {cta("Gideriniz mi tıkandı?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.")}
 """ + alt()
