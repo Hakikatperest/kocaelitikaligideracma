@@ -1,5 +1,5 @@
 /* Kocaeli Tıkalı Gider Açma — app.js
-   1) mobil menü  2) dock sayfa dibinde gizlenir (imzayı örtmesin)
+   1) mobil menü  2) mobil hızlı iletişim (#dock) sayfa başında ve dibinde gizlenir (hero düğmeleri / imza)
    3) Google Ads dönüşümü: tel: ve wa.me tıklaması → window.W4_ADS.tel / .wa (send_to etiketi)
    4) 3D katmanı: kabarcık sahnesi (canvas, kütüphanesiz izdüşüm) · [data-egim] kart eğimi · hero paralaksı · .rv açılışı
    ⚠️ Açılışta IntersectionObserver KULLANMA (Tessa'da 20 öğe hiç açılmadı) — rAF + dikdörtgen kontrolü + 6 sn güvenlik ağı. */

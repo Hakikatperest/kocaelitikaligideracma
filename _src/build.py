@@ -103,7 +103,7 @@ def galeri(oge, baslik):
 
 # ── düğmeler ────────────────────────────────────────────────────────────────
 def tel_btn(metin=None, sinif="dg dg-ara", ust="7/24 Hemen Ara"):
-    """metin yoksa iki satır: küçük üst etiket + büyük numara (hero ve CTA). metin verilirse tek satır (dock, footer)."""
+    """metin yoksa iki satır: küçük üst etiket + büyük numara (hero ve CTA). metin verilirse tek satır (footer)."""
     yazi = (f'<span class="dg-yazi"><small>{e(ust)}</small><b>{S["tel_goster"]}</b></span>' if metin is None
             else f'<span class="dg-yazi"><b>{e(metin)}</b></span>')
     return (f'<a class="{sinif}" href="tel:{S["tel_link"]}" aria-label="Telefonla ara: {S["tel_goster"]}">'
@@ -230,10 +230,9 @@ def alt():
  </div>
  {w4_imza()}
 </footer>
-<div class="dock koyu" id="dock">
- {tel_btn('Hemen Ara', 'dg dg-ara dg-dock')}
- {wa_btn(wa_mesaj(), 'WhatsApp', 'dg dg-wa dg-dock')}
- <a class="dg dg-teklif dg-dock" href="#teklif" aria-label="Hızlı fiyat bilgisi al"><span class="dg-ik">{svg('lira')}</span><span class="dg-yazi"><b>Teklif Al</b></span></a>
+<div class="hizli" id="dock" aria-label="Hızlı iletişim">
+ <a class="hz hz-ara" href="tel:{S['tel_link']}" aria-label="Hemen ara: {S['tel_goster']}"><span class="hz-isik"></span><span class="hz-ik">{svg('tel')}</span><span class="hz-yazi"><small><span class="canli"></span>7/24 açık</small><b>Hemen Ara</b></span></a>
+ <a class="hz hz-wa" href="https://wa.me/{S['wa']}?text={quote(wa_mesaj())}" target="_blank" rel="noopener" aria-label="WhatsApp'tan yazın"><span class="hz-ik">{svg('wa')}</span><span class="hz-yazi"><b>WhatsApp'tan Yaz</b></span></a>
 </div>
 <script src="{ic(surum('assets/js/app.js'))}" defer></script>
 </body>
