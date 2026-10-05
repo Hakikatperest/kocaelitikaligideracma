@@ -26,8 +26,11 @@ SITE = {
 # Google Ads — boşken etiket basılmaz, tıklama dinleyicisi hiçbir şey göndermez.
 ADS = {"etiket": "", "tel": "", "wa": ""}
 
-# ✅ ONAYLI — kullanıcı 2026-10-05'te seçti ("Teyitli").
-ONAYLI = ["7/24 hizmet", "ortalama 30 dakikada ulaşım", "kırmadan kameralı tespit", "fiyat işe başlamadan söylenir"]
+# ✅ ONAYLI — kullanıcı 2026-10-05'te seçti ("Teyitli") + aynı gün verdiği tanıtım metninden:
+ONAYLI = ["7/24 hizmet", "ortalama 30 dakikada ulaşım", "kırmadan kameralı tespit", "fiyat işe başlamadan söylenir",
+          "sorun giderilmeden ücret alınmaz, ödeme iş bitince", "yılların tecrübesi", "Başiskele ofisi ziyaret edilebilir"]
+# ⚠️ Kullanıcının metninde "Hizmetlerimiz garantili" var ama garanti SÜRESİ/KAPSAMI verilmedi → Ticari Reklam Yönetmeliği
+#    garanti ifadesinde kapsam ister. Kapsam gelene kadar "garantili" YAZILMIYOR (TEYITSIZ'de), yerine "sorun giderilmeden ücret almıyoruz".
 
 # ⛔ Referans tasarımlarda vardı, kullanıcı TEYİT ETMEDİ → denetim HATA verir.
 TEYITSIZ = ["%100", "5000+", "mutlu müşteri", "garanti veriyoruz", "garantili", "lisanslı", "sigortalı",
@@ -117,8 +120,8 @@ ILCELER = [
 HIZMETLER = [
  {"slug":"tikali-gider-acma","ad":"Tıkalı Gider Açma","kisa":"Tıkalı gider açma","ikon":"damla",
   "h1":"{ad} Tıkalı Gider Açma","title":"{ad} Tıkalı Gider Açma | Lavabo, Mutfak, Banyo · 7/24",
-  "hub_h1":"Tıkalı Gider Açma: Lavabo, Mutfak ve Banyo Gideri",
-  "hub_title":"Tıkalı Gider Açma | Lavabo, Mutfak, Banyo Gideri · Kocaeli 7/24",
+  "hub_h1":"Tıkalı Lavabo, Mutfak ve Banyo Gideri Açma","hub_neden":"Lavabo, mutfak ve banyo gideri neden tıkanır?",
+  "hub_title":"Tıkalı Lavabo, Mutfak ve Banyo Gideri Açma | Kocaeli 7/24",
   "alan":["gider","yapi"],
   "ozet":"Lavabo, evye, duş, küvet ve balkon giderlerindeki tıkanıklığı kırmadan, makineyle açıyoruz.",
   "galeri":[("tikali-gider-acma-servisi","Gider ağzından spiralle çıkarılan saç ve tortu birikintisi"),
@@ -158,7 +161,7 @@ HIZMETLER = [
 
  {"slug":"tuvalet-tikanikligi-acma","ad":"Tuvalet Tıkanıklığı Açma","kisa":"Tuvalet tıkanıklığı açma","ikon":"klozet",
   "h1":"{ad} Tuvalet Tıkanıklığı Açma","title":"{ad} Tuvalet Tıkanıklığı Açma | Kırmadan · 7/24",
-  "hub_h1":"Tuvalet Tıkanıklığı Açma","hub_title":"Tuvalet Tıkanıklığı Açma | Klozet, Alaturka, Kırmadan · Kocaeli",
+  "hub_h1":"Kocaeli Tuvalet Tıkanıklığı Açma","hub_neden":"Tuvalet neden tıkanır?","hub_title":"Kocaeli Tuvalet Tıkanıklığı Açma | Klozet, Alaturka · 7/24",
   "alan":["gider","yapi"],
   "ozet":"Klozet, alaturka tuvalet ve tuvalet hattındaki tıkanıklığı kırmadan, klozeti sökmeden açıyoruz.",
   "galeri":[("tuvalet-tikanikligi-acma","Tuvalet hattına kameralı tespit cihazı sürülürken"),
@@ -197,7 +200,7 @@ HIZMETLER = [
 
  {"slug":"rogar-temizleme","ad":"Rögar Temizleme ve Açma","kisa":"Rögar temizleme","ikon":"rogar",
   "h1":"{ad} Rögar Temizleme ve Rögar Açma","title":"{ad} Rögar Temizleme ve Rögar Tıkanıklığı Açma · 7/24",
-  "hub_h1":"Rögar Temizleme ve Rögar Tıkanıklığı Açma","hub_title":"Rögar Temizleme, Rögar Açma ve Yıkama | Kocaeli 7/24",
+  "hub_h1":"Kocaeli Rögar Temizleme ve Rögar Açma","hub_neden":"Rögar neden tıkanır ve taşar?","hub_title":"Kocaeli Rögar Temizleme, Rögar Açma ve Yıkama · 7/24",
   "alan":["rogar","yapi"],
   "ozet":"Taşan rögarı açıyor, rögarı ve bahçe hattını yüksek basınçlı suyla yıkayıp tortudan arındırıyoruz.",
   "galeri":[("rogar-temizleme","Rögar içinde yüksek basınçlı hortumla hat temizliği"),
@@ -236,7 +239,7 @@ HIZMETLER = [
 
  {"slug":"kamerali-goruntuleme","ad":"Kameralı Görüntüleme","kisa":"Kameralı gider görüntüleme","ikon":"kamera",
   "h1":"{ad} Kameralı Gider Görüntüleme","title":"{ad} Kameralı Gider ve Tıkanıklık Görüntüleme · Kırmadan",
-  "hub_h1":"Kameralı Gider Görüntüleme ve Tıkanıklık Tespiti","hub_title":"Kameralı Gider Görüntüleme ve Tıkanıklık Tespiti | Kocaeli",
+  "hub_h1":"Kocaeli Kameralı Gider Görüntüleme","hub_neden":"Kameralı görüntüleme ne zaman gerekir?","hub_title":"Kocaeli Kameralı Gider Görüntüleme ve Tıkanıklık Tespiti",
   "alan":["gider","rogar"],
   "ozet":"Gider hattının içine kamera sokup tıkanıklığın yerini, sebebini ve borunun durumunu kırmadan görüyoruz.",
   "galeri":[("kamerali-tikaniklik-goruntuleme","Duş giderine sürülen makaralı kameranın ekran ünitesi"),

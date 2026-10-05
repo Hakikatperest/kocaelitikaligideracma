@@ -12,10 +12,11 @@ Yapı (kullanıcı kararı 2026-10-05): 7 ilçe × 4 hizmet
   /<ilce>-<hizmet>/                28 ilçe × hizmet sayfası
   /hizmet-bolgeleri/ /iletisim/ /gizlilik-politikasi/ /404.html
 """
-import os, json, hashlib, html, shutil
+import os, re, json, hashlib, html, shutil, datetime
 from urllib.parse import quote
 from PIL import Image
 import data as D
+import icerik as IC
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 S = D.SITE
@@ -25,6 +26,7 @@ HIZ = {h["slug"]: h for h in D.HIZMETLER}
 ONEK = ""   # sayfa derinliğine göre göreli yol öneki
 HERO_KOYU = S.get("hero_tema", "koyu") == "koyu"
 HK = "koyu" if HERO_KOYU else "hero-acik"   # hero tema sınıfı
+BUGUN = datetime.date.today().isoformat()
 
 # ── yardımcılar ─────────────────────────────────────────────────────────────
 def e(t): return html.escape(str(t), quote=True)
@@ -176,7 +178,9 @@ def ust(aktif=""):
   <nav class="menu" id="menu" aria-label="Ana menü">
    <div class="menu-grup"><span class="menu-baslik">Hizmetler</span><div class="menu-alt">{hiz}</div></div>
    <div class="menu-grup"><span class="menu-baslik">İlçeler</span><div class="menu-alt">{ilc}</div></div>
+   <a href="{ic('rehber/')}"{' class="aktif"' if aktif=='rehber' else ''}>Rehber</a>
    <a href="{ic('hizmet-bolgeleri/')}"{' class="aktif"' if aktif=='bolge' else ''}>Hizmet Bölgeleri</a>
+   <a href="{ic('hakkimizda/')}"{' class="aktif"' if aktif=='hakkimizda' else ''}>Hakkımızda</a>
    <a href="{ic('iletisim/')}"{' class="aktif"' if aktif=='iletisim' else ''}>İletişim</a>
   </nav>
   <div class="ust-sag">
@@ -208,18 +212,20 @@ def w4_imza():
 def alt():
     hiz = "".join(f'<li><a href="{ic(hiz_yolu(h))}">{e(h["ad"])}</a></li>' for h in D.HIZMETLER)
     ilc = "".join(f'<li><a href="{ic(ilce_yolu(i))}">{e(i["ad"])} gider açma</a></li>' for i in ILCE_SIRALI)
+    reh = "".join(f'<li><a href="{ic(r["slug"] + "/")}">{e(r["h1"].split("?")[0])}?</a></li>' for r in IC.REHBER)
     return f"""</main>
 <footer class="alt koyu">
  <div class="kap alt-izgara">
   <div class="alt-marka">
    {logo()}
-   <p>İzmit, Başiskele, Gölcük, Derince, Körfez, Kartepe ve Karamürsel'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı gider görüntüleme. 7 gün 24 saat.</p>
+   <p>Yılların tecrübesiyle İzmit, Başiskele, Gölcük, Derince, Körfez, Kartepe ve Karamürsel'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı gider görüntüleme. Kırmadan çalışıyor, ödemeyi iş bitince alıyoruz. 7 gün 24 saat.</p>
    <p class="alt-sat">{svg('tel')}<a href="tel:{S['tel_link']}">{S['tel_goster']}</a></p>
    <p class="alt-sat">{svg('wa')}<a href="https://wa.me/{S['wa']}?text={quote(wa_mesaj())}" target="_blank" rel="noopener">WhatsApp'tan yazın</a></p>
    <p class="alt-sat">{svg('konum')}<a href="{S['harita']}" target="_blank" rel="noopener">{e(S['adres'])}</a></p>
    <p class="alt-sat">{svg('saat')}<span>7 gün 24 saat</span></p>
   </div>
-  <div><h2 class="alt-b">Hizmetler</h2><ul class="alt-liste">{hiz}</ul></div>
+  <div><h2 class="alt-b">Hizmetler</h2><ul class="alt-liste">{hiz}</ul>
+   <h2 class="alt-b alt-b2">Rehber</h2><ul class="alt-liste">{reh}<li><a href="{ic('hakkimizda/')}">Hakkımızda</a></li></ul></div>
   <div><h2 class="alt-b">İlçeler</h2><ul class="alt-liste">{ilc}<li><a href="{ic('hizmet-bolgeleri/')}">Tüm hizmet bölgeleri</a></li></ul></div>
  </div>
  <div class="kap alt-son">
@@ -240,7 +246,7 @@ def alt():
 def isletme():
     return {"@type": "Plumber", "@id": ALAN + "/#isletme", "name": S["marka"], "url": ALAN + "/",
             "telephone": S["tel_link"], "image": ALAN + "/images/og-kocaeli-tikali-gider-acma.jpg",
-            "logo": ALAN + "/images/favicon-512.png",
+            "logo": ALAN + "/images/favicon-512.png", "description": IC.TANITIM + " " + IC.ODEME,
             "address": {"@type": "PostalAddress", **S["adres_sema"]},
             "openingHoursSpecification": {"@type": "OpeningHoursSpecification",
                 "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -262,7 +268,7 @@ def guven():
     oge = [("saat", "7/24 hizmet", "Gece, hafta sonu ve bayramda da arayabilirsiniz."),
            ("hiz", "Ortalama 30 dakika", "Kocaeli'de adrese ortalama 30 dakikada ulaşıyoruz."),
            ("kamera", "Kırmadan, kameralı", "Tıkanıklığın yerini kamerayla görüp kırmadan açıyoruz."),
-           ("lira", "Fiyat işten önce", "Usta yerinde baktıktan sonra, işe başlamadan fiyatı söylüyor.")]
+           ("lira", "Ödeme iş bitince", "Sorun giderilmeden ücret almıyoruz; fiyatı işe başlamadan söylüyoruz.")]
     return '<ul class="guven">' + "".join(
         f'<li><span class="guven-ik">{svg(i)}</span><div><b>{e(b)}</b><span>{e(m)}</span></div></li>' for i, b, m in oge) + "</ul>"
 
@@ -379,13 +385,13 @@ def uzmanlik():
  <section class="blok kutu-uyari"><h2>{svg('uyari')} Kimyasal gider açıcıyı neden önermiyoruz?</h2>
   <div class="is-izgara">{''.join(f'<div class="is is-sade"><h3>{e(a)}</h3><p>{e(m)}</p></div>' for a, m in kimya)}</div></section>"""
 
-def fiyat_faktor():
+def fiyat_faktor(baslik="Gider açma fiyatları ne kadar?"):
     f = [("konum", "Tıkanıklığın yeri", "Lavabo sifonundaki tıkanıklık ile bina kolonu ya da bahçe hattındaki tıkanıklık aynı iş değildir."),
          ("bilgi", "Tıkanıklığın sebebi", "Saç ve sabun birikintisi kısa sürede açılırken yağ, kireç ya da kök daha fazla işlem ister."),
          ("anahtar", "Erişim", "Temizleme kapağının olup olmaması, klozetin sökülmesi gerekip gerekmediği, rögarın derinliği."),
          ("kamera", "Kamera ve ek işlem", "Tekrarlayan tıkanıklıkta kameralı görüntüleme ya da basınçlı suyla yıkama gerekebilir.")]
-    return f"""<section class="blok fiyat-blok"><p class="bolum-ust">Şeffaf fiyat</p><h2>Fiyatı neler belirler?</h2>
-  <p class="blok-giris">Her tıkanıklık farklı olduğu için telefonda kesin fiyat vermiyoruz; fotoğraf ya da videoyla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde gördükten sonra, <b>işe başlamadan</b> söylüyor; onayınız olmadan işe başlamıyoruz.</p>
+    return f"""<section class="blok fiyat-blok"><p class="bolum-ust">Şeffaf fiyat</p><h2>{e(baslik)}</h2>
+  <p class="blok-giris">Her tıkanıklık farklı olduğu için telefonda kesin fiyat vermiyoruz; fotoğraf ya da videoyla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde gördükten sonra, <b>işe başlamadan</b> söylüyor; onayınız olmadan işe başlamıyoruz. Sorun tamamen giderilmeden ücret talep etmiyor, ödemeyi iş bitince alıyoruz.</p>
   <div class="fiyat-izgara">{''.join(f'<div class="fkart"><span class="guven-ik">{svg(ik)}</span><h3>{e(a)}</h3><p>{e(m)}</p></div>' for ik, a, m in f)}</div>
   <p><a class="dg dg-hayalet" href="#teklif"><span class="dg-ik">{svg('wa')}</span><span class="dg-yazi"><b>Fotoğraf gönderip yaklaşık fiyat öğrenin</b></span></a></p></section>"""
 
@@ -432,7 +438,7 @@ def kart_hizmet(h, i=None):
     ad = h["h1"].format(ad=i["ad"]) if i else h["ad"]
     return (f'<a class="hkart" data-egim href="{ic(yol)}"><span class="hkart-g">{gorsel(h["galeri"][0][0], "", boy="(min-width:980px) 280px, 100vw")}</span>'
             f'<span class="hkart-ic"><span class="hkart-ik">{svg(h["ikon"])}</span>'
-            f'<b>{e(ad)}</b><span>{e(h["ozet"])}</span><em>Ayrıntılar {svg("ok")}</em></span></a>')
+            f'<h3 class="hkart-b">{e(ad)}</h3><span>{e(h["ozet"])}</span><em>Ayrıntılar {svg("ok")}</em></span></a>')
 
 def ilce_kart(i):
     return (f'<a class="ikart" data-egim data-ilce="{i["slug"]}" href="{ic(ilce_yolu(i))}">{svg("konum")}<b>{e(i["ad"])}</b>'
@@ -478,128 +484,315 @@ def baglanti_agi(i, h):
   <p class="ag-not">Diğer ilçeler: {a3} · <a href="{ic(hiz_yolu(h))}">{e(h['ad'])}</a></p></div>
 </section>"""
 
+# ── SEO makale mimarisi (2026-10-05) ───────────────────────────────────────
+# Kullanıcı: "her iç sayfa ve anasayfa kendi konusu üzerine SEO açısından güçlü H1/H2/H3 başlıklardan oluşsun,
+# benim dilimle makaleler, örümcek ağı gibi birbirine bağlı". Örnek H2'ler (Gölcük): "…servisine nasıl ulaşırsınız?",
+# "…belediye gider açma hizmeti veriyor mu?", "Gider açma fiyatları ne kadar?", "… 7/24 Tıkanıklık Açma Servisi",
+# "…'e en yakın tıkanıklık açma servisi". Makaleler _src/icerik.py'de.
+# ⛔ Buton tekrarı yok: gövdede tel/WhatsApp DÜZ BAĞLANTI (hero + #teklif + mobil yüzen butonlar yeterli).
+
+def bagla(metin, i=None):
+    """Metni kaçışlar, [[yol|yazı]] işaretlerini site içi bağlantıya çevirir."""
+    def r(m):
+        yol, yazi = m.group(1), m.group(2)
+        if yol.startswith("hizmet:"):
+            h = HIZ[yol[7:]]; hedef = ilce_yolu(i, h) if i else hiz_yolu(h)
+        elif yol.startswith("ilce:"):
+            hedef = ilce_yolu(ILCE[yol[5:]])
+        else:
+            hedef = yol
+        return f'<a href="{ic(hedef)}">{yazi}</a>'
+    return re.sub(r"\[\[([^|\]]+)\|([^\]]+)\]\]", r, e(metin))
+
+def P(metin, i=None): return f"<p>{bagla(metin, i)}</p>"
+def ipucu(etiket, metin, i=None, sinif="ipucu"):
+    return f'<p class="{sinif}"><b>{e(etiket)}</b> {bagla(metin, i)}</p>'
+def tel_a(): return f'<a href="tel:{S["tel_link"]}">{S["tel_goster"]}</a>'
+def wa_a(mesaj, yazi="WhatsApp'tan yazabilirsiniz"):
+    return f'<a href="https://wa.me/{S["wa"]}?text={quote(mesaj)}" target="_blank" rel="noopener">{e(yazi)}</a>'
+
+def h3_izgara(oge, sinif="is-izgara"):
+    return f'<div class="{sinif}">' + "".join(f'<div class="is"><h3>{e(a)}</h3><p>{e(m)}</p></div>' for a, m in oge) + "</div>"
+
+def sorumluluk_tablo():
+    satir = [("Evinizdeki lavabo, mutfak, duş ve tuvalet gideri", "Mülk sahibi", "Özel servis (biz)"),
+             ("Bina kolonu, bahçe rögarı, parsel bacasına kadar olan hat", "Mülk sahibi / bina yönetimi", "Özel servis (biz)"),
+             ("Sokaktaki ana kanalizasyon hattı ve sokak rögarı", "İSU", "ALO 185 (7/24)")]
+    return ('<div class="tablo-kap"><table class="tablo"><thead><tr><th>Tıkanıklığın yeri</th><th>Kimin sorumluluğunda?</th>'
+            '<th>Kimi aramalısınız?</th></tr></thead><tbody>' +
+            "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>" for a, b, c in satir) + "</tbody></table></div>")
+
+def servis_no(baslik="7/24 acil servis numarası"):
+    return (f'<a class="servis-no" href="tel:{S["tel_link"]}"><span class="servis-no-ik">{svg("tel")}</span>'
+            f'<span><small>{e(baslik)}</small><b>{S["tel_goster"]}</b><em>Gece, hafta sonu ve bayram dahil</em></span></a>')
+
+ACIL_HAVUZ = [
+ "Acil durumda ilk dakikalar önemli: taşan bir tuvalet ya da dolan bir rögar beklerken büyür. {ad}{loc} acil {kisa} için aradığınızda telefonu bir usta açar, önce suyu nasıl durduracağınızı anlatır, sonra en yakın ekip yola çıkar.",
+ "{ad}{loc} acil {kisa} gerektiğinde sabahı beklemeyin. Gece yarısı, hafta sonu ya da bayram fark etmez; servis numaramızı aradığınızda ekip ortalama 30 dakikada adresinizde.",
+ "{ad}{loc} acil bir tıkanıklıkta en çok kaybedilen şey zaman. Servis numaramız 7 gün 24 saat açık; aradığınızda adresinizi alıp ekibi hemen yönlendiriyoruz.",
+]
+
+def usta_dikkat(i=None):
+    tohum_ad = i["slug"] if i else "_genel"
+    baslik = f"{ek(i)} gider açma ustası çağırırken dikkat etmeniz gerekenler" if i else "Gider açma ustası çağırırken dikkat etmeniz gerekenler"
+    oge = karistir(IC.USTA_DIKKAT, tohum_ad, "ud") if i else IC.USTA_DIKKAT
+    return (f'<section class="blok kutu-uyari"><h2>{svg("uyari")} {e(baslik)}</h2>{P(sec(IC.USTA_DIKKAT_GIRIS, tohum_ad, "udg"))}'
+            f'{h3_izgara(oge, "is-izgara is-3")}</section>')
+
+ODEME_KISA = "Sorun tamamen giderilmeden ücret talep etmiyoruz; ödemeyi işlem tamamlandıktan sonra alıyoruz."
+
+# hizmete göre fiyat etkenleri (H3)
+FIYAT_ETKEN = {
+ "tikali-gider-acma": [("Tıkanıklığın yeri", "Lavabo sifonundaki tıkanıklık ile bina kolonundaki tıkanıklık aynı emek değildir."),
+                       ("Birikintinin türü", "Saç ve sabun kısa sürede açılır; yağ ve kireç basınçlı su ile yıkama isteyebilir."),
+                       ("Erişim", "Temizleme kapağı yoksa ya da sifon gömme ise işe başka bir noktadan girmek gerekir.")],
+ "tuvalet-tikanikligi-acma": [("Klozetin tipi", "Yere monte klozet ile asma klozet aynı değildir; asma klozette söküm gerekebilir."),
+                       ("Tıkanıklığın yeri", "Klozet dirseğindeki tıkanıklık ile bina kolonundaki tıkanıklık farklı iştir."),
+                       ("Sıkışan cisim", "Sert bir cisim sıkıştıysa kamera ve çıkarma işlemi gerekebilir.")],
+ "rogar-temizleme": [("Rögarın derinliği", "Derin ve geniş rögarlar daha uzun yıkama ister."),
+                       ("Hattın uzunluğu", "Rögar ile sokak arasındaki hat uzadıkça iş uzar."),
+                       ("Kök ve çamur", "Kök kesme ve yoğun çamur yıkaması ek işlem demektir.")],
+ "kamerali-goruntuleme": [("Hattın uzunluğu", "Ev içi kısa hat ile onlarca metrelik bahçe hattı aynı değildir."),
+                       ("Giriş noktası", "Gider ağzından mı, rögardan mı, temizleme kapağından mı girileceği süreyi etkiler."),
+                       ("Açma ile birlikte mi?", "Görüntülemenin ardından tıkanıklığı açmak da gerekiyorsa iki iş birlikte değerlendirilir.")],
+}
+ULAS_IPUCU = {
+ "tikali-gider-acma": "Giderin üstüne su dökmeye devam etmeyin; kısa bir video çekip WhatsApp'tan atın, hangi makineyle geleceğimizi oradan anlıyoruz.",
+ "tuvalet-tikanikligi-acma": "Su yükseliyorsa sifonu bir daha çekmeyin, rezervuarın altındaki ara musluğu kapatın; sonra bizi arayın.",
+ "rogar-temizleme": "Rögar kapağını açtıysanız çevresini işaretleyin, içine eğilmeyin; kapalı rögarda zehirli gaz birikebilir.",
+ "kamerali-goruntuleme": "Tıkanıklığın en son ne zaman ve hangi giderde olduğunu not edin; kamerayı nereden süreceğimize birlikte karar veriyoruz.",
+}
+GECE_HAVUZ = [
+ "{ad}{loc} {kisa} için 7 gün 24 saat açığız. Gece yarısı, hafta sonu ya da bayram fark etmez; aradığınızda telefonu bir usta açar ve önce suyu nasıl durduracağınızı anlatır, sonra ekip yola çıkar.",
+ "Tıkanıklık mesai saati bilmez :) {ad}{loc} {kisa} için gece de hafta sonu da arayabilirsiniz. Gece çağrısında da gündüzkü ekipmanla, kamerası ve makinesiyle geliyoruz.",
+ "{ad}{loc} gece ya da hafta sonu {kisa} gerekiyorsa sabahı beklemeyin; beklemek çoğu zaman taşmayı büyütür. 7/24 açığız ve ekiplerimiz adrese ortalama 30 dakikada ulaşıyor.",
+]
+
 def ilce_hizmet_sayfasi(i, h):
     yol = ilce_yolu(i, h); s = i["slug"]; hs = h["slug"]
+    IM, HM = IC.ILCE_METIN[s], IC.HIZMET_METIN[hs]
     H1 = h["h1"].format(ad=i["ad"])
-    giris = yer(sec(GIRIS, s, hs, "giris"), i, h)
-    bolge_p = [i[a] for a in h["alan"]] + [yer(D.KOPRU[hs], i, h), i["saha"]]
-    belirti = karistir(h["belirti"], s, hs, "b")[:5]
+    kisa = kucuk(h["kisa"])
+    Y = lambda t: yer(t, i, h)
+    giris = Y(sec(GIRIS, s, hs, "giris"))
+    nedenler = karistir(HM["nedenler"], s, hs, "n")[:2]
+    etken = karistir(FIYAT_ETKEN[hs], s, hs, "f")[:2]
     isler = karistir(h["isler"], s, hs, "i")[:4]
+    belirti = karistir(h["belirti"], s, hs, "b")[:5]
     oneri = karistir(h["oneri"], s, hs, "o")[:3]
-    genel = [i[a] for a in ("yapi", "gider", "rogar") if a not in h["alan"]]
     gal = karistir(h["galeri"], s, hs, "g")
-    sss_tum = [(yer(q, i, h), c) for q, c in h["sss"]]
+    yakin_ilk = IM["yakin"].split(". ")[0] + "."
+    sss_tum = [(Y(q), c) for q, c in h["sss"]] + [("Ücreti ne zaman ödüyorum?", ODEME_KISA + " Fiyatı ise usta yerinde gördükten sonra, işe başlamadan söylüyor.")]
     sss = [sss_tum[0]] + karistir(sss_tum[1:], s, hs, "s")[:3]
     kir_html, kir_ld = kirinti([("Anasayfa", ""), (f"{i['ad']} Gider Açma", ilce_yolu(i)), (h["ad"], None)])
     baslik = h["title"].format(ad=i["ad"])
-    aciklama = f"{i['ad']} {kucuk(h['kisa'])}: {h['ozet']} 7/24, ortalama 30 dakikada adreste. {S['tel_goster']}"
+    aciklama = f"{i['ad']} {kisa}: {h['ozet']} 7/24, ortalama 30 dakikada adreste, ödeme iş bitince. {S['tel_goster']}"
     sema = [sema_hizmet(H1, h["ad"], i, yol), sema_sss(sss), kir_ld]
-    return head(baslik, aciklama, yol, sema) + ust(hs) + hero(
-        f"{i['ad']}, Kocaeli · 7/24", e(H1), giris, gorsel(gal[0][0], gal[0][1], oncelik=True), kir_html, h, i) + f"""
-<div class="kap">{guven()}</div>
-<div class="kap govde">
+    diger = [x for x in D.HIZMETLER if x["slug"] != hs]
+    kopru_hiz = HIZ["kamerali-goruntuleme"] if hs != "kamerali-goruntuleme" else HIZ["tikali-gider-acma"]
+    komsu = [ILCE[k] for k in i["komsu"]]
+    govde = f"""
  <section class="blok">
-  <h2>{e(yer(sec(BOLGE_H2, s, hs, 'h2'), i, h))}</h2>
-  {''.join(f'<p>{e(x)}</p>' for x in bolge_p)}
+  <h2>{e(Y('{ad}{loc} {kisa} servisine nasıl ulaşırsınız?'))}</h2>
+  <p>{e(IM['ulasim'].split('. ')[0])}. Bize {tel_a()} numarasından 7/24 ulaşabilir ya da {wa_a(wa_mesaj(h, i))}. Adresimizi ve yol tarifini <a href="{ic('iletisim/')}">iletişim sayfamızda</a> bulabilirsiniz.</p>
+  {ipucu('Tavsiyemiz:', ULAS_IPUCU[hs])}
  </section>
  <section class="blok">
-  <h2>{e(yer('Hangi durumlarda {kisa} için aramalısınız?', i, h))}</h2>
+  <h2>{e(Y(sec(['{ad}{loc} {kisa} neden gerekir?', '{ad}{loc} bu tıkanıklık neden olur?', '{ad}{loc} {kisa} çağrılarında en sık ne görüyoruz?'], s, hs, 'nh')))}</h2>
+  {P(IM['yerel'][hs])}
+  {P(i['gider'] if hs != 'rogar-temizleme' else i['rogar'])}
+  {h3_izgara(nedenler)}
+  <p>Aynı sorun kısa sürede tekrar ediyorsa açmakla geçmeyen bir sebep vardır; bunu <a href="{ic(ilce_yolu(i, kopru_hiz))}">{e(kopru_hiz['h1'].format(ad=i['ad']))}</a> ile buluyoruz.</p>
+ </section>
+ <section class="blok">
+  <h2>{e(Y(sec(['{ad}{loc} {kisa} nasıl yapılır? Kırmadan çözüm', 'Kırmadan {kisa}: {ad}{loc} nasıl çalışıyoruz?'], s, hs, 'yh')))}</h2>
+  {P(HM['yontem'])}
+  {P(Y(D.KOPRU[hs]))}
+  {h3_izgara(isler)}
+ </section>
+ {galeri(gal[1:3], Y('{ad} {kisa}: sahadan fotoğraflar'))}
+ <section class="blok">
+  <h2>{e(Y('{ad} {kisa} fiyatları ne kadar?'))}</h2>
+  <p>Her tıkanıklık farklı olduğu için telefonda kesin fiyat vermiyoruz; video ya da fotoğrafla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde gördükten sonra, <b>işe başlamadan</b> söylüyor. {e(ODEME_KISA)}</p>
+  {P(IM['fiyat'])}
+  {h3_izgara(etken)}
+  <p>İlçe genelinde fiyatı etkileyen durumları <a href="{ic(ilce_yolu(i))}">{e(i['ad'])} gider açma</a> sayfamızda da anlattık.</p>
+ </section>
+ <section class="blok">
+  <h2>{e(Y('{ad}{loc} {kisa} için belediyeyi aramalı mısınız?'))}</h2>
+  {P(Y(HM['belediye']).split('. ')[0] + '.')}
+  {P(IM['belediye'])}
+  <p>Hangi tıkanıklıkta kimin sorumlu olduğunu <a href="{ic(hiz_yolu(h))}">{e(h['hub_h1'])}</a> sayfamızda tablo hâlinde gösterdik.</p>
+ </section>
+ <section class="blok">
+  <h2>{e(Y('{ad} 7/24 acil {kisa} servisi'))}</h2>
+  {P(IM['acil'])}
+  {P(Y(sec(ACIL_HAVUZ, s, hs, 'acil')))}
+  {servis_no(Y('{ad} acil {kisa} servis numarası'))}
+ </section>
+ <section class="blok">
+  <h2>{e(Y("{ad}{dat} en yakın {kisa} servisi hangisi?"))}</h2>
+  <p>{e(yakin_ilk)} Komşu ilçelerde de aynı hizmeti veriyoruz: {', '.join(f'<a href="{ic(ilce_yolu(k, h))}">{e(h["h1"].format(ad=k["ad"]))}</a>' for k in komsu)}.</p>
+ </section>
+ <section class="blok">
+  <h2>{e(Y('Hangi durumlarda {kisa} için aramalısınız?'))}</h2>
   <ul class="tik-liste">{''.join(f'<li>{svg("tik")}<span>{e(b)}</span></li>' for b in belirti)}</ul>
  </section>
- <section class="blok">
-  <h2>{e(yer(ISLER_H2[hs], i, h))}</h2>
-  <div class="is-izgara">{''.join(f'<div class="is"><h3>{e(a)}</h3><p>{e(m)}</p></div>' for a, m in isler)}</div>
- </section>
- {galeri(gal[1:3], "Sahadan fotoğraflar")}
  <section class="blok kutu-vurgu">
-  <h2>Usta gelene kadar ne yapabilirsiniz?</h2>
+  <h2>Usta gelene kadar ne yapmalısınız?</h2>
   <ol class="adim-liste">{''.join(f'<li>{e(o)}</li>' for o in oneri)}</ol>
  </section>
  <section class="blok">
-  <h2>{e(yer('{ad} hakkında bilmenizde fayda olanlar', i, h))}</h2>
-  {''.join(f'<p>{e(x)}</p>' for x in genel)}
+  <h2>{e(Y('{ad}{loc} {kisa} hizmeti verdiğimiz mahalleler'))}</h2>
   <p>{e(mahalle_cumle(i, h, hs, 'm'))}</p>
  </section>
- {sss_html(sss, yer(sec(SSS_H2, s, hs, 'sss'), i, h))}
- {baglanti_agi(i, h)}
-</div>
-{cta(f"{i['ad']} için usta mı lazım?", "7/24 arayabilir ya da WhatsApp'tan fotoğraf, video gönderebilirsiniz.", h, i)}
-""" + alt()
+ {sss_html(sss, Y(sec(SSS_H2, s, hs, 'sss')))}
+ {baglanti_agi(i, h)}"""
+    return head(baslik, aciklama, yol, sema) + ust(hs) + hero(
+        f"{i['ad']}, Kocaeli · 7/24", e(H1), giris, gorsel(gal[0][0], gal[0][1], oncelik=True), kir_html, h, i) + \
+        f'\n<div class="kap">{guven()}</div>\n<div class="kap govde">{govde}\n</div>\n' + \
+        cta(f"{i['ad']} için usta mı lazım?", "7/24 arayabilir ya da WhatsApp'tan fotoğraf, video gönderebilirsiniz.", h, i) + alt()
 
-# ── ilçe sayfası (hub) ──────────────────────────────────────────────────────
 def ilce_sayfasi(i):
-    yol = ilce_yolu(i); s = i["slug"]
+    yol = ilce_yolu(i); s = i["slug"]; IM = IC.ILCE_METIN[s]
     H1 = f"{i['ad']} Gider Açma Servisi"
     sss = [
      (f"{ek(i)} hangi gider açma hizmetlerini veriyorsunuz?",
       f"{ek(i)} tıkalı gider açma (lavabo, mutfak, banyo), tuvalet tıkanıklığı açma, rögar temizleme ve kameralı gider görüntüleme hizmeti veriyoruz."),
      (f"{ek(i, 'dat')} ne kadar sürede geliyorsunuz?",
       "Ekiplerimiz Kocaeli'de adrese ortalama 30 dakikada ulaşıyor. Trafik ve o anki iş yoğunluğuna göre süre değişebilir; arama sırasında tahmini süreyi söylüyoruz."),
+     (f"{ek(i)} belediye gider açıyor mu?",
+      "Hayır. Ev ve bina içindeki tesisat mülk sahibinin sorumluluğundadır; sokaktaki ana kanalizasyon hattı ise İSU'nun. Sokak hattı taşıyorsa ALO 185'i, eviniz ya da binanız tıkalıysa bizi arayın."),
+     ("Ücreti ne zaman ödüyorum?", ODEME_KISA + " Fiyatı usta yerinde gördükten sonra, işe başlamadan söylüyor."),
      ("Gece ve hafta sonu çalışıyor musunuz?", "Evet. 7 gün 24 saat hizmet veriyoruz."),
-     ("Fiyatı ne zaman öğrenirim?", "Usta yerinde baktıktan sonra, işe başlamadan önce fiyatı söylüyor; onayınız olmadan işe başlamıyoruz."),
     ]
     kir_html, kir_ld = kirinti([("Anasayfa", ""), ("Hizmet Bölgeleri", "hizmet-bolgeleri/"), (f"{i['ad']} Gider Açma", None)])
     baslik = f"{i['ad']} Gider Açma Servisi | Tıkanıklık, Tuvalet, Rögar · 7/24"
-    aciklama = (f"{i['ad']} gider açma: tıkalı gider, tuvalet tıkanıklığı, rögar temizleme ve kameralı görüntüleme. "
-                f"7/24, ortalama 30 dakikada adreste. {S['tel_goster']}")
-    komsu = "".join(f'<li><a href="{ic(ilce_yolu(ILCE[k]))}">{e(ILCE[k]["ad"])} gider açma</a></li>' for k in i["komsu"])
+    aciklama = (f"{i['ad']} gider açma servisi: tıkalı gider, tuvalet tıkanıklığı, rögar temizleme, kameralı görüntüleme. "
+                f"7/24, ortalama 30 dakikada adreste, ödeme iş bitince. {S['tel_goster']}")
+    hizmetler = "".join(
+        f'<div class="hsatir"><span class="hsatir-ik">{svg(h["ikon"])}</span><div><h3><a href="{ic(ilce_yolu(i, h))}">{e(h["h1"].format(ad=i["ad"]))}</a></h3>'
+        f'<p>{e(IM["yerel"][h["slug"]].split(". ")[0])}. <a href="{ic(ilce_yolu(i, h))}">Devamını okuyun {svg("ok")}</a></p></div></div>'
+        for h in D.HIZMETLER)
+    komsu = "".join(f'<li><a href="{ic(ilce_yolu(ILCE[k]))}">{e(ILCE[k]["ad"])} gider açma servisi</a></li>' for k in i["komsu"])
     adres = ""
     if s == "basiskele":
-        adres = (f'<p class="not">{svg("konum")}<span>Adresimiz Başiskele\'de: {e(S["adres"])}. '
+        adres = (f'<p class="not">{svg("konum")}<span>Ofisimiz Başiskele\'de: {e(S["adres"])}. '
                  f'<a href="{S["harita"]}" target="_blank" rel="noopener">Haritada aç</a></span></p>')
-    banner_alt = f"{i['ad']} gider açma servisi, {S['tel_goster']}"
     sema = [sema_hizmet(H1, "Gider açma", i, yol), sema_sss(sss), kir_ld]
-    return head(baslik, aciklama, yol, sema) + ust() + hero(
-        f"{i['ad']}, Kocaeli · 7/24", e(H1),
-        f"{ek(i)} tıkalı gider, tuvalet tıkanıklığı ve rögar sorunları için 7 gün 24 saat ulaşabileceğiniz ekibiz. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; ekiplerimiz adrese ortalama 30 dakikada ulaşıyor.",
-        gorsel(i["banner"], banner_alt, oncelik=True), kir_html, None, i) + f"""
-<div class="kap">{guven()}</div>
-<div class="kap govde">
- <section class="blok"><h2>{e(ek(i))} hizmetlerimiz</h2>
-  <p class="blok-giris">Her hizmetin {e(i['ad'])} sayfasında, ilçedeki binalarda en sık karşılaştığımız durumları da anlattık.</p>
-  <div class="hkart-izgara">{''.join(kart_hizmet(h, i) for h in D.HIZMETLER)}</div></section>
- <section class="blok"><h2>{e(ek(i))} gider ve rögar hatları</h2>
-  {''.join(f'<p>{e(i[a])}</p>' for a in ('yapi', 'gider', 'rogar', 'saha'))}
+    govde = f"""
+ <section class="blok">
+  <h2>{e(i['ad'])} Gider Açma Servisine nasıl ulaşırsınız?</h2>
+  {P(IM['ulasim'])}
+  <p>Telefon: {tel_a()} · WhatsApp: {wa_a(wa_mesaj(None, i), 'mesaj gönderin')} · Ofis: {e(S['adres'])}</p>
   {adres}
  </section>
- <section class="blok"><h2>Hizmet verdiğimiz {e(i['ad'])} mahalleleri</h2>
+ <section class="blok">
+  <h2>{e(i['ad'])} 7/24 Acil Tıkanıklık Açma Servisi</h2>
+  {P(IM['gece'])}
+  {P(IM['acil'])}
+  {servis_no(f"{i['ad']} 7/24 acil tıkanıklık açma servis numarası")}
+ </section>
+ <section class="blok">
+  <h2>{e(ek(i))} hangi gider açma hizmetlerini veriyoruz?</h2>
+  <div class="hliste">{hizmetler}</div>
+ </section>
+ <section class="blok">
+  <h2>{e(ek(i))} belediye gider açma hizmeti veriyor mu?</h2>
+  {P(IM['belediye'])}
+  {sorumluluk_tablo()}
+ </section>
+ <section class="blok">
+  <h2>{e(i['ad'])} gider açma fiyatları ne kadar?</h2>
+  {P(IM['fiyat'])}
+  {ipucu('Önemli:', ODEME_KISA)}
+ </section>
+ {usta_dikkat(i)}
+ <section class="blok">
+  <h2>{e(ek(i, 'dat'))} en yakın tıkanıklık açma servisi hangisi?</h2>
+  {P(IM['yakin'])}
+ </section>
+ <section class="blok">
+  <h2>{e(ek(i))} giderler neden sık tıkanıyor?</h2>
+  {''.join(P(i[a]) for a in ('yapi', 'gider', 'rogar', 'saha'))}
+ </section>
+ <section class="blok">
+  <h2>{e(ek(i))} hizmet verdiğimiz mahalleler</h2>
   <ul class="mah-liste">{''.join(f'<li>{e(m)}</li>' for m in i['mahalle'])}</ul>
-  <p>{e(mahalle_cumle(i, None, 'hub'))}</p></section>
- {sss_html(sss, f"{i['ad']} gider açma: sık sorulanlar")}
- <section class="blok"><h2>Yakın ilçeler</h2><ul class="ag-liste">{komsu}</ul></section>
-</div>
-{cta(f"{i['ad']} için gider açma ustası mı lazım?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.", None, i)}
-""" + alt()
+  <p>{e(mahalle_cumle(i, None, 'hub'))}</p>
+ </section>
+ {sss_html(sss, f"{i['ad']} gider açma: sık sorulan sorular")}
+ <section class="blok"><h2>{e(i['ad'])} çevresindeki ilçeler</h2><ul class="ag-liste">{komsu}<li><a href="{ic('hizmet-bolgeleri/')}">Tüm hizmet bölgeleri</a></li></ul></section>"""
+    return head(baslik, aciklama, yol, sema) + ust() + hero(
+        f"{i['ad']}, Kocaeli · 7/24", e(H1),
+        f"{ek(i)} tıkalı gider, tuvalet tıkanıklığı ve rögar sorunları için 7 gün 24 saat ulaşabileceğiniz ekibiz. Kırmadan, gerektiğinde kamerayla çalışıyor; ödemeyi iş bitince alıyoruz.",
+        gorsel(i["banner"], f"{i['ad']} gider açma servisi, {S['tel_goster']}", oncelik=True), kir_html, None, i) + \
+        f'\n<div class="kap">{guven()}</div>\n<div class="kap govde">{govde}\n</div>\n' + \
+        cta(f"{i['ad']} için gider açma ustası mı lazım?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.", None, i) + alt()
 
-# ── hizmet sayfası ──────────────────────────────────────────────────────────
 def hizmet_sayfasi(h):
-    yol = hiz_yolu(h)
-    sss = [(q.format(ad="Kocaeli", loc="'de"), c) for q, c in h["sss"]]
+    yol = hiz_yolu(h); hs = h["slug"]; HM = IC.HIZMET_METIN[hs]
+    kisa = kucuk(h["kisa"])
+    KO = {"ad": "Kocaeli", "slug": "_kocaeli"}
+    Y = lambda t: t.format(ad="Kocaeli", loc="'de", dat="'ye", gen="'nin", abl="'den", kisa=kisa, ozet=h["ozet"])
+    sss = [(Y(q), c) for q, c in h["sss"]] + [("Ücreti ne zaman ödüyorum?", ODEME_KISA + " Fiyatı ise usta yerinde gördükten sonra, işe başlamadan söylüyor.")]
     kir_html, kir_ld = kirinti([("Anasayfa", ""), (h["ad"], None)])
-    aciklama = f"{h['ad']}: {h['ozet']} Kocaeli'de 7 ilçede 7/24 hizmet. {S['tel_goster']}"
-    ilce = "".join(f'<li><a href="{ic(ilce_yolu(i, h))}">{e(h["h1"].format(ad=i["ad"]))}</a></li>' for i in ILCE_SIRALI)
-    diger = "".join(kart_hizmet(x) for x in D.HIZMETLER if x["slug"] != h["slug"])
+    aciklama = f"{h['hub_h1']}: {h['ozet']} Kocaeli'nin 7 ilçesinde 7/24, ödeme iş bitince. {S['tel_goster']}"
+    ilceler = "".join(
+        f'<div class="hsatir"><span class="hsatir-ik">{svg("konum")}</span><div><h3><a href="{ic(ilce_yolu(i, h))}">{e(h["h1"].format(ad=i["ad"]))}</a></h3>'
+        f'<p>{e(IC.ILCE_METIN[i["slug"]]["yerel"][hs].split(". ")[0])}. <a href="{ic(ilce_yolu(i, h))}">Devamını okuyun {svg("ok")}</a></p></div></div>'
+        for i in ILCE_SIRALI)
+    diger = "".join(kart_hizmet(x) for x in D.HIZMETLER if x["slug"] != hs)
     sema = [sema_hizmet(h["hub_h1"], h["ad"], None, yol), sema_sss(sss), kir_ld]
-    return head(h["hub_title"], aciklama, yol, sema) + ust(h["slug"]) + hero(
-        "Kocaeli · 7 ilçe · 7/24", e(h["hub_h1"]),
-        h["ozet"] + " Kocaeli'de 7/24 hizmet veriyoruz; ekiplerimiz adrese ortalama 30 dakikada ulaşıyor.",
-        gorsel(h["galeri"][0][0], h["galeri"][0][1], oncelik=True), kir_html, h) + f"""
-<div class="kap">{guven()}</div>
-<div class="kap govde">
- <section class="blok"><h2>Neler yapıyoruz?</h2>
-  <div class="is-izgara">{''.join(f'<div class="is"><h3>{e(a)}</h3><p>{e(m)}</p></div>' for a, m in h['isler'])}</div></section>
- <section class="blok"><h2>Hangi durumlarda aramalısınız?</h2>
-  <ul class="tik-liste">{''.join(f'<li>{svg("tik")}<span>{e(b)}</span></li>' for b in h['belirti'])}</ul></section>
- {galeri(h['galeri'], "Sahadan fotoğraflar")}
- <section class="blok kutu-vurgu"><h2>Usta gelene kadar ne yapabilirsiniz?</h2>
+    bel_h2 = Y("{kisa} için belediyeyi ya da İSU'yu aramalı mısınız?").capitalize()
+    govde = f"""
+ <section class="blok">
+  <h2>{e(Y('Kocaeli {kisa} servisine nasıl ulaşırsınız?'))}</h2>
+  <p>Bize {tel_a()} numarasından 7/24 ulaşabilir ya da {wa_a(wa_mesaj(h))}. Ofisimiz Başiskele'de: {e(S['adres'])}. Ekiplerimiz Kocaeli'nin 7 ilçesine ortalama 30 dakikada ulaşıyor.</p>
+  {ipucu('Tavsiyemiz:', ULAS_IPUCU[hs])}
+ </section>
+ <section class="blok">
+  <h2>{e(Y(h['hub_neden']))}</h2>
+  {P(HM['neden_giris'])}
+  {h3_izgara(HM['nedenler'], 'is-izgara is-3')}
+ </section>
+ <section class="blok">
+  <h2>{e(Y('Kırmadan {kisa} nasıl yapılır?'))}</h2>
+  {P(HM['yontem'])}
+  {h3_izgara(h['isler'])}
+ </section>
+ {galeri(h['galeri'], Y('{kisa}: sahadan fotoğraflar').capitalize())}
+ {fiyat_faktor(Y('Kocaeli {kisa} fiyatları ne kadar?'))}
+ {usta_dikkat() if hs == 'tikali-gider-acma' else ''}
+ <section class="blok">
+  <h2>{e(Y('Kocaeli 7/24 acil {kisa} servisi'))}</h2>
+  <p>{e(Y('Kocaeli genelinde acil {kisa} için 7 gün 24 saat açığız. Gece, hafta sonu ya da bayram fark etmez; aradığınızda en yakın ekip yola çıkar ve adresinize ortalama 30 dakikada ulaşır.'))}</p>
+  {servis_no(Y('Kocaeli acil {kisa} servis numarası'))}
+ </section>
+ <section class="blok">
+  <h2>{e(bel_h2)}</h2>
+  {P(Y(HM['belediye']))}
+  {sorumluluk_tablo()}
+ </section>
+ <section class="blok">
+  <h2>{e(Y('Hangi ilçelerde {kisa} hizmeti veriyoruz?'))}</h2>
+  <div class="hliste">{ilceler}</div>
+ </section>
+ <section class="blok">
+  <h2>Hangi durumlarda aramalısınız?</h2>
+  <ul class="tik-liste">{''.join(f'<li>{svg("tik")}<span>{e(b)}</span></li>' for b in h['belirti'])}</ul>
+ </section>
+ <section class="blok kutu-vurgu"><h2>Usta gelene kadar ne yapmalısınız?</h2>
   <ol class="adim-liste">{''.join(f'<li>{e(o)}</li>' for o in h['oneri'])}</ol></section>
- {fiyat_faktor()}
- <section class="blok"><h2>İlçeye göre {e(kucuk(h['kisa']))}</h2><ul class="ilce-izgara">{ilce}</ul></section>
- {sss_html(sss)}
- <section class="blok"><h2>Diğer hizmetlerimiz</h2><div class="hkart-izgara hkart-3">{diger}</div></section>
-</div>
-{cta(f"{h['ad']} için hemen ulaşın", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.", h)}
-""" + alt()
+ {rehber_kutu([r for r in IC.REHBER if r['hizmet'] == hs] or IC.REHBER[-1:])}
+ {sss_html(sss, Y('Kocaeli {kisa}: sık sorulan sorular'))}
+ <section class="blok"><h2>Diğer hizmetlerimiz</h2><div class="hkart-izgara hkart-3">{diger}</div></section>"""
+    return head(h["hub_title"], aciklama, yol, sema) + ust(hs) + hero(
+        "Kocaeli · 7 ilçe · 7/24", e(h["hub_h1"]),
+        h["ozet"] + " Kocaeli'de 7/24 hizmet veriyoruz; ekiplerimiz adrese ortalama 30 dakikada ulaşıyor, ödemeyi iş bitince alıyoruz.",
+        gorsel(h["galeri"][0][0], h["galeri"][0][1], oncelik=True), kir_html, h) + \
+        f'\n<div class="kap">{guven()}</div>\n<div class="kap govde">{govde}\n</div>\n' + \
+        cta(f"{h['ad']} için hemen ulaşın", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.", h) + alt()
 
 # ── anasayfa ────────────────────────────────────────────────────────────────
 ANA_SSS = [
@@ -608,6 +801,9 @@ ANA_SSS = [
  ("Usta ne kadar sürede gelir?", "Ekiplerimiz adrese ortalama 30 dakikada ulaşıyor. Trafik ve iş yoğunluğuna göre süre değişebilir; arama sırasında size tahmini süreyi söylüyoruz."),
  ("Gider açarken kırma yapılıyor mu?", "Hayır, tıkanıklığı gider ağzından makineyle açıyoruz. Gerektiğinde hattın içini kamerayla görüyoruz; kırma ancak boru kırılmış ya da çökmüşse gündeme gelir ve bunu önce görüntüyle size gösteriyoruz."),
  ("Fiyatı ne zaman öğrenirim?", "Fotoğraf ya da videoyla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde baktıktan sonra, işe başlamadan önce söylüyor."),
+ ("Ödemeyi ne zaman yapıyorum?", "Sorun tamamen giderilmeden ücret talep etmiyoruz; ödemeyi işlem tamamlandıktan sonra, akışı birlikte test ettikten sonra alıyoruz."),
+ ("Belediye ya da İSU evimdeki gideri açar mı?", "Hayır. Ev ve bina içindeki tesisat mülk sahibinin sorumluluğundadır. İSU (ALO 185) yalnızca sokaktaki ana kanalizasyon hattına bakar."),
+ ("Ofisinize gelebilir miyim?", "Evet. Ofisimiz Kılıçarslan Mah. Hürriyet Cad. No:1, Başiskele/Kocaeli adresinde."),
 ]
 
 def ana_hero(kam):
@@ -640,6 +836,12 @@ def ana_hero(kam):
   {kart.replace('class="kam-panel koyu"', 'class="kam-panel koyu kam-ust"')}</div>
 </div></section>'''
 
+def rehber_kutu(liste, baslik="Kendiniz yapmadan önce okuyun"):
+    k = "".join(f'<a class="rkart" href="{ic(r["slug"] + "/")}"><span class="skart-ik">{svg(r["ikon"])}</span>'
+                f'<span><b>{e(r["h1"])}</b><small>{e(r["ozet"][:120].rsplit(" ", 1)[0])}…</small></span>{svg("ok", "ik skart-ok")}</a>'
+                for r in liste)
+    return f'<section class="blok"><p class="bolum-ust">Tıkanıklık rehberi</p><h2>{e(baslik)}</h2><div class="rkart-izgara">{k}</div></section>'
+
 def anasayfa():
     kartlar = "".join(kart_hizmet(h) for h in D.HIZMETLER)
     ilceler = "".join(ilce_kart(i) for i in ILCE_SIRALI)
@@ -649,30 +851,55 @@ def anasayfa():
             ("kamerali-tikaniklik-goruntuleme", "Duş giderine sürülen makaralı kameranın ekran ünitesi"),
             ("kirmadan-tikaniklik-acma", "Yer giderinin kapağı açılarak kırmadan tıkanıklık açma"),
             ("kocaeli-tikali-gider-acma-servisi", "Gider açma ekipmanının taşındığı servis aracı")]
-    return head("Kocaeli Tıkalı Gider Açma | Tuvalet, Rögar, Kameralı · 7/24",
-                "Kocaeli'de tıkalı gider açma, tuvalet tıkanıklığı açma, rögar temizleme ve kameralı görüntüleme. "
-                f"7/24 hizmet, ortalama 30 dakikada adreste, kırmadan. {S['tel_goster']}", "", sema) + ust() + f"""
+    neden_biz = [("Yılların tecrübesi", "Yalnızca tıkanıklık işi yapıyoruz; gider, tuvalet, rögar ve kameralı görüntüleme. Bir işte uzmanlaşınca o işi hem hızlı hem temiz yapıyorsunuz."),
+                 ("Kırmadan, son teknoloji cihazlarla", "Spiral makinesi, basınçlı yıkama ve kamera araçta. Tıkanıklığı tahminle değil görüntüyle buluyor, kırmadan açıyoruz."),
+                 ("Ödeme iş bitince", "Sorun tamamen giderilmeden ücret talep etmiyoruz. Fiyatı işe başlamadan söylüyor, ödemeyi işlem tamamlandıktan sonra alıyoruz."),
+                 ("Ofisimiz Başiskele'de", "Adresi belli bir firmayız: Kılıçarslan Mah. Hürriyet Cad. No:1, Başiskele/Kocaeli. Yolunuz düşerse uğrayabilirsiniz.")]
+    ilce_bag = ", ".join(f'<a href="{ic(ilce_yolu(i))}">{e(i["ad"])}</a>' for i in ILCE_SIRALI)
+    return head("Kocaeli Tıkalı Gider Açma | 7/24 Acil Tıkanıklık Açma Servisi",
+                "Kocaeli tıkalı gider açma: tuvalet tıkanıklığı, rögar temizleme, kameralı görüntüleme. 7/24 acil servis, "
+                f"kırmadan, ödeme iş bitince. Servis numarası {S['tel_goster']}", "", sema) + ust() + f"""
 {ana_hero(kam)}
 <div class="kap">{guven()}</div>
 <div class="kap govde">
  {sorun_secici()}
- <section class="blok"><p class="bolum-ust">Hizmetlerimiz</p><h2>Gider açma hizmetleri</h2>
+ <section class="blok">
+  <p class="bolum-ust">İletişim</p><h2>Kocaeli Tıkalı Gider Açma Servisine nasıl ulaşırsınız?</h2>
+  <p>Bize {tel_a()} numarasından 7 gün 24 saat ulaşabilir ya da {wa_a(wa_mesaj())}. Mümkünse sorunun kısa bir videosunu atın; videoya bakıp hangi makineyle geleceğimize karar veriyoruz. Ofisimiz Başiskele'de: {e(S['adres'])}. Ekiplerimiz {ilce_bag} ilçelerine ortalama 30 dakikada ulaşıyor.</p>
+ </section>
+ <section class="blok"><p class="bolum-ust">Hizmetlerimiz</p><h2>Kocaeli'de hangi gider açma hizmetlerini veriyoruz?</h2>
   <p class="blok-giris">Her hizmetin ilçenize özel sayfasında, o bölgedeki binalarda en sık karşılaştığımız durumları da anlattık.</p>
   <div class="hkart-izgara">{kartlar}</div></section>
- <section class="blok" id="bolgeler"><p class="bolum-ust">Hizmet bölgeleri</p><h2>Hizmet verdiğimiz ilçeler</h2>
+ <section class="blok"><p class="bolum-ust">Hakkımızda</p><h2>Neden Kocaeli Tıkalı Gider Açma?</h2>
+  {P(IC.TANITIM)}
+  {h3_izgara(neden_biz)}
+  <p><a class="metin-bag" href="{ic('hakkimizda/')}">Hakkımızda daha fazlası {svg('ok')}</a></p></section>
+ <section class="blok">
+  <p class="bolum-ust">Acil servis</p><h2>Kocaeli 7/24 Acil Tıkanıklık Açma Servisi</h2>
+  <p>Gece yarısı taşan bir tuvalet, sabaha karşı dolan bir rögar, bayram sabahı kapanan bir mutfak gideri… Tıkanıklık mesai saati bilmiyor, biz de bilmiyoruz :) Kocaeli'nin 7 ilçesinde 7 gün 24 saat acil tıkanıklık açma servisi veriyoruz; aradığınızda önce suyu nasıl durduracağınızı anlatıyor, sonra en yakın ekibi yola çıkarıyoruz.</p>
+  {servis_no("Kocaeli 7/24 acil tıkanıklık açma servis numarası")}
+ </section>
+ <section class="blok" id="bolgeler"><p class="bolum-ust">Hizmet bölgeleri</p><h2>Kocaeli'de hangi ilçelere hizmet veriyoruz?</h2>
   <p class="blok-giris">İlçenizi seçin; o ilçedeki dört hizmetin sayfasına oradan ulaşabilirsiniz. Merkezimiz Başiskele'de.</p>
   <div class="bolge-ana">{kocaeli_harita()}<div class="ikart-izgara ikart-2">{ilceler}</div></div></section>
  {kamera_demo()}
- <section class="blok"><p class="bolum-ust">Süreç</p><h2>Nasıl çalışıyoruz?</h2>
+ <section class="blok"><p class="bolum-ust">Süreç</p><h2>Tıkanıklık açma süreci nasıl işliyor?</h2>
   <div class="surec-kap"><div class="boru" aria-hidden="true"><span class="boru-su"></span></div>
   <ol class="surec">
-   <li><b>Arayın</b><span>Sorunu anlatın; mümkünse WhatsApp'tan fotoğraf ya da kısa video gönderin.</span></li>
-   <li><b>Adresinizi alalım</b><span>Mahalle ve sokağı netleştirip size en yakın ekibi yönlendiriyoruz.</span></li>
-   <li><b>Ekibimiz gelsin</b><span>Ortalama 30 dakikada adresteyiz; usta durumu görüp fiyatı işe başlamadan söylüyor.</span></li>
-   <li><b>Sorunu çözelim</b><span>Gerekirse kamerayla bakıp kırmadan açıyor, akışı birlikte test ediyor, ortamı temiz bırakıyoruz.</span></li>
+   <li><h3>Arayın</h3><span>Sorunu anlatın; mümkünse WhatsApp'tan fotoğraf ya da kısa video gönderin.</span></li>
+   <li><h3>Adresinizi alalım</h3><span>Mahalle ve sokağı netleştirip size en yakın ekibi yönlendiriyoruz.</span></li>
+   <li><h3>Ekibimiz gelsin</h3><span>Ortalama 30 dakikada adresteyiz; usta durumu görüp fiyatı işe başlamadan söylüyor.</span></li>
+   <li><h3>Sorunu çözelim</h3><span>Kırmadan açıyor, akışı birlikte test ediyoruz; ödemeyi iş bitince alıyoruz.</span></li>
   </ol></div></section>
+ <section class="blok">
+  <p class="bolum-ust">Sorumluluk</p><h2>Kocaeli'de belediye gider açar mı?</h2>
+  <p>Bu soruyu çok sık duyuyoruz. Kısa cevap: hayır. Belediye ya da İSU evinizdeki lavabo, tuvalet veya bina kolonunuzdaki tıkanıklığa ekip göndermez; bunlar mülk sahibinin sorumluluğundadır. İSU yalnızca sokaktaki ana kanalizasyon hattına bakar ve ona ALO 185 üzerinden 7/24 ulaşabilirsiniz. Ayrımı yapmanın en kolay yolu sokaktaki rögara bakmak: sokak rögarı da doluysa 185'i, sokak boş ama sizin gideriniz ya da bahçe rögarınız doluysa bizi arayın.</p>
+  {sorumluluk_tablo()}
+ </section>
  {uzmanlik()}
- {fiyat_faktor()}
+ {fiyat_faktor("Kocaeli'de gider açma fiyatları ne kadar?")}
+ {usta_dikkat()}
+ {rehber_kutu(IC.REHBER, "Tıkanıklık rehberi: evde ne yapabilirsiniz?")}
  {galeri(saha, "Sahadan fotoğraflar")}
  {yorumlar()}
  {konum_blok()}
@@ -680,6 +907,68 @@ def anasayfa():
 </div>
 {cta("Gideriniz mi tıkandı?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz. Ortalama 30 dakikada adresinizdeyiz.")}
 """ + alt()
+
+def capa(metin):
+    t = kucuk(metin)
+    for a, b in zip("çğıöşüâ", "cgiosua"): t = t.replace(a, b)
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")[:60]
+
+def rehber_sayfasi(r):
+    yol = r["slug"] + "/"
+    h = HIZ[r["hizmet"]]
+    govde = []
+    for baslik, ogeler in r["bolum"]:
+        parca = []
+        for o in ogeler:
+            if isinstance(o, str): parca.append(P(o))
+            elif o[0] == "h3": parca.append(f"<h3>{e(o[1])}</h3>{P(o[2])}")
+            elif o[0] == "liste": parca.append('<ul class="tik-liste tik-tek">' + "".join(f'<li>{svg("tik")}<span>{bagla(x)}</span></li>' for x in o[1]) + "</ul>")
+            elif o[0] == "adim": parca.append('<ol class="adim-liste">' + "".join(f"<li>{bagla(x)}</li>" for x in o[1]) + "</ol>")
+            elif o[0] == "ipucu": parca.append(ipucu("Tavsiyemiz:", o[1]))
+            elif o[0] == "dikkat": parca.append(ipucu("Dikkat:", o[1], sinif="ipucu ipucu-dikkat"))
+            elif o[0] == "tablo":
+                parca.append('<div class="tablo-kap"><table class="tablo"><thead><tr>' + "".join(f"<th>{e(x)}</th>" for x in o[1]) +
+                             "</tr></thead><tbody>" + "".join("<tr>" + "".join(f"<td>{e(x)}</td>" for x in sat) + "</tr>" for sat in o[2]) + "</tbody></table></div>")
+        govde.append(f'<section class="blok makale" id="{capa(baslik)}"><h2>{e(baslik)}</h2>{"".join(parca)}</section>')
+    icindekiler = "".join(f'<li><a href="#{capa(b)}">{e(b)}</a></li>' for b, _ in r["bolum"])
+    diger = [x for x in IC.REHBER if x["slug"] != r["slug"]]
+    kir_html, kir_ld = kirinti([("Anasayfa", ""), ("Rehber", "rehber/"), (r["h1"].split("?")[0] + "?", None)])
+    makale = {"@context": "https://schema.org", "@type": "Article", "headline": r["h1"], "description": r["aciklama"],
+              "inLanguage": "tr", "datePublished": "2026-10-05", "dateModified": BUGUN,
+              "author": {"@type": "Organization", "name": S["marka"], "url": ALAN + "/"},
+              "publisher": {"@id": ALAN + "/#isletme"}, "mainEntityOfPage": ALAN + "/" + yol,
+              "image": ALAN + f"/images/{r['gorsel'][0]}-960.webp"}
+    sema = [makale, sema_sss(r["sss"]), kir_ld]
+    return head(r["title"], r["aciklama"], yol, sema) + ust("rehber") + hero(
+        "Tıkanıklık rehberi", e(r["h1"]), r["ozet"], gorsel(r["gorsel"][0], r["gorsel"][1], oncelik=True), kir_html, h) + f"""
+<div class="kap govde makale-govde">
+ <nav class="icindekiler" aria-label="Bu yazıda"><b>Bu yazıda neler var?</b><ol>{icindekiler}</ol></nav>
+ {''.join(govde)}
+ <section class="blok kutu-vurgu"><h2>Uğraşmak istemiyorsanız</h2>
+  <p>Evde denediniz ve olmadı, ya da hiç uğraşmak istemiyorsunuz; çok normal :) <a href="{ic(hiz_yolu(h))}">{e(h['ad'])}</a> için 7/24 arayabilirsiniz. Kırmadan açıyor, ödemeyi iş bitince alıyoruz.</p>
+  {servis_no("7/24 acil tıkanıklık açma servis numarası")}</section>
+ {sss_html(r['sss'], "Sık sorulan sorular")}
+ {rehber_kutu(diger, "Diğer rehber yazıları")}
+</div>
+{cta("Kendiniz açamadınız mı?", "7/24 arayabilir ya da WhatsApp'tan fotoğraf gönderebilirsiniz.", h)}
+""" + alt()
+
+def rehber_ana():
+    k = "".join(f"""<section class="blok rehber-ozet"><h2><a href="{ic(r['slug'] + '/')}">{e(r['h1'])}</a></h2>{P(r['ozet'])}
+  <ul class="ag-liste">{''.join(f'<li>{e(b)}</li>' for b, _ in r['bolum'][:4])}</ul>
+  <p><a class="metin-bag" href="{ic(r['slug'] + '/')}">Yazının tamamını okuyun {svg('ok')}</a></p></section>""" for r in IC.REHBER)
+    govde = f'<p class="blok-giris">{e(IC.REHBER_GIRIS)}</p>{k}{uzmanlik()}{usta_dikkat()}'
+    return basit("Tıkanıklık Rehberi | Lavabo, Tuvalet, Gider Açma Soruları",
+                 "Lavabo ve tuvalet tıkanırsa ne yapmalı, tıkalı gideri kendiniz açabilir misiniz, gider açma aparatı nereden alınır? Ustadan dürüst cevaplar.",
+                 "rehber/", "Tıkanıklık Rehberi", govde, "rehber")
+
+def hakkimizda():
+    k = "".join(f'<section class="blok"><h2>{e(b)}</h2>{"".join(P(x) for x in ps)}</section>' for b, ps in IC.HAKKIMIZDA)
+    govde = (f'<div class="hakkimizda-g">{gorsel("kocaeli-tikali-gider-acma-servisi", "Gider açma ekipmanının taşındığı servis aracımız", boy="(min-width:980px) 420px, 100vw")}</div>'
+             + k + usta_dikkat() + konum_blok())
+    return basit("Hakkımızda | Kocaeli Tıkalı Gider Açma · Başiskele",
+                 "Kocaeli Tıkalı Gider Açma: yılların tecrübesiyle kırmadan tıkanıklık açma, ödeme iş bitince. Ofis: Kılıçarslan Mah. Hürriyet Cad. No:1, Başiskele.",
+                 "hakkimizda/", "Hakkımızda", govde, "hakkimizda")
 
 # ── diğer sayfalar ──────────────────────────────────────────────────────────
 def basit(baslik, aciklama, yol, h1, govde, aktif="", robots="index,follow"):
@@ -760,10 +1049,13 @@ def main():
     for i in D.ILCELER:
         yollar.append(sayfa(ilce_yolu(i), ilce_sayfasi, i))
         for h in D.HIZMETLER: yollar.append(sayfa(ilce_yolu(i, h), ilce_hizmet_sayfasi, i, h))
-    yollar += [sayfa("hizmet-bolgeleri/", bolgeler), sayfa("iletisim/", iletisim), sayfa("gizlilik-politikasi/", gizlilik)]
+    yollar.append(sayfa("rehber/", rehber_ana))
+    for r in IC.REHBER: yollar.append(sayfa(r["slug"] + "/", rehber_sayfasi, r))
+    yollar += [sayfa("hizmet-bolgeleri/", bolgeler), sayfa("hakkimizda/", hakkimizda), sayfa("iletisim/", iletisim),
+               sayfa("gizlilik-politikasi/", gizlilik)]
     ONEK = "/"
     yaz("404.html", hata404())
-    sm = "".join(f"<url><loc>{ALAN}/{y}</loc></url>" for y in yollar if y != "gizlilik-politikasi/")
+    sm = "".join(f"<url><loc>{ALAN}/{y}</loc><lastmod>{BUGUN}</lastmod></url>" for y in yollar if y != "gizlilik-politikasi/")
     yaz("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
     yaz("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {ALAN}/sitemap.xml\n")
     yaz("CNAME", S["cname"] + "\n")
