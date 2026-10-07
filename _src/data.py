@@ -24,7 +24,7 @@ SITE = {
 }
 
 # Google Ads — boşken etiket basılmaz, tıklama dinleyicisi hiçbir şey göndermez.
-ADS = {"etiket": "", "tel": "", "wa": ""}
+ADS = {"etiket": "AW-18498023870", "tel": "", "wa": ""}
 
 # ✅ ONAYLI — kullanıcı 2026-10-05'te seçti ("Teyitli") + aynı gün verdiği tanıtım metninden:
 ONAYLI = ["7/24 hizmet", "ortalama 30 dakikada ulaşım", "kırmadan kameralı tespit", "fiyat işe başlamadan söylenir",
