@@ -50,7 +50,7 @@
     var href = a.getAttribute('href') || '';
     var tur = href.indexOf('tel:+905358151804') === 0 ? 'tel' : (href.indexOf('wa.me/') !== -1 ? 'wa' : '');
     if (!tur || !ads[tur]) return;
-    window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads[tur] });
+    window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads[tur], value: 1.0, currency: 'TRY' });
   });
   // ── PRO bileşenler (hareket tercihinden bağımsız çalışır) ─────────────
   // canlı saat (7/24 açık olduğu için durum hep "açık"; yalnız Türkiye saati gösterilir)
@@ -68,7 +68,7 @@
       var ilce = f.elements.ilce.value, sorun = f.elements.sorun.value, not = f.elements.text.value.trim();
       var msj = 'Merhaba, fiyat bilgisi almak istiyorum.\n' + (ilce ? 'İlçe: ' + ilce + '\n' : '') + 'Sorun: ' + sorun + (not ? '\nNot: ' + not : '');
       var ads = window.W4_ADS;
-      if (ads && ads.wa && typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads.wa });
+      if (ads && ads.wa && typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: ads.etiket + '/' + ads.wa, value: 1.0, currency: 'TRY' });
       window.open(f.getAttribute('action') + '?text=' + encodeURIComponent(msj), '_blank', 'noopener');
     });
   });
