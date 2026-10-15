@@ -17,6 +17,8 @@ from urllib.parse import quote
 from PIL import Image
 import data as D
 import icerik as IC
+import mahalle_metin as MM
+from functools import lru_cache
 
 KOK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 S = D.SITE
@@ -47,6 +49,7 @@ def karistir(liste, *p):
         t = (t * 1103515245 + 12345) & 0x7FFFFFFF
         son.append(l.pop(t % len(l)))
     return son
+@lru_cache(None)
 def surum(g):
     with open(os.path.join(KOK, g), "rb") as f: return g + "?v=" + hashlib.md5(f.read()).hexdigest()[:8]
 def ve_liste(l): return ", ".join(l[:-1]) + " ve " + l[-1] if len(l) > 1 else l[0]
@@ -90,14 +93,18 @@ def svg(ad, sinif="ik"):
     return f'<svg class="{sinif}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{IK[ad]}</svg>'
 
 # ── görsel ──────────────────────────────────────────────────────────────────
-def gorsel(taban, alt, sinif="", oncelik=False, boy="(min-width:980px) 520px, 100vw"):
+@lru_cache(None)
+def _gorsel_olcu(taban):
     genler = sorted(int(f.rsplit("-", 1)[1][:-5]) for f in os.listdir(os.path.join(KOK, "images"))
                     if f.startswith(taban + "-") and f.endswith(".webp") and f.rsplit("-", 1)[1][:-5].isdigit()
                     and f.rsplit("-", 1)[0] == taban)
+    return genler, [Image.open(os.path.join(KOK, f"images/{taban}-{g}.webp")).size for g in genler]
+
+def gorsel(taban, alt, sinif="", oncelik=False, boy="(min-width:980px) 520px, 100vw"):
+    genler, olculer = _gorsel_olcu(taban)
     parca = []; olcu = None
-    for g in genler:
+    for g, (w, h) in zip(genler, olculer):
         yol = f"images/{taban}-{g}.webp"
-        w, h = Image.open(os.path.join(KOK, yol)).size
         parca.append(f"{ic(yol)} {w}w"); olcu = (w, h)
     yukle = 'fetchpriority="high"' if oncelik else 'loading="lazy" decoding="async"'
     avif = ", ".join(x.replace(".webp ", ".avif ") for x in parca)
@@ -139,7 +146,9 @@ def ads_head():
             "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
             f"gtag('js',new Date());gtag('config','{a['etiket']}');window.W4_ADS={ayar};</script>\n")
 
-def head(baslik, aciklama, yol, sema=None, robots="index,follow", og="images/og-kocaeli-tikali-gider-acma.jpg"):
+def head(baslik, aciklama, yol, sema=None, robots="index,follow", og="images/og-kocaeli-tikali-gider-acma.jpg", tarih=None):
+    """tarih verilirse (mahalle sayfaları) yayın = güncelleme = o SABİT an; yoksa tazelik damgası."""
+    YAYIN, GUNCEL = (tarih, tarih) if tarih else (globals()["YAYIN"], globals()["GUNCEL"])
     kanonik = ALAN + "/" + yol
     sayfa_ld = [] if "noindex" in robots else [{"@context": "https://schema.org", "@type": "WebPage", "@id": kanonik + "#sayfa",
                 "url": kanonik, "name": baslik, "inLanguage": "tr", "datePublished": YAYIN, "dateModified": GUNCEL}]
@@ -433,14 +442,14 @@ def yorumlar():
 SAHNE = ('<div class="sahne" aria-hidden="true"><div class="zemin-izgara"></div>'
          '<canvas class="kabarcik"></canvas><span class="isik isik-1"></span><span class="isik isik-2"></span></div>')
 
-def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic"):
+def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic", wa=None):
     return f"""<section class="hero {HK} {sinif}">{SAHNE}<div class="kap hero-izgara">
  <div class="hero-metin">
   {kir}
   <p class="ust-etiket"><span class="nokta"></span>{e(etiket)}</p>
   <h1>{h1}</h1>
   <p class="hero-p">{e(p)}</p>
-  <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj(h, i))}</div>
+  <div class="hero-dg">{tel_btn()}{wa_btn(wa or wa_mesaj(h, i))}</div>
  </div>
  <div class="hero-derin"><figure class="hero-gorsel" data-egim>{gorsel_html}</figure><span class="hero-golge"></span></div>
 </div></section>"""
@@ -656,7 +665,7 @@ def ilce_hizmet_sayfasi(i, h):
  </section>
  <section class="blok">
   <h2>{e(Y('{ad}{loc} {kisa} hizmeti verdiğimiz mahalleler'))}</h2>
-  <p>{e(mahalle_cumle(i, h, hs, 'm'))}</p>
+  <p>{e(mahalle_cumle(i, h, hs, 'm'))} Mahallenizi <a href="{ic(dizin_yolu(i))}">{e(i['ad'])} mahalleleri</a> listesinde bulabilirsiniz.</p>
  </section>
  {sss_html(sss, Y(sec(SSS_H2, s, hs, 'sss')))}
  {baglanti_agi(i, h)}"""
@@ -732,6 +741,7 @@ def ilce_sayfasi(i):
   <h2>{e(ek(i))} hizmet verdiğimiz mahalleler</h2>
   <ul class="mah-liste">{''.join(f'<li>{e(m)}</li>' for m in i['mahalle'])}</ul>
   <p>{e(mahalle_cumle(i, None, 'hub'))}</p>
+  <p><a class="metin-bag" href="{ic(dizin_yolu(i))}">{e(ek(i, 'gen'))} {len(MAH_ILCE[s])} mahallesinin tamamı ve mahalle sayfaları {svg('ok')}</a></p>
  </section>
  {sss_html(sss, f"{i['ad']} gider açma: sık sorulan sorular")}
  <section class="blok"><h2>{e(i['ad'])} çevresindeki ilçeler</h2><ul class="ag-liste">{komsu}<li><a href="{ic('hizmet-bolgeleri/')}">Tüm hizmet bölgeleri</a></li></ul></section>"""
@@ -982,6 +992,195 @@ def hakkimizda():
                  "Kocaeli Tıkalı Gider Açma: yılların tecrübesiyle kırmadan tıkanıklık açma, ödeme iş bitince. Ofis: Kılıçarslan Mah. Hürriyet Cad. No:1, Başiskele.",
                  "hakkimizda/", "Hakkımızda", govde, "hakkimizda")
 
+
+# ── mahalle sayfaları (pSEO, 2026-10-15) ───────────────────────────────────
+# Kullanıcı kararı: 301 resmî mahalle × 10 kelime, hepsi bir kerede. Veri _src/mahalleler.json, metin _src/mahalle_metin.py.
+# Tarih SABİT (MM.TARIH) → günlük tazelik cron'u bu ~3.000 dosyayı değiştirmez.
+import math
+MAH = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mahalleler.json"), encoding="utf-8"))
+KEL = {k[0]: k for k in MM.KELIMELER}
+OFIS = next(m for m in MAH if m["slug"] == "bahcecik-kilicarslan")   # Kılıçarslan Mah., Başiskele
+YONLER = ["kuzey", "kuzeydoğu", "doğu", "güneydoğu", "güney", "güneybatı", "batı", "kuzeybatı"]
+
+def _km(a, b):
+    f1, f2 = math.radians(a["lat"]), math.radians(b["lat"]); df = f2 - f1; dl = math.radians(b["lon"] - a["lon"])
+    x = math.sin(df / 2) ** 2 + math.cos(f1) * math.cos(f2) * math.sin(dl / 2) ** 2
+    return 6371 * 2 * math.asin(math.sqrt(x))
+
+def _yon(a, b):
+    dy = b["lat"] - a["lat"]; dx = (b["lon"] - a["lon"]) * math.cos(math.radians(a["lat"]))
+    return YONLER[round((math.degrees(math.atan2(dx, dy)) % 360) / 45) % 8]
+
+for _m in MAH:
+    _m["tam"], _m["ek"] = ((_m["ad"], ("'de", "'ye", "'nin", "'den")) if _m["ad"].endswith("Mahalle")
+                           else (_m["ad"] + " Mahallesi", ("'nde", "'ne", "'nin", "'nden")))
+    _m["km"] = _km(OFIS, _m); _m["yon"] = _yon(OFIS, _m)
+for _m in MAH:
+    _m["komsu"] = sorted((x for x in MAH if x is not _m), key=lambda x: _km(_m, x))[:6]
+MAH_ILCE = {i["slug"]: sorted((m for m in MAH if m["ilce"] == i["slug"]), key=tr_sira) for i in D.ILCELER}
+
+def km_yazi(km): return f"{km:.1f}".replace(".", ",") if km < 10 else str(round(km))
+def mah_yolu(m, k): return f"{m['ilce']}-{m['slug']}-{k}/"
+def dizin_yolu(i): return f"{i['slug']}-mahalleleri/"
+
+def mah_h1(m, k):
+    if k[0] == "en-yakin-su-tesisatcisi": return f"{m['tam']}{m['ek'][1]} En Yakın Su Tesisatçısı"
+    return f"{ILCE[m['ilce']]['ad']} {m['ad']} {k[1]}"
+
+def mah_yer(t, m, k):
+    i = ILCE[m["ilce"]]; il = D.ILCE_EK[i["slug"]]; me = m["ek"]
+    r = t.format(M=m["tam"], Mloc=m["tam"] + me[0], Mdat=m["tam"] + me[1], Mgen=m["tam"] + me[2], Mabl=m["tam"] + me[3],
+                 Mkisa=m["ad"], I=i["ad"], Iloc=i["ad"] + il[0], Idat=i["ad"] + il[1], Igen=i["ad"] + il[2], Iabl=i["ad"] + il[3],
+                 km=km_yazi(m["km"]), yon=m["yon"], r=max(m["rakim"], 1), k=k[2])
+    return r[0].upper() + r[1:]
+
+def mah_ulasim(m):
+    if m["km"] < 1:
+        return "Ofisimiz tam da bu mahallede: Kılıçarslan Mah. Hürriyet Cad. No:1. Yani buraya yolumuz birkaç dakika :) Yolunuz düşerse ofise de uğrayabilirsiniz."
+    return next(t for sinir, t in MM.ULASIM if m["km"] < sinir)
+
+def mah_ne_yapiyoruz(m, k, i, h):
+    tip = k[4]; t = (m["ilce"], m["slug"], k[0]); Y = lambda x: mah_yer(x, m, k)
+    if tip == "su":
+        yap = "".join(f'<li>{svg("tik")}<span>{e(x)}</span></li>' for x in MM.SU_YAPIYORUZ)
+        yapma = "".join(f'<li>{svg("kapat")}<span>{e(x)}</span></li>' for x in MM.SU_YAPMIYORUZ)
+        return (P(sec(MM.SU_METIN, *t)) + f'<h3>Yaptığımız işler</h3><ul class="tik-liste">{yap}</ul>'
+                f'<h3>Yapmadığımız işler</h3><ul class="tik-liste tik-yok">{yapma}</ul>')
+    if tip == "acil":
+        return P(sec(MM.ACIL_METIN, *t)) + h3_izgara(list(MM.ACIL_ADIM.items())) + servis_no(Y("{I} {Mkisa} 7/24 acil servis numarası"))
+    if tip == "usta":
+        return P(sec(IC.USTA_DIKKAT_GIRIS, *t)) + h3_izgara(karistir(IC.USTA_DIKKAT, *t)[:3], "is-izgara is-3")
+    if tip in ("banyo", "mutfak"):
+        adlar = MM.BANYO_ISLER if tip == "banyo" else MM.MUTFAK_ISLER
+        oge = [x for x in HIZ["tikali-gider-acma"]["isler"] if x[0] in adlar]
+        return h3_izgara(oge) + ipucu("Tavsiyemiz:", MM.BANYO_EK if tip == "banyo" else MM.MUTFAK_EK)
+    if tip == "tuvalet":
+        return h3_izgara(karistir(h["isler"], *t)[:4]) + ipucu("Tavsiyemiz:", ULAS_IPUCU["tuvalet-tikanikligi-acma"])
+    havuz = [x for hz in D.HIZMETLER for x in hz["isler"][:3]]
+    return (h3_izgara(karistir(havuz, *t)[:4]) +
+            P(f"Her işi ayrıntılı anlattığımız sayfalar: [[hizmet:tikali-gider-acma|{i['ad']} tıkalı gider açma]], "
+              f"[[hizmet:tuvalet-tikanikligi-acma|{i['ad']} tuvalet tıkanıklığı açma]], [[hizmet:rogar-temizleme|{i['ad']} rögar temizleme]] "
+              f"ve [[hizmet:kamerali-goruntuleme|{i['ad']} kameralı görüntüleme]].", i))
+
+BEL_H2 = "{Mloc} belediyeyi ya da İSU'yu ne zaman aramalısınız?"
+
+def mahalle_sayfasi(m, k):
+    i = ILCE[m["ilce"]]; h = HIZ[k[3]]; tip = k[4]; t = (m["ilce"], m["slug"], k[0])
+    Y = lambda x: mah_yer(x, m, k)
+    yol = mah_yolu(m, k[0]); H1 = mah_h1(m, k)
+    baslik = f"{H1} | 7/24" if k[0] != "en-yakin-su-tesisatcisi" else f"{H1} | {i['ad']}"
+    if len(baslik) > 70: baslik = H1
+    uzak = "Ofisimiz bu mahallede." if m["km"] < 1 else f"Ofisimize ~{km_yazi(m['km'])} km."
+    if tip == "su":
+        aciklama = (f"{i['ad']} {m['tam']} {k[2]} arayanlara: tıkalı gider, tuvalet ve rögar için 7/24 geliyoruz; "
+                    f"temiz su ve kombi işi yapmıyoruz. {uzak} {S['tel_goster']}")
+    else:
+        aciklama = (f"{i['ad']} {m['tam']} {k[2]}: 7/24, kırmadan, fiyat işe başlamadan, ödeme iş bitince. "
+                    f"{uzak} {S['tel_goster']}")
+    arazi = next(x for x in MM.ARAZI if m["rakim"] < x[0])
+    nedenler = karistir(IC.HIZMET_METIN[h["slug"]]["nedenler"], *t)[:2]
+    etken = karistir(FIYAT_ETKEN[h["slug"]], *t)[:2]
+    # ilçe metni: kıyı kuşağında daire içi gider karakteri, yukarıda ilçenin yapı stoğu ("kıyıya yakın düz arazi" yamaçta çelişir)
+    ilce_cumle = i["gider"] if arazi[1] == "kıyı" else i["yapi"]
+    sss_havuz = [(Y(q), Y(c)) for q, c in MM.SSS["ortak"]]
+    ozel = [(Y(q), Y(c)) for q, c in MM.SSS.get(tip, [])]
+    sss = (ozel + karistir(sss_havuz, *t, "s"))[:3]
+    kir_html, kir_ld = kirinti([("Anasayfa", ""), (f"{i['ad']} Gider Açma", ilce_yolu(i)),
+                                (f"{i['ad']} Mahalleleri", dizin_yolu(i)), (H1, None)])
+    sema = [{"@context": "https://schema.org", "@type": "Service", "name": H1, "serviceType": h["ad"],
+             "provider": {"@type": "Plumber", "@id": ALAN + "/#isletme", "name": S["marka"], "telephone": S["tel_link"]},
+             "areaServed": {"@type": "Place", "name": f"{m['tam']}, {i['ad']}, Kocaeli",
+                            "geo": {"@type": "GeoCoordinates", "latitude": m["lat"], "longitude": m["lon"]}},
+             "url": ALAN + "/" + yol}, sema_sss(sss), kir_ld]
+    diger = "".join(f'<li><a href="{ic(mah_yolu(m, x[0]))}">{e(mah_h1(m, x))}</a></li>' for x in MM.KELIMELER if x[0] != k[0])
+    diger += (f'<li><a href="{ic(ilce_yolu(i, h))}">{e(h["h1"].format(ad=i["ad"]))}</a></li>'
+              f'<li><a href="{ic(ilce_yolu(i))}">{e(i["ad"])} gider açma: tüm hizmetler</a></li>')
+    yakin = "".join(f'<li><a href="{ic(mah_yolu(x, k[0]))}">{e(mah_h1(x, k))}</a> <small>· {km_yazi(_km(m, x))} km</small></li>'
+                    for x in m["komsu"])
+    gal = karistir(h["galeri"], *t)
+    neden_h2 = "{Mloc} gider neden tıkanır?" if tip != "su" else "{Mloc} gider tıkanıklığının sebepleri"
+    fiyat_h2 = "{M} {k} fiyatı ne kadar?" if tip != "su" else "{M} gider açma fiyatı ne kadar?"
+    govde = f"""
+ <section class="blok">
+  <h2>{e(Y('{Mdat} nasıl geliyoruz?'))}</h2>
+  {P(Y(mah_ulasim(m)))}
+  {P(sec(MM.ULASIM_EK, *t))}
+  {P(i['saha'])}
+ </section>
+ <section class="blok">
+  <h2>{e(Y(sec(MM.NE_H2[tip], *t, "ne")))}</h2>
+  {mah_ne_yapiyoruz(m, k, i, h)}
+ </section>
+ <section class="blok">
+  <h2>{e(Y(neden_h2))}</h2>
+  {P(Y(arazi[2]))}
+  {P(ilce_cumle)}
+  {h3_izgara(nedenler)}
+  <p class="not-kucuk">{e(MM.ARAZI_NOT)}</p>
+ </section>
+ <section class="blok">
+  <h2>{e(Y(fiyat_h2))}</h2>
+  <p>Her tıkanıklık farklı olduğu için telefonda kesin fiyat vermiyoruz; video ya da fotoğrafla yaklaşık bilgi verebiliyoruz. Kesin fiyatı usta yerinde gördükten sonra, <b>işe başlamadan</b> söylüyor. {e(ODEME_KISA)}</p>
+  {h3_izgara(etken)}
+ </section>
+ <section class="blok">
+  <h2>{e(Y(BEL_H2))}</h2>
+  {P(Y("{I} Belediyesi evinizin ya da apartmanınızın giderine ekip göndermez; ev ve bina içindeki hat mülk sahibinin sorumluluğundadır. Sokaktaki ana kanalizasyon hattı ve sokak rögarı ise İSU'nundur: sokak rögarı da taşıyorsa ALO 185'i, sokak boş ama sizin gideriniz ya da bahçe rögarınız doluysa bizi arayın."))}
+ </section>
+ {sss_html(sss, Y('{M} {k}: sık sorulanlar'))}
+ <section class="blok ag">
+  <div class="ag-kol"><h2>{e(Y('{Mloc} diğer hizmetlerimiz'))}</h2><ul class="ag-liste">{diger}</ul></div>
+  <div class="ag-kol"><h2>{e(Y('{Mdat} yakın mahallelerde {k}'))}</h2><ul class="ag-liste">{yakin}</ul>
+   <p class="ag-not"><a href="{ic(dizin_yolu(i))}">{e(ek(i, 'gen'))} {len(MAH_ILCE[i['slug']])} mahallesinin tamamı</a> · <a href="{ic('hizmet-bolgeleri/')}">Tüm hizmet bölgeleri</a></p></div>
+ </section>"""
+    wa = f"Merhaba, {i['ad']} {m['tam']} için {k[2] if tip not in ('su', 'acil', 'usta') else 'gider tıkanıklığı'} konusunda yardım istiyorum."
+    return head(baslik, aciklama, yol, sema, tarih=MM.TARIH) + ust() + hero(
+        f"{m['tam']}, {i['ad']} · 7/24", e(H1), Y(sec(MM.GIRIS[tip], *t, "g")),
+        gorsel(gal[0][0], gal[0][1], oncelik=True), kir_html, h, i, wa=wa) + \
+        f'\n<div class="kap">{guven()}</div>\n<div class="kap govde">{govde}\n</div>\n' + \
+        cta(f"{m['tam']} için usta mı lazım?", "7/24 arayabilir ya da WhatsApp'tan fotoğraf, video gönderebilirsiniz.", h, i) + alt()
+
+def mah_harita(i):
+    """Mahalle merkezlerinin gerçek koordinatlarıyla nokta haritası (eşit-dikdörtgen izdüşüm)."""
+    ml = MAH_ILCE[i["slug"]]; noktalar = ml + ([OFIS] if OFIS not in ml else [])
+    k = math.cos(math.radians(sum(m["lat"] for m in noktalar) / len(noktalar)))
+    xs = [m["lon"] * k for m in noktalar]; ys = [m["lat"] for m in noktalar]
+    gx, gy = (max(xs) - min(xs)) or 1, (max(ys) - min(ys)) or 1
+    G = 760; H = max(260, min(560, round(G * gy / gx))) + 30   # alt boşluk: "Ofisimiz" etiketi kesilmesin
+    olc = min((G - 60) / gx, (H - 70) / gy)
+    px = lambda m: (round(30 + (m["lon"] * k - min(xs)) * olc, 1), round(H - 44 - (m["lat"] - min(ys)) * olc, 1))
+    nok = "".join(f'<a href="{ic(mah_yolu(m, "tikaniklik-acma"))}"><circle class="mh-n" cx="{px(m)[0]}" cy="{px(m)[1]}" r="5">'
+                  f'<title>{e(m["tam"])}</title></circle></a>' for m in ml)
+    ox, oy = px(OFIS)
+    return (f'<div class="harita-kap koyu"><svg class="kharita mharita" viewBox="0 0 {G} {H}" role="img" '
+            f'aria-label="{e(i["ad"])} mahallelerinin konumu ve ofisimiz">{nok}'
+            f'<circle class="hb-nabiz hb-merkez" cx="{ox}" cy="{oy}" r="9"/><circle class="hb-pin" cx="{ox}" cy="{oy}" r="6"/>'
+            f'<text class="hb-ad" x="{ox}" y="{oy + 26}">Ofisimiz</text></svg>'
+            f'<p class="harita-not">Noktalar mahalle merkezleridir (OpenStreetMap verisi). Noktaya tıklayınca mahalle sayfası açılır.</p></div>')
+
+def mahalle_dizini(i):
+    ml = MAH_ILCE[i["slug"]]; yol = dizin_yolu(i)
+    satir = "".join(
+        f'<tr><td><a href="{ic(mah_yolu(m, "tikaniklik-acma"))}">{e(m["ad"])}</a></td><td>{km_yazi(m["km"])} km</td><td>{max(m["rakim"], 1)} m</td>'
+        f'<td class="mh-bag">' + " · ".join(f'<a href="{ic(mah_yolu(m, x[0]))}" title="{e(mah_h1(m, x))}">{e(MM.KISA_ETIKET[x[0]])}</a>'
+                                           for x in MM.KELIMELER) + "</td></tr>" for m in ml)
+    govde = f"""<p class="blok-giris">{e(ek(i))} {len(ml)} mahallenin hepsine 7 gün 24 saat geliyoruz. Aşağıda her mahallenin ofisimize kuş uçuşu uzaklığını, merkezinin rakımını ve o mahalle için hazırladığımız sayfaları bulabilirsiniz. İlçenin genel bilgileri için <a href="{ic(ilce_yolu(i))}">{e(i['ad'])} gider açma</a> sayfamıza bakın.</p>
+{mah_harita(i)}
+<section class="blok"><h2>{e(i['ad'])} mahalleleri ve hizmet sayfaları</h2>
+ <div class="tablo-kap"><table class="tablo mh-tablo"><thead><tr><th>Mahalle</th><th>Ofise uzaklık</th><th>Rakım</th><th>Sayfalar</th></tr></thead><tbody>{satir}</tbody></table></div>
+ <p class="not-kucuk">Mahalle listesi ve koordinatlar OpenStreetMap'ten, rakım Open-Meteo yükseklik verisinden alınmıştır; uzaklıklar kuş uçuşudur.</p>
+</section>
+<section class="blok"><h2>{e(ek(i))} giderler neden sık tıkanıyor?</h2>{''.join(P(i[a]) for a in ('yapi', 'gider', 'rogar'))}</section>"""
+    kir_html, kir_ld = kirinti([("Anasayfa", ""), (f"{i['ad']} Gider Açma", ilce_yolu(i)), (f"{i['ad']} Mahalleleri", None)])
+    h1 = f"{i['ad']} Mahalleleri: Gider Açma ve Tıkanıklık Servisi"
+    return head(f"{i['ad']} Mahalleleri | Gider Açma, Tıkanıklık Açma · 7/24",
+                f"{ek(i, 'gen')} {len(ml)} mahallesinde 7/24 gider ve tıkanıklık açma: mahallenizi seçin, ofisimize uzaklığı ve hizmet sayfalarını görün.",
+                yol, [kir_ld], tarih=MM.TARIH) + ust() + f"""
+<section class="hero {HK} hero-dar"><div class="kap"><div class="hero-metin">{kir_html}<h1>{e(h1)}</h1></div></div></section>
+<div class="kap govde">{govde}</div>
+{cta(f"{i['ad']} için usta mı lazım?", "7/24 arayabilir ya da WhatsApp'tan yazabilirsiniz.", None, i)}
+""" + alt()
+
 # ── diğer sayfalar ──────────────────────────────────────────────────────────
 def basit(baslik, aciklama, yol, h1, govde, aktif="", robots="index,follow"):
     kir_html, kir_ld = kirinti([("Anasayfa", ""), (h1, None)])
@@ -995,6 +1194,7 @@ def bolgeler():
     satir = []
     for i in ILCE_SIRALI:
         l = "".join(f'<li><a href="{ic(ilce_yolu(i, h))}">{e(h["h1"].format(ad=i["ad"]))}</a></li>' for h in D.HIZMETLER)
+        l += f'<li><a href="{ic(dizin_yolu(i))}">{e(i["ad"])} mahalleleri ({len(MAH_ILCE[i["slug"]])})</a></li>'
         satir.append(f'<section class="bolge"><h2><a href="{ic(ilce_yolu(i))}">{e(i["ad"])} gider açma</a></h2><ul>{l}</ul></section>')
     govde = (f'<p class="blok-giris">Kocaeli\'de {len(D.ILCELER)} ilçeye 7/24 servis veriyoruz. Merkezimiz Başiskele\'de; '
              f'ekiplerimiz adrese ortalama 30 dakikada ulaşıyor.</p>{kocaeli_harita()}<div class="bolge-izgara">{"".join(satir)}</div>')
@@ -1061,6 +1261,11 @@ def main():
     for i in D.ILCELER:
         yollar.append(sayfa(ilce_yolu(i), ilce_sayfasi, i))
         for h in D.HIZMETLER: yollar.append(sayfa(ilce_yolu(i, h), ilce_hizmet_sayfasi, i, h))
+    mah_yollar = []
+    for i in D.ILCELER:
+        mah_yollar.append(sayfa(dizin_yolu(i), mahalle_dizini, i))
+        for m in MAH_ILCE[i["slug"]]:
+            for k in MM.KELIMELER: mah_yollar.append(sayfa(mah_yolu(m, k[0]), mahalle_sayfasi, m, k))
     yollar.append(sayfa("rehber/", rehber_ana))
     for r in IC.REHBER: yollar.append(sayfa(r["slug"] + "/", rehber_sayfasi, r))
     yollar += [sayfa("hizmet-bolgeleri/", bolgeler), sayfa("hakkimizda/", hakkimizda), sayfa("iletisim/", iletisim),
@@ -1068,11 +1273,12 @@ def main():
     ONEK = "/"
     yaz("404.html", hata404())
     sm = "".join(f"<url><loc>{ALAN}/{y}</loc><lastmod>{GUNCEL}</lastmod></url>" for y in yollar if y != "gizlilik-politikasi/")
+    sm += "".join(f"<url><loc>{ALAN}/{y}</loc><lastmod>{MM.TARIH}</lastmod></url>" for y in mah_yollar)
     yaz("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
     yaz("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {ALAN}/sitemap.xml\n")
     yaz("CNAME", S["cname"] + "\n")
     # IndexNow anahtarı (Bing/Yandex; Google kullanmaz) — kökteki dcba226538277f4dda1e62b717c061c0.txt build'den bağımsız durur, ⛔ silme
-    print(f"{len(yollar)} sayfa üretildi")
+    print(f"{len(yollar)} ana + {len(mah_yollar)} mahalle sayfası üretildi")
 
 if __name__ == "__main__":
     main()

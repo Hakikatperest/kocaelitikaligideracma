@@ -1,0 +1,2712 @@
+[
+{
+"ilce": "basiskele",
+"ad": "Aksığın",
+"osm": "Aksığın Mahallesi",
+"slug": "aksigin",
+"lat": 40.61627,
+"lon": 29.9768,
+"rakim": 493
+},
+{
+"ilce": "basiskele",
+"ad": "Altınkent",
+"osm": "Altınkent Mahallesi",
+"slug": "altinkent",
+"lat": 40.6895,
+"lon": 29.94179,
+"rakim": 133
+},
+{
+"ilce": "basiskele",
+"ad": "Atakent",
+"osm": "Atakent Mahallesi",
+"slug": "atakent",
+"lat": 40.70386,
+"lon": 29.89113,
+"rakim": 25
+},
+{
+"ilce": "basiskele",
+"ad": "Aydınkent",
+"osm": "Aydınkent Mahallesi",
+"slug": "aydinkent",
+"lat": 40.6981,
+"lon": 29.94879,
+"rakim": 74
+},
+{
+"ilce": "basiskele",
+"ad": "Bahçecik Kılıçarslan",
+"osm": "Bahçecik Kılıçaslan Mahallesi",
+"slug": "bahcecik-kilicarslan",
+"lat": 40.67402,
+"lon": 29.90938,
+"rakim": 178,
+"not_": "OSM name 'Kılıçaslan', alt_name 'Kılıçarslan' — firma adresiyle aynı yazım seçildi"
+},
+{
+"ilce": "basiskele",
+"ad": "Bahçecik Şehitekrem",
+"osm": "Bahçecik Şehitekrem Mahallesi",
+"slug": "bahcecik-sehitekrem",
+"lat": 40.67438,
+"lon": 29.92273,
+"rakim": 297
+},
+{
+"ilce": "basiskele",
+"ad": "Barbaros",
+"osm": "Barbaros Mahallesi",
+"slug": "barbaros",
+"lat": 40.69671,
+"lon": 29.93166,
+"rakim": 60
+},
+{
+"ilce": "basiskele",
+"ad": "Camidüzü",
+"osm": "Camidüzü Mahallesi",
+"slug": "camiduzu",
+"lat": 40.65575,
+"lon": 29.98137,
+"rakim": 387
+},
+{
+"ilce": "basiskele",
+"ad": "Damlar",
+"osm": "Damlar Mahallesi",
+"slug": "damlar",
+"lat": 40.69447,
+"lon": 29.91742,
+"rakim": 111
+},
+{
+"ilce": "basiskele",
+"ad": "Doğantepe",
+"osm": "Doğantepe Mahallesi",
+"slug": "dogantepe",
+"lat": 40.68926,
+"lon": 30.00166,
+"rakim": 125
+},
+{
+"ilce": "basiskele",
+"ad": "Döngel",
+"osm": "Döngel Mahallesi",
+"slug": "dongel",
+"lat": 40.69256,
+"lon": 29.93713,
+"rakim": 151
+},
+{
+"ilce": "basiskele",
+"ad": "Fatih",
+"osm": "Fatih Mahallesi",
+"slug": "fatih",
+"lat": 40.69743,
+"lon": 29.9678,
+"rakim": 131
+},
+{
+"ilce": "basiskele",
+"ad": "Havuzlubahçe",
+"osm": "Havuzlubahçe Mahallesi",
+"slug": "havuzlubahce",
+"lat": 40.67261,
+"lon": 29.89162,
+"rakim": 144
+},
+{
+"ilce": "basiskele",
+"ad": "Karadenizliler",
+"osm": "Karadenizliler Mahallesi",
+"slug": "karadenizliler",
+"lat": 40.74456,
+"lon": 29.97087,
+"rakim": 5
+},
+{
+"ilce": "basiskele",
+"ad": "Karşıyaka",
+"osm": "Karşıyaka Mahallesi",
+"slug": "karsiyaka",
+"lat": 40.71221,
+"lon": 29.89006,
+"rakim": 4
+},
+{
+"ilce": "basiskele",
+"ad": "Kazandere",
+"osm": "Kazandere Mahallesi",
+"slug": "kazandere",
+"lat": 40.61826,
+"lon": 29.95717,
+"rakim": 646
+},
+{
+"ilce": "basiskele",
+"ad": "Körfez",
+"osm": "Körfez Mahallesi",
+"slug": "korfez",
+"lat": 40.70848,
+"lon": 29.91658,
+"rakim": 33
+},
+{
+"ilce": "basiskele",
+"ad": "Kullar Merkez",
+"osm": "Kullar Merkez Mahallesi",
+"slug": "kullar-merkez",
+"lat": 40.72764,
+"lon": 29.99238,
+"rakim": 13
+},
+{
+"ilce": "basiskele",
+"ad": "Kullar Tepecik",
+"osm": "Kullar Tepecik Mahallesi",
+"slug": "kullar-tepecik",
+"lat": 40.71351,
+"lon": 29.99137,
+"rakim": 89
+},
+{
+"ilce": "basiskele",
+"ad": "Kullar Yakacık",
+"osm": "Kullar Yakacık Mahallesi",
+"slug": "kullar-yakacik",
+"lat": 40.71805,
+"lon": 29.98221,
+"rakim": 39
+},
+{
+"ilce": "basiskele",
+"ad": "Mahmutpaşa",
+"osm": "Mahmutpaşa Mahallesi",
+"slug": "mahmutpasa",
+"lat": 40.72886,
+"lon": 29.95831,
+"rakim": 3
+},
+{
+"ilce": "basiskele",
+"ad": "Ovacık",
+"osm": "Ovacık Mahallesi",
+"slug": "ovacik",
+"lat": 40.74216,
+"lon": 29.98476,
+"rakim": 8
+},
+{
+"ilce": "basiskele",
+"ad": "Paşadağ",
+"osm": "Paşadağ Mahallesi",
+"slug": "pasadag",
+"lat": 40.70435,
+"lon": 29.98124,
+"rakim": 118
+},
+{
+"ilce": "basiskele",
+"ad": "Sahil",
+"osm": "Sahil Mahallesi",
+"slug": "sahil",
+"lat": 40.71471,
+"lon": 29.92885,
+"rakim": 4
+},
+{
+"ilce": "basiskele",
+"ad": "Sepetlipınar",
+"osm": "Sepetlipınar Mahallesi",
+"slug": "sepetlipinar",
+"lat": 40.71751,
+"lon": 29.86894,
+"rakim": 2
+},
+{
+"ilce": "basiskele",
+"ad": "Serdar",
+"osm": "Serdar Mahallesi",
+"slug": "serdar",
+"lat": 40.71149,
+"lon": 29.94058,
+"rakim": 30
+},
+{
+"ilce": "basiskele",
+"ad": "Serindere",
+"osm": "Serindere Mahallesi",
+"slug": "serindere",
+"lat": 40.61253,
+"lon": 30.01998,
+"rakim": 777
+},
+{
+"ilce": "basiskele",
+"ad": "Servetiye Cami",
+"osm": "Servetiye Cami Mahallesi",
+"slug": "servetiye-cami",
+"lat": 40.58734,
+"lon": 29.94151,
+"rakim": 1026
+},
+{
+"ilce": "basiskele",
+"ad": "Servetiye Karşı",
+"osm": "Servetiye Karşı Mahalle",
+"slug": "servetiye-karsi",
+"lat": 40.64704,
+"lon": 29.92455,
+"rakim": 616
+},
+{
+"ilce": "basiskele",
+"ad": "Seymen",
+"osm": "Seymen Mahallesi",
+"slug": "seymen",
+"lat": 40.70456,
+"lon": 29.90247,
+"rakim": 33
+},
+{
+"ilce": "basiskele",
+"ad": "Tepecik",
+"osm": "Tepecik Mahallesi",
+"slug": "tepecik",
+"lat": 40.60519,
+"lon": 30.00699,
+"rakim": 1123
+},
+{
+"ilce": "basiskele",
+"ad": "Vezirçiftliği",
+"osm": "Vezirçiftliği Mahallesi",
+"slug": "vezirciftligi",
+"lat": 40.74227,
+"lon": 29.95984,
+"rakim": 6
+},
+{
+"ilce": "basiskele",
+"ad": "Yaylacık",
+"osm": "Yaylacık Mahallesi",
+"slug": "yaylacik",
+"lat": 40.7257,
+"lon": 29.97442,
+"rakim": 34
+},
+{
+"ilce": "basiskele",
+"ad": "Yeniköy Merkez",
+"osm": "Yeniköy Merkez Mahallesi",
+"slug": "yenikoy-merkez",
+"lat": 40.69157,
+"lon": 29.88461,
+"rakim": 103
+},
+{
+"ilce": "basiskele",
+"ad": "Yeşilkent",
+"osm": "Yeşilkent Mahallesi",
+"slug": "yesilkent",
+"lat": 40.68242,
+"lon": 29.93087,
+"rakim": 273
+},
+{
+"ilce": "basiskele",
+"ad": "Yeşilyurt",
+"osm": "Yeşilyurt Mahallesi",
+"slug": "yesilyurt",
+"lat": 40.71546,
+"lon": 29.94944,
+"rakim": 19
+},
+{
+"ilce": "basiskele",
+"ad": "Yuvacık Yakacık",
+"osm": "Yuvacık Yakacık Mahallesi",
+"slug": "yuvacik-yakacik",
+"lat": 40.66875,
+"lon": 29.97572,
+"rakim": 215
+},
+{
+"ilce": "derince",
+"ad": "Çavuşlu",
+"osm": "Çavuşlu Mahallesi",
+"slug": "cavuslu",
+"lat": 40.92478,
+"lon": 29.84297,
+"rakim": 219
+},
+{
+"ilce": "derince",
+"ad": "Çenedağ",
+"osm": "Çenedağ Mahallesi",
+"slug": "cenedag",
+"lat": 40.76264,
+"lon": 29.83343,
+"rakim": 58
+},
+{
+"ilce": "derince",
+"ad": "Çınarlı",
+"osm": "Çınarlı Mahallesi",
+"slug": "cinarli",
+"lat": 40.79278,
+"lon": 29.83809,
+"rakim": 355
+},
+{
+"ilce": "derince",
+"ad": "Deniz",
+"osm": "Deniz Mahallesi",
+"slug": "deniz",
+"lat": 40.75423,
+"lon": 29.84353,
+"rakim": 6
+},
+{
+"ilce": "derince",
+"ad": "Dumlupınar",
+"osm": "Dumlupınar Mahallesi",
+"slug": "dumlupinar",
+"lat": 40.75242,
+"lon": 29.82164,
+"rakim": 16
+},
+{
+"ilce": "derince",
+"ad": "Fatih Sultan",
+"osm": "Fatih Sultan Mahallesi",
+"slug": "fatih-sultan",
+"lat": 40.78338,
+"lon": 29.82976,
+"rakim": 191
+},
+{
+"ilce": "derince",
+"ad": "Geredeli",
+"osm": "Geredeli Mahallesi",
+"slug": "geredeli",
+"lat": 40.88776,
+"lon": 29.90546,
+"rakim": 334
+},
+{
+"ilce": "derince",
+"ad": "İbnisina",
+"osm": "İbnisina Mahallesi",
+"slug": "ibnisina",
+"lat": 40.76248,
+"lon": 29.80711,
+"rakim": 62
+},
+{
+"ilce": "derince",
+"ad": "Karagöllü",
+"osm": "Karagöllü Mahallesi",
+"slug": "karagollu",
+"lat": 40.9684,
+"lon": 29.83012,
+"rakim": 229
+},
+{
+"ilce": "derince",
+"ad": "Kaşıkçı",
+"osm": "Kaşıkçı Mahallesi",
+"slug": "kasikci",
+"lat": 40.86668,
+"lon": 29.89022,
+"rakim": 270
+},
+{
+"ilce": "derince",
+"ad": "Mersincik",
+"osm": "Mersincik Mahallesi",
+"slug": "mersincik",
+"lat": 40.77923,
+"lon": 29.85214,
+"rakim": 225
+},
+{
+"ilce": "derince",
+"ad": "Sırrıpaşa",
+"osm": "Sırrıpaşa Mahallesi",
+"slug": "sirripasa",
+"lat": 40.7624,
+"lon": 29.82194,
+"rakim": 46
+},
+{
+"ilce": "derince",
+"ad": "Tahtalı",
+"osm": "Tahtalı Mahallesi",
+"slug": "tahtali",
+"lat": 40.9401,
+"lon": 29.89684,
+"rakim": 342
+},
+{
+"ilce": "derince",
+"ad": "Terziler",
+"osm": "Terziler Mahallesi",
+"slug": "terziler",
+"lat": 40.95353,
+"lon": 29.89915,
+"rakim": 250
+},
+{
+"ilce": "derince",
+"ad": "Toylar",
+"osm": "Toylar Mahallesi",
+"slug": "toylar",
+"lat": 40.84132,
+"lon": 29.86287,
+"rakim": 432
+},
+{
+"ilce": "derince",
+"ad": "Yavuz Sultan",
+"osm": "Yavuz Sultan Mahallesi",
+"slug": "yavuz-sultan",
+"lat": 40.75061,
+"lon": 29.80517,
+"rakim": 34
+},
+{
+"ilce": "derince",
+"ad": "Yenikent",
+"osm": "Yenikent Mahallesi",
+"slug": "yenikent",
+"lat": 40.78699,
+"lon": 29.80932,
+"rakim": 208
+},
+{
+"ilce": "golcuk",
+"ad": "Atatürk",
+"osm": "Atatürk Mahallesi",
+"slug": "ataturk",
+"lat": 40.71288,
+"lon": 29.78831,
+"rakim": 64
+},
+{
+"ilce": "golcuk",
+"ad": "Ayvazpınarı",
+"osm": "Ayvazpınarı Mahallesi",
+"slug": "ayvazpinari",
+"lat": 40.6296,
+"lon": 29.73968,
+"rakim": 749
+},
+{
+"ilce": "golcuk",
+"ad": "Çiftlik",
+"osm": "Çiftlik Mahallesi",
+"slug": "ciftlik",
+"lat": 40.70636,
+"lon": 29.84498,
+"rakim": 25
+},
+{
+"ilce": "golcuk",
+"ad": "Cumhuriyet",
+"osm": "Cumhuriyet Mahallesi",
+"slug": "cumhuriyet",
+"lat": 40.71036,
+"lon": 29.77094,
+"rakim": 144
+},
+{
+"ilce": "golcuk",
+"ad": "Değirmendere Merkez",
+"osm": "Değirmendere Merkez Mahallesi",
+"slug": "degirmendere-merkez",
+"lat": 40.72001,
+"lon": 29.78833,
+"rakim": 9
+},
+{
+"ilce": "golcuk",
+"ad": "Değirmendere Yalı",
+"osm": "Değirmendere Yalı Mahallesi",
+"slug": "degirmendere-yali",
+"lat": 40.71966,
+"lon": 29.7749,
+"rakim": 0
+},
+{
+"ilce": "golcuk",
+"ad": "Deniz Evler",
+"osm": "Deniz Evler Mahallesi",
+"slug": "deniz-evler",
+"lat": 40.72079,
+"lon": 29.84621,
+"rakim": 6
+},
+{
+"ilce": "golcuk",
+"ad": "Donanma",
+"osm": "Donanma Mahallesi",
+"slug": "donanma",
+"lat": 40.71254,
+"lon": 29.80971,
+"rakim": 57
+},
+{
+"ilce": "golcuk",
+"ad": "Dumlupınar",
+"osm": "Dumlupınar Mahallesi",
+"slug": "dumlupinar",
+"lat": 40.71568,
+"lon": 29.83342,
+"rakim": 10
+},
+{
+"ilce": "golcuk",
+"ad": "Düzağaç",
+"osm": "Düzağaç Mahallesi",
+"slug": "duzagac",
+"lat": 40.69533,
+"lon": 29.8145,
+"rakim": 153
+},
+{
+"ilce": "golcuk",
+"ad": "Eskiferhadiye",
+"osm": "Eskiferhadiye Mahallesi",
+"slug": "eskiferhadiye",
+"lat": 40.62366,
+"lon": 29.84794,
+"rakim": 609
+},
+{
+"ilce": "golcuk",
+"ad": "Ferhadiye",
+"osm": "Ferhadiye Mahallesi",
+"slug": "ferhadiye",
+"lat": 40.65735,
+"lon": 29.89082,
+"rakim": 221
+},
+{
+"ilce": "golcuk",
+"ad": "Halıdere Yalı",
+"osm": "Halıdere Yalı Mahallesi",
+"slug": "halidere-yali",
+"lat": 40.69367,
+"lon": 29.74604,
+"rakim": 541
+},
+{
+"ilce": "golcuk",
+"ad": "Halıdere Yeni",
+"osm": "Halıdere Yeni Mahallesi",
+"slug": "halidere-yeni",
+"lat": 40.71605,
+"lon": 29.76448,
+"rakim": 58
+},
+{
+"ilce": "golcuk",
+"ad": "Hamidiye",
+"osm": "Hamidiye Mahallesi",
+"slug": "hamidiye",
+"lat": 40.66009,
+"lon": 29.81723,
+"rakim": 373
+},
+{
+"ilce": "golcuk",
+"ad": "Hasaneyn",
+"osm": "Hasaneyn Mahallesi",
+"slug": "hasaneyn",
+"lat": 40.66502,
+"lon": 29.8523,
+"rakim": 380
+},
+{
+"ilce": "golcuk",
+"ad": "Hisareyn Merkez",
+"osm": "Hisareyn Merkez Mahallesi",
+"slug": "hisareyn-merkez",
+"lat": 40.68518,
+"lon": 29.85241,
+"rakim": 116
+},
+{
+"ilce": "golcuk",
+"ad": "İcadiye",
+"osm": "İcadiye Mahallesi",
+"slug": "icadiye",
+"lat": 40.64806,
+"lon": 29.80547,
+"rakim": 410
+},
+{
+"ilce": "golcuk",
+"ad": "İhsaniye Merkez",
+"osm": "İhsaniye Merkez Mahallesi",
+"slug": "ihsaniye-merkez",
+"lat": 40.68558,
+"lon": 29.82661,
+"rakim": 147
+},
+{
+"ilce": "golcuk",
+"ad": "İpek Yolu",
+"osm": "İpek Yolu Mahallesi",
+"slug": "ipek-yolu",
+"lat": 40.7005,
+"lon": 29.83317,
+"rakim": 54
+},
+{
+"ilce": "golcuk",
+"ad": "İrşadiye",
+"osm": "İrşadiye Mahallesi",
+"slug": "irsadiye",
+"lat": 40.61104,
+"lon": 29.8093,
+"rakim": 735
+},
+{
+"ilce": "golcuk",
+"ad": "Karaköprü",
+"osm": "Karaköprü Mahallesi",
+"slug": "karakopru",
+"lat": 40.70438,
+"lon": 29.8565,
+"rakim": 22
+},
+{
+"ilce": "golcuk",
+"ad": "Kavaklı",
+"osm": "Kavaklı Mahallesi",
+"slug": "kavakli",
+"lat": 40.71965,
+"lon": 29.83504,
+"rakim": 7
+},
+{
+"ilce": "golcuk",
+"ad": "Körfez",
+"osm": "Körfez Mahallesi",
+"slug": "korfez",
+"lat": 40.69357,
+"lon": 29.72443,
+"rakim": 320
+},
+{
+"ilce": "golcuk",
+"ad": "Lütfiye",
+"osm": "Lütfiye Mahallesi",
+"slug": "lutfiye",
+"lat": 40.66067,
+"lon": 29.74326,
+"rakim": 318
+},
+{
+"ilce": "golcuk",
+"ad": "Mamuriye",
+"osm": "Mamuriye Mahallesi",
+"slug": "mamuriye",
+"lat": 40.61954,
+"lon": 29.83665,
+"rakim": 598
+},
+{
+"ilce": "golcuk",
+"ad": "Merkez",
+"osm": "Merkez Mahallesi",
+"slug": "merkez",
+"lat": 40.7235,
+"lon": 29.8126,
+"rakim": 0
+},
+{
+"ilce": "golcuk",
+"ad": "Mesruriye",
+"osm": "Mesruriye Mahallesi",
+"slug": "mesruriye",
+"lat": 40.62476,
+"lon": 29.76871,
+"rakim": 637
+},
+{
+"ilce": "golcuk",
+"ad": "Nimetiye",
+"osm": "Nimetiye Mahallesi",
+"slug": "nimetiye",
+"lat": 40.67129,
+"lon": 29.86564,
+"rakim": 197
+},
+{
+"ilce": "golcuk",
+"ad": "Nüzhetiye",
+"osm": "Nüzhetiye Mahallesi",
+"slug": "nuzhetiye",
+"lat": 40.64812,
+"lon": 29.86594,
+"rakim": 309
+},
+{
+"ilce": "golcuk",
+"ad": "Örcün",
+"osm": "Örcün Mahallesi",
+"slug": "orcun",
+"lat": 40.69937,
+"lon": 29.78842,
+"rakim": 247
+},
+{
+"ilce": "golcuk",
+"ad": "Panayır",
+"osm": "Panayır Mahallesi",
+"slug": "panayir",
+"lat": 40.6707,
+"lon": 29.87537,
+"rakim": 184
+},
+{
+"ilce": "golcuk",
+"ad": "Piyalepaşa",
+"osm": "Piyalepaşa Mahallesi",
+"slug": "piyalepasa",
+"lat": 40.70947,
+"lon": 29.83348,
+"rakim": 44
+},
+{
+"ilce": "golcuk",
+"ad": "Saraylı",
+"osm": "Saraylı Mahallesi",
+"slug": "sarayli",
+"lat": 40.68955,
+"lon": 29.79366,
+"rakim": 313
+},
+{
+"ilce": "golcuk",
+"ad": "Şehitler",
+"osm": "Şehitler Mahallesi",
+"slug": "sehitler",
+"lat": 40.71152,
+"lon": 29.82554,
+"rakim": 78
+},
+{
+"ilce": "golcuk",
+"ad": "Selimiye",
+"osm": "Selimiye Mahallesi",
+"slug": "selimiye",
+"lat": 40.66899,
+"lon": 29.79172,
+"rakim": 171
+},
+{
+"ilce": "golcuk",
+"ad": "Şevketiye",
+"osm": "Şevketiye Mahallesi",
+"slug": "sevketiye",
+"lat": 40.62843,
+"lon": 29.78169,
+"rakim": 486
+},
+{
+"ilce": "golcuk",
+"ad": "Şirinköy",
+"osm": "Şirinköy Mahallesi",
+"slug": "sirinkoy",
+"lat": 40.69711,
+"lon": 29.82153,
+"rakim": 98
+},
+{
+"ilce": "golcuk",
+"ad": "Siyretiye",
+"osm": "Siyretiye Mahallesi",
+"slug": "siyretiye",
+"lat": 40.618,
+"lon": 29.82597,
+"rakim": 741
+},
+{
+"ilce": "golcuk",
+"ad": "Sofular",
+"osm": "Sofular Mahallesi",
+"slug": "sofular",
+"lat": 40.63781,
+"lon": 29.70976,
+"rakim": 453
+},
+{
+"ilce": "golcuk",
+"ad": "Topçular",
+"osm": "Topçular Mahallesi",
+"slug": "topcular",
+"lat": 40.71109,
+"lon": 29.79976,
+"rakim": 122
+},
+{
+"ilce": "golcuk",
+"ad": "Ulaşlı Yalı",
+"osm": "Ulaşlı Yalı Mahallesi",
+"slug": "ulasli-yali",
+"lat": 40.69201,
+"lon": 29.69289,
+"rakim": 180
+},
+{
+"ilce": "golcuk",
+"ad": "Ulaşlı Yavuz Sultan Selim",
+"osm": "Ulaşlı Yavuz Sultan Selim Mahallesi",
+"slug": "ulasli-yavuz-sultan-selim",
+"lat": 40.69558,
+"lon": 29.71356,
+"rakim": 274
+},
+{
+"ilce": "golcuk",
+"ad": "Ümmiye",
+"osm": "Ümmiye Mahallesi",
+"slug": "ummiye",
+"lat": 40.65386,
+"lon": 29.83818,
+"rakim": 166
+},
+{
+"ilce": "golcuk",
+"ad": "Yazlık Merkez",
+"osm": "Yazlık Merkez Mahallesi",
+"slug": "yazlik-merkez",
+"lat": 40.6922,
+"lon": 29.87025,
+"rakim": 82
+},
+{
+"ilce": "golcuk",
+"ad": "Yazlık Yeni",
+"osm": "Yazlık Yeni Mahallesi",
+"slug": "yazlik-yeni",
+"lat": 40.70152,
+"lon": 29.86944,
+"rakim": 21
+},
+{
+"ilce": "golcuk",
+"ad": "Yeni",
+"osm": "Yeni Mahallesi",
+"slug": "yeni",
+"lat": 40.70918,
+"lon": 29.81749,
+"rakim": 79
+},
+{
+"ilce": "golcuk",
+"ad": "Yukarı",
+"osm": "Yukarı Mahallesi",
+"slug": "yukari",
+"lat": 40.69479,
+"lon": 29.77021,
+"rakim": 282
+},
+{
+"ilce": "golcuk",
+"ad": "Yunus Emre",
+"osm": "Yunus Emre Mahallesi",
+"slug": "yunus-emre",
+"lat": 40.70308,
+"lon": 29.80586,
+"rakim": 118
+},
+{
+"ilce": "golcuk",
+"ad": "Yüzbaşılar",
+"osm": "Yüzbaşılar Mahallesi",
+"slug": "yuzbasilar",
+"lat": 40.72409,
+"lon": 29.79571,
+"rakim": 16
+},
+{
+"ilce": "izmit",
+"ad": "28 Haziran",
+"osm": "28 Haziran Mahallesi",
+"slug": "28-haziran",
+"lat": 40.77763,
+"lon": 29.94679,
+"rakim": 74
+},
+{
+"ilce": "izmit",
+"ad": "Akarca",
+"osm": "Akarca Mahallesi",
+"slug": "akarca",
+"lat": 40.77356,
+"lon": 29.98861,
+"rakim": 54
+},
+{
+"ilce": "izmit",
+"ad": "Akçakoca",
+"osm": "Akçakoca Mahallesi",
+"slug": "akcakoca",
+"lat": 40.76605,
+"lon": 29.92049,
+"rakim": 73
+},
+{
+"ilce": "izmit",
+"ad": "Akmeşe Atatürk",
+"osm": "Akmeşe Atatürk Mahallesi",
+"slug": "akmese-ataturk",
+"lat": 40.84275,
+"lon": 30.21818,
+"rakim": 116
+},
+{
+"ilce": "izmit",
+"ad": "Akmeşe Cumhuriyet",
+"osm": "Akmeşe Cumhuriyet Mahallesi",
+"slug": "akmese-cumhuriyet",
+"lat": 40.86102,
+"lon": 30.21128,
+"rakim": 79
+},
+{
+"ilce": "izmit",
+"ad": "Akpınar",
+"osm": "Akpınar Mahallesi",
+"slug": "akpinar",
+"lat": 40.79669,
+"lon": 29.87227,
+"rakim": 374
+},
+{
+"ilce": "izmit",
+"ad": "Alikahya Atatürk",
+"osm": "Alikahya Atatürk Mahallesi",
+"slug": "alikahya-ataturk",
+"lat": 40.77809,
+"lon": 30.02937,
+"rakim": 51
+},
+{
+"ilce": "izmit",
+"ad": "Alikahya Cumhuriyet",
+"osm": "Alikahya Cumhuriyet Mahallesi",
+"slug": "alikahya-cumhuriyet",
+"lat": 40.77722,
+"lon": 29.98379,
+"rakim": 38
+},
+{
+"ilce": "izmit",
+"ad": "Alikahya Fatih",
+"osm": "Alikahya Fatih Mahallesi",
+"slug": "alikahya-fatih",
+"lat": 40.77103,
+"lon": 29.99021,
+"rakim": 8
+},
+{
+"ilce": "izmit",
+"ad": "Alikahya Merkez",
+"osm": "Alikahya Merkez Mahallesi",
+"slug": "alikahya-merkez",
+"lat": 40.7779,
+"lon": 30.00701,
+"rakim": 48
+},
+{
+"ilce": "izmit",
+"ad": "Ambarcı",
+"osm": "Ambarcı Mahallesi",
+"slug": "ambarci",
+"lat": 40.88347,
+"lon": 30.19364,
+"rakim": 241
+},
+{
+"ilce": "izmit",
+"ad": "Arızlı",
+"osm": "Arızlı Mahallesi",
+"slug": "arizli",
+"lat": 40.80472,
+"lon": 29.90307,
+"rakim": 212
+},
+{
+"ilce": "izmit",
+"ad": "Arpalıkihsaniye",
+"osm": "Arpalıkihsaniye Mahallesi",
+"slug": "arpalikihsaniye",
+"lat": 40.86404,
+"lon": 30.0953,
+"rakim": 309
+},
+{
+"ilce": "izmit",
+"ad": "Ayazma",
+"osm": "Ayazma Mahallesi",
+"slug": "ayazma",
+"lat": 40.80364,
+"lon": 29.95489,
+"rakim": 218
+},
+{
+"ilce": "izmit",
+"ad": "Bağlıca",
+"osm": "Bağlıca Mahallesi",
+"slug": "baglica",
+"lat": 40.91546,
+"lon": 30.1952,
+"rakim": 153
+},
+{
+"ilce": "izmit",
+"ad": "Balören",
+"osm": "Balören Mahallesi",
+"slug": "baloren",
+"lat": 40.84032,
+"lon": 30.12312,
+"rakim": 312
+},
+{
+"ilce": "izmit",
+"ad": "Bayraktar",
+"osm": "Bayraktar Mahallesi",
+"slug": "bayraktar",
+"lat": 40.77807,
+"lon": 30.09898,
+"rakim": 47
+},
+{
+"ilce": "izmit",
+"ad": "Bekirdere",
+"osm": "Bekirdere Mahallesi",
+"slug": "bekirdere",
+"lat": 40.77925,
+"lon": 29.95203,
+"rakim": 71
+},
+{
+"ilce": "izmit",
+"ad": "Biberoğlu",
+"osm": "Biberoğlu Mahallesi",
+"slug": "biberoglu",
+"lat": 40.80771,
+"lon": 30.08916,
+"rakim": 87
+},
+{
+"ilce": "izmit",
+"ad": "Böğürgen",
+"osm": "Böğürgen Mahallesi",
+"slug": "bogurgen",
+"lat": 40.89842,
+"lon": 30.0092,
+"rakim": 228
+},
+{
+"ilce": "izmit",
+"ad": "Bulduk",
+"osm": "Bulduk Mahallesi",
+"slug": "bulduk",
+"lat": 40.95192,
+"lon": 29.93889,
+"rakim": 198
+},
+{
+"ilce": "izmit",
+"ad": "Çağırgan",
+"osm": "Çağırgan Mahallesi",
+"slug": "cagirgan",
+"lat": 40.92398,
+"lon": 29.9585,
+"rakim": 323
+},
+{
+"ilce": "izmit",
+"ad": "Çavuşoğlu",
+"osm": "Çavuşoğlu Mahallesi",
+"slug": "cavusoglu",
+"lat": 40.89269,
+"lon": 30.22207,
+"rakim": 169
+},
+{
+"ilce": "izmit",
+"ad": "Çayırköy",
+"osm": "Çayırköy Mahallesi",
+"slug": "cayirkoy",
+"lat": 40.81338,
+"lon": 29.99979,
+"rakim": 187
+},
+{
+"ilce": "izmit",
+"ad": "Cedit",
+"osm": "Cedit Mahallesi",
+"slug": "cedit",
+"lat": 40.76884,
+"lon": 29.93668,
+"rakim": 40
+},
+{
+"ilce": "izmit",
+"ad": "Çubuklubala",
+"osm": "Çubuklubala Mahallesi",
+"slug": "cubuklubala",
+"lat": 40.8613,
+"lon": 30.03225,
+"rakim": 324
+},
+{
+"ilce": "izmit",
+"ad": "Çubukluosmaniye",
+"osm": "Çubukluosmaniye Mahallesi",
+"slug": "cubukluosmaniye",
+"lat": 40.85554,
+"lon": 30.05622,
+"rakim": 277
+},
+{
+"ilce": "izmit",
+"ad": "Çukurbağ",
+"osm": "Çukurbağ Mahallesi",
+"slug": "cukurbag",
+"lat": 40.76839,
+"lon": 29.93165,
+"rakim": 86
+},
+{
+"ilce": "izmit",
+"ad": "Cumhuriyet",
+"osm": "Cumhuriyet Mahallesi",
+"slug": "cumhuriyet",
+"lat": 40.76015,
+"lon": 29.87851,
+"rakim": 6
+},
+{
+"ilce": "izmit",
+"ad": "Dağköy",
+"osm": "Dağköy Mahallesi",
+"slug": "dagkoy",
+"lat": 40.82209,
+"lon": 30.09208,
+"rakim": 186
+},
+{
+"ilce": "izmit",
+"ad": "Doğan",
+"osm": "Doğan Mahallesi",
+"slug": "dogan",
+"lat": 40.76788,
+"lon": 29.87783,
+"rakim": 81
+},
+{
+"ilce": "izmit",
+"ad": "Düğmeciler",
+"osm": "Düğmeciler Mahallesi",
+"slug": "dugmeciler",
+"lat": 40.91673,
+"lon": 30.22027,
+"rakim": 155
+},
+{
+"ilce": "izmit",
+"ad": "Durhasan",
+"osm": "Durhasan Mahallesi",
+"slug": "durhasan",
+"lat": 40.79915,
+"lon": 30.03403,
+"rakim": 119
+},
+{
+"ilce": "izmit",
+"ad": "Emirhan",
+"osm": "Emirhan Mahallesi",
+"slug": "emirhan",
+"lat": 40.81767,
+"lon": 30.06306,
+"rakim": 170
+},
+{
+"ilce": "izmit",
+"ad": "Erenler",
+"osm": "Erenler Mahallesi",
+"slug": "erenler",
+"lat": 40.7754,
+"lon": 29.94352,
+"rakim": 179
+},
+{
+"ilce": "izmit",
+"ad": "Eseler",
+"osm": "Eseler Mahallesi",
+"slug": "eseler",
+"lat": 40.79151,
+"lon": 30.06842,
+"rakim": 36
+},
+{
+"ilce": "izmit",
+"ad": "Fatih",
+"osm": "Fatih Mahallesi",
+"slug": "fatih",
+"lat": 40.77447,
+"lon": 29.91193,
+"rakim": 138
+},
+{
+"ilce": "izmit",
+"ad": "Fethiye",
+"osm": "Fethiye Mahallesi",
+"slug": "fethiye",
+"lat": 40.92326,
+"lon": 29.97629,
+"rakim": 279
+},
+{
+"ilce": "izmit",
+"ad": "Fevzi Çakmak",
+"osm": "Fevzi Çakmak Mahallesi",
+"slug": "fevzi-cakmak",
+"lat": 40.77912,
+"lon": 29.98952,
+"rakim": 106
+},
+{
+"ilce": "izmit",
+"ad": "Gedikli",
+"osm": "Gedikli Mahallesi",
+"slug": "gedikli",
+"lat": 40.80444,
+"lon": 30.11732,
+"rakim": 192
+},
+{
+"ilce": "izmit",
+"ad": "Gökçeören",
+"osm": "Gökçeören Mahallesi",
+"slug": "gokceoren",
+"lat": 40.86058,
+"lon": 29.98259,
+"rakim": 260
+},
+{
+"ilce": "izmit",
+"ad": "Gülbahçe Kadriye",
+"osm": "Gülbahçe Kadriye Mahallesi",
+"slug": "gulbahce-kadriye",
+"lat": 40.8661,
+"lon": 30.12709,
+"rakim": 261
+},
+{
+"ilce": "izmit",
+"ad": "Gültepe",
+"osm": "Gültepe Mahallesi",
+"slug": "gultepe",
+"lat": 40.77185,
+"lon": 29.91211,
+"rakim": 96
+},
+{
+"ilce": "izmit",
+"ad": "Gündoğdu",
+"osm": "Gündoğdu Mahallesi",
+"slug": "gundogdu",
+"lat": 40.79384,
+"lon": 29.95861,
+"rakim": 124
+},
+{
+"ilce": "izmit",
+"ad": "Güvercinlik",
+"osm": "Güvercinlik Mahallesi",
+"slug": "guvercinlik",
+"lat": 40.88471,
+"lon": 30.17299,
+"rakim": 221
+},
+{
+"ilce": "izmit",
+"ad": "Hacıhasan",
+"osm": "Hacıhasan Mahallesi",
+"slug": "hacihasan",
+"lat": 40.76558,
+"lon": 29.92322,
+"rakim": 55
+},
+{
+"ilce": "izmit",
+"ad": "Hacıhızır",
+"osm": "Hacıhızır Mahallesi",
+"slug": "hacihizir",
+"lat": 40.77087,
+"lon": 29.92812,
+"rakim": 146
+},
+{
+"ilce": "izmit",
+"ad": "Hakaniye",
+"osm": "Hakaniye Mahallesi",
+"slug": "hakaniye",
+"lat": 40.89534,
+"lon": 29.97617,
+"rakim": 233
+},
+{
+"ilce": "izmit",
+"ad": "Hasancıklar",
+"osm": "Hasancıklar Mahallesi",
+"slug": "hasanciklar",
+"lat": 40.80915,
+"lon": 30.20244,
+"rakim": 218
+},
+{
+"ilce": "izmit",
+"ad": "Hatipköy",
+"osm": "Hatipköy Mahallesi",
+"slug": "hatipkoy",
+"lat": 40.77738,
+"lon": 29.87473,
+"rakim": 156
+},
+{
+"ilce": "izmit",
+"ad": "Kabaoğlu",
+"osm": "Kabaoğlu Mahallesi",
+"slug": "kabaoglu",
+"lat": 40.8187,
+"lon": 29.9274,
+"rakim": 323
+},
+{
+"ilce": "izmit",
+"ad": "Kadıköy",
+"osm": "Kadıköy Mahallesi",
+"slug": "kadikoy",
+"lat": 40.76813,
+"lon": 29.94544,
+"rakim": 8
+},
+{
+"ilce": "izmit",
+"ad": "Karaabdülbaki",
+"osm": "Karaabdülbaki Mahallesi",
+"slug": "karaabdulbaki",
+"lat": 40.79055,
+"lon": 30.15124,
+"rakim": 199
+},
+{
+"ilce": "izmit",
+"ad": "Karabaş",
+"osm": "Karabaş Mahallesi",
+"slug": "karabas",
+"lat": 40.76158,
+"lon": 29.93696,
+"rakim": 2
+},
+{
+"ilce": "izmit",
+"ad": "Karadenizliler",
+"osm": "Karadenizliler Mahallesi",
+"slug": "karadenizliler",
+"lat": 40.78853,
+"lon": 29.99971,
+"rakim": 44
+},
+{
+"ilce": "izmit",
+"ad": "Kaynarca",
+"osm": "Kaynarca Mahallesi",
+"slug": "kaynarca",
+"lat": 40.88075,
+"lon": 29.96028,
+"rakim": 313
+},
+{
+"ilce": "izmit",
+"ad": "Kemalpaşa",
+"osm": "Kemalpaşa Mahallesi",
+"slug": "kemalpasa",
+"lat": 40.76152,
+"lon": 29.92175,
+"rakim": 6
+},
+{
+"ilce": "izmit",
+"ad": "Kısalar",
+"osm": "Kısalar Mahallesi",
+"slug": "kisalar",
+"lat": 40.88358,
+"lon": 30.06449,
+"rakim": 274
+},
+{
+"ilce": "izmit",
+"ad": "Kocatepe",
+"osm": "Kocatepe Mahallesi",
+"slug": "kocatepe",
+"lat": 40.77141,
+"lon": 29.8677,
+"rakim": 139
+},
+{
+"ilce": "izmit",
+"ad": "Körfez",
+"osm": "Körfez Mahallesi",
+"slug": "korfez",
+"lat": 40.76139,
+"lon": 29.95072,
+"rakim": 4
+},
+{
+"ilce": "izmit",
+"ad": "Kozluca",
+"osm": "Kozluca Mahallesi",
+"slug": "kozluca",
+"lat": 40.84373,
+"lon": 30.09282,
+"rakim": 350
+},
+{
+"ilce": "izmit",
+"ad": "Kozluk",
+"osm": "Kozluk Mahallesi",
+"slug": "kozluk",
+"lat": 40.76305,
+"lon": 29.91156,
+"rakim": 9
+},
+{
+"ilce": "izmit",
+"ad": "Kulfallı",
+"osm": "Kulfallı Mahallesi",
+"slug": "kulfalli",
+"lat": 40.80346,
+"lon": 29.88337,
+"rakim": 282
+},
+{
+"ilce": "izmit",
+"ad": "Kulmahmut",
+"osm": "Kulmahmut Mahallesi",
+"slug": "kulmahmut",
+"lat": 40.90823,
+"lon": 29.98701,
+"rakim": 227
+},
+{
+"ilce": "izmit",
+"ad": "Kurtdere",
+"osm": "Kurtdere Mahallesi",
+"slug": "kurtdere",
+"lat": 40.78905,
+"lon": 30.17191,
+"rakim": 207
+},
+{
+"ilce": "izmit",
+"ad": "Kuruçeşme Fatih",
+"osm": "Kuruçeşme Fatih Mahallesi",
+"slug": "kurucesme-fatih",
+"lat": 40.7664,
+"lon": 29.86648,
+"rakim": 88
+},
+{
+"ilce": "izmit",
+"ad": "Malta",
+"osm": "Malta Mahallesi",
+"slug": "malta",
+"lat": 40.79177,
+"lon": 29.94621,
+"rakim": 200
+},
+{
+"ilce": "izmit",
+"ad": "Mecidiye",
+"osm": "Mecidiye Mahallesi",
+"slug": "mecidiye",
+"lat": 40.86562,
+"lon": 30.16041,
+"rakim": 212
+},
+{
+"ilce": "izmit",
+"ad": "Mehmet Ali Paşa",
+"osm": "Mehmet Ali Paşa Mahallesi",
+"slug": "mehmet-ali-pasa",
+"lat": 40.76794,
+"lon": 29.95403,
+"rakim": 11
+},
+{
+"ilce": "izmit",
+"ad": "Nebihoca",
+"osm": "Nebihoca Mahallesi",
+"slug": "nebihoca",
+"lat": 40.89313,
+"lon": 30.02621,
+"rakim": 232
+},
+{
+"ilce": "izmit",
+"ad": "Ömerağa",
+"osm": "Ömerağa Mahallesi",
+"slug": "omeraga",
+"lat": 40.76194,
+"lon": 29.92848,
+"rakim": 11
+},
+{
+"ilce": "izmit",
+"ad": "Orhan",
+"osm": "Orhan Mahallesi",
+"slug": "orhan",
+"lat": 40.77663,
+"lon": 29.93052,
+"rakim": 216
+},
+{
+"ilce": "izmit",
+"ad": "Orhaniye",
+"osm": "Orhaniye Mahallesi",
+"slug": "orhaniye",
+"lat": 40.84934,
+"lon": 30.07431,
+"rakim": 294
+},
+{
+"ilce": "izmit",
+"ad": "Ortaburun",
+"osm": "Ortaburun Mahallesi",
+"slug": "ortaburun",
+"lat": 40.79333,
+"lon": 30.20696,
+"rakim": 242
+},
+{
+"ilce": "izmit",
+"ad": "Şahinler",
+"osm": "Şahinler Mahallesi",
+"slug": "sahinler",
+"lat": 40.93073,
+"lon": 30.00447,
+"rakim": 302
+},
+{
+"ilce": "izmit",
+"ad": "Sanayi",
+"osm": "Sanayi Mahallesi",
+"slug": "sanayi",
+"lat": 40.74115,
+"lon": 29.95069,
+"rakim": 2
+},
+{
+"ilce": "izmit",
+"ad": "Sapakpınar",
+"osm": "Sapakpınar Mahallesi",
+"slug": "sapakpinar",
+"lat": 40.81368,
+"lon": 30.16742,
+"rakim": 253
+},
+{
+"ilce": "izmit",
+"ad": "Sarışeyh",
+"osm": "Sarışeyh Mahallesi",
+"slug": "sariseyh",
+"lat": 40.91765,
+"lon": 30.04899,
+"rakim": 211
+},
+{
+"ilce": "izmit",
+"ad": "Sekbanlı",
+"osm": "Sekbanlı Mahallesi",
+"slug": "sekbanli",
+"lat": 40.81721,
+"lon": 29.95201,
+"rakim": 140
+},
+{
+"ilce": "izmit",
+"ad": "Sepetçi",
+"osm": "Sepetçi Mahallesi",
+"slug": "sepetci",
+"lat": 40.82225,
+"lon": 29.97566,
+"rakim": 247
+},
+{
+"ilce": "izmit",
+"ad": "Serdar",
+"osm": "Serdar Mahallesi",
+"slug": "serdar",
+"lat": 40.76806,
+"lon": 29.89407,
+"rakim": 142
+},
+{
+"ilce": "izmit",
+"ad": "Şirintepe",
+"osm": "Şirintepe Mahallesi",
+"slug": "sirintepe",
+"lat": 40.77474,
+"lon": 29.86177,
+"rakim": 105
+},
+{
+"ilce": "izmit",
+"ad": "Süleymaniye",
+"osm": "Süleymaniye Mahallesi",
+"slug": "suleymaniye",
+"lat": 40.82049,
+"lon": 30.2011,
+"rakim": 209
+},
+{
+"ilce": "izmit",
+"ad": "Sultaniye",
+"osm": "Sultaniye Mahallesi",
+"slug": "sultaniye",
+"lat": 40.83839,
+"lon": 30.1531,
+"rakim": 256
+},
+{
+"ilce": "izmit",
+"ad": "Süverler",
+"osm": "Süverler Mahallesi",
+"slug": "suverler",
+"lat": 40.90658,
+"lon": 29.95094,
+"rakim": 286
+},
+{
+"ilce": "izmit",
+"ad": "Tavşantepe",
+"osm": "Tavşantepe Mahallesi",
+"slug": "tavsantepe",
+"lat": 40.78009,
+"lon": 29.95976,
+"rakim": 125
+},
+{
+"ilce": "izmit",
+"ad": "Tepecik",
+"osm": "Tepecik Mahallesi",
+"slug": "tepecik",
+"lat": 40.76267,
+"lon": 29.92433,
+"rakim": 14
+},
+{
+"ilce": "izmit",
+"ad": "Tepeköy",
+"osm": "Tepeköy Mahallesi",
+"slug": "tepekoy",
+"lat": 40.80067,
+"lon": 29.97168,
+"rakim": 157
+},
+{
+"ilce": "izmit",
+"ad": "Terzibayırı",
+"osm": "Terzibayırı Mahallesi",
+"slug": "terzibayiri",
+"lat": 40.77272,
+"lon": 29.93111,
+"rakim": 167
+},
+{
+"ilce": "izmit",
+"ad": "Topçular",
+"osm": "Topçular Mahallesi",
+"slug": "topcular",
+"lat": 40.77677,
+"lon": 29.93594,
+"rakim": 206
+},
+{
+"ilce": "izmit",
+"ad": "Turgut",
+"osm": "Turgut Mahallesi",
+"slug": "turgut",
+"lat": 40.77437,
+"lon": 29.91849,
+"rakim": 211
+},
+{
+"ilce": "izmit",
+"ad": "Tüysüzler",
+"osm": "Tüysüzler Mahallesi",
+"slug": "tuysuzler",
+"lat": 40.7847,
+"lon": 29.91695,
+"rakim": 189
+},
+{
+"ilce": "izmit",
+"ad": "Veliahmet",
+"osm": "Veliahmet Mahallesi",
+"slug": "veliahmet",
+"lat": 40.77014,
+"lon": 29.92484,
+"rakim": 120
+},
+{
+"ilce": "izmit",
+"ad": "Yahyakaptan",
+"osm": "Yahyakaptan Mahallesi",
+"slug": "yahyakaptan",
+"lat": 40.7715,
+"lon": 29.976,
+"rakim": 8
+},
+{
+"ilce": "izmit",
+"ad": "Yassıbağ",
+"osm": "Yassıbağ Mahallesi",
+"slug": "yassibag",
+"lat": 40.83214,
+"lon": 30.0256,
+"rakim": 125
+},
+{
+"ilce": "izmit",
+"ad": "Yeni Mahalle",
+"osm": "Yeni Mahalle",
+"slug": "yeni-mahalle",
+"lat": 40.77206,
+"lon": 29.88393,
+"rakim": 79
+},
+{
+"ilce": "izmit",
+"ad": "Yenice",
+"osm": "Yenice Mahallesi",
+"slug": "yenice",
+"lat": 40.87843,
+"lon": 30.24361,
+"rakim": 134
+},
+{
+"ilce": "izmit",
+"ad": "Yenidoğan",
+"osm": "Yenidoğan Mahallesi",
+"slug": "yenidogan",
+"lat": 40.77092,
+"lon": 29.90332,
+"rakim": 36
+},
+{
+"ilce": "izmit",
+"ad": "Yenişehir",
+"osm": "Yenişehir Mahallesi",
+"slug": "yenisehir",
+"lat": 40.77347,
+"lon": 29.96403,
+"rakim": 10
+},
+{
+"ilce": "izmit",
+"ad": "Yeşilova",
+"osm": "Yeşilova Mahallesi",
+"slug": "yesilova",
+"lat": 40.79223,
+"lon": 29.97272,
+"rakim": 29
+},
+{
+"ilce": "izmit",
+"ad": "Zabıtan",
+"osm": "Zabıtan Mahallesi",
+"slug": "zabitan",
+"lat": 40.76852,
+"lon": 29.90783,
+"rakim": 93
+},
+{
+"ilce": "izmit",
+"ad": "Zeytinburnu",
+"osm": "Zeytinburnu Mahallesi",
+"slug": "zeytinburnu",
+"lat": 40.81191,
+"lon": 30.14433,
+"rakim": 145
+},
+{
+"ilce": "karamursel",
+"ad": "4 Temmuz",
+"osm": "4 Temmuz Mahallesi",
+"slug": "4-temmuz",
+"lat": 40.68612,
+"lon": 29.6209,
+"rakim": 100
+},
+{
+"ilce": "karamursel",
+"ad": "Akçat",
+"osm": "Akçat Mahallesi",
+"slug": "akcat",
+"lat": 40.62081,
+"lon": 29.63581,
+"rakim": 362
+},
+{
+"ilce": "karamursel",
+"ad": "Akpınar",
+"osm": "Akpınar Mahallesi",
+"slug": "akpinar",
+"lat": 40.66098,
+"lon": 29.66342,
+"rakim": 604
+},
+{
+"ilce": "karamursel",
+"ad": "Avcıköy",
+"osm": "Avcıköy Mahallesi",
+"slug": "avcikoy",
+"lat": 40.60099,
+"lon": 29.60141,
+"rakim": 383
+},
+{
+"ilce": "karamursel",
+"ad": "Çamçukur",
+"osm": "Çamçukur Mahallesi",
+"slug": "camcukur",
+"lat": 40.67815,
+"lon": 29.64079,
+"rakim": 299
+},
+{
+"ilce": "karamursel",
+"ad": "Çamdibi",
+"osm": "Çamdibi Mahallesi",
+"slug": "camdibi",
+"lat": 40.56478,
+"lon": 29.55626,
+"rakim": 387
+},
+{
+"ilce": "karamursel",
+"ad": "Dereköy",
+"osm": "Dereköy Mahallesi",
+"slug": "derekoy",
+"lat": 40.67128,
+"lon": 29.55244,
+"rakim": 174
+},
+{
+"ilce": "karamursel",
+"ad": "Ereğli",
+"osm": "Ereğli Mahallesi",
+"slug": "eregli",
+"lat": 40.69152,
+"lon": 29.67206,
+"rakim": 286
+},
+{
+"ilce": "karamursel",
+"ad": "Fulacık",
+"osm": "Fulacık Mahallesi",
+"slug": "fulacik",
+"lat": 40.56158,
+"lon": 29.60513,
+"rakim": 608
+},
+{
+"ilce": "karamursel",
+"ad": "Hayriye",
+"osm": "Hayriye Mahallesi",
+"slug": "hayriye",
+"lat": 40.63087,
+"lon": 29.56776,
+"rakim": 159
+},
+{
+"ilce": "karamursel",
+"ad": "İhsaniye",
+"osm": "İhsaniye Mahallesi",
+"slug": "ihsaniye",
+"lat": 40.63077,
+"lon": 29.58861,
+"rakim": 254
+},
+{
+"ilce": "karamursel",
+"ad": "İnebeyli",
+"osm": "İnebeyli Mahallesi",
+"slug": "inebeyli",
+"lat": 40.63828,
+"lon": 29.52999,
+"rakim": 137
+},
+{
+"ilce": "karamursel",
+"ad": "Kadriye",
+"osm": "Kadriye Mahallesi",
+"slug": "kadriye",
+"lat": 40.59179,
+"lon": 29.66409,
+"rakim": 500
+},
+{
+"ilce": "karamursel",
+"ad": "Karaahmetli",
+"osm": "Karaahmetli Mahallesi",
+"slug": "karaahmetli",
+"lat": 40.65145,
+"lon": 29.58126,
+"rakim": 302
+},
+{
+"ilce": "karamursel",
+"ad": "Karapınar",
+"osm": "Karapınar Mahallesi",
+"slug": "karapinar",
+"lat": 40.65952,
+"lon": 29.61186,
+"rakim": 375
+},
+{
+"ilce": "karamursel",
+"ad": "Kayacık",
+"osm": "Kayacık Mahallesi",
+"slug": "kayacik",
+"lat": 40.68369,
+"lon": 29.58628,
+"rakim": 95
+},
+{
+"ilce": "karamursel",
+"ad": "Kızderbent",
+"osm": "Kızderbent Mahallesi",
+"slug": "kizderbent",
+"lat": 40.56221,
+"lon": 29.52095,
+"rakim": 194
+},
+{
+"ilce": "karamursel",
+"ad": "Oluklu",
+"osm": "Oluklu Mahallesi",
+"slug": "oluklu",
+"lat": 40.6702,
+"lon": 29.58508,
+"rakim": 226
+},
+{
+"ilce": "karamursel",
+"ad": "Osmaniye",
+"osm": "Osmaniye Mahallesi",
+"slug": "osmaniye",
+"lat": 40.67008,
+"lon": 29.69307,
+"rakim": 674
+},
+{
+"ilce": "karamursel",
+"ad": "Pazarköy",
+"osm": "Pazarköy Mahallesi",
+"slug": "pazarkoy",
+"lat": 40.66874,
+"lon": 29.63456,
+"rakim": 413
+},
+{
+"ilce": "karamursel",
+"ad": "Safiye",
+"osm": "Safiye Mahallesi",
+"slug": "safiye",
+"lat": 40.65419,
+"lon": 29.63378,
+"rakim": 546
+},
+{
+"ilce": "karamursel",
+"ad": "Semetler",
+"osm": "Semetler Mahallesi",
+"slug": "semetler",
+"lat": 40.61173,
+"lon": 29.51014,
+"rakim": 148
+},
+{
+"ilce": "karamursel",
+"ad": "Senaiye",
+"osm": "Senaiye Mahallesi",
+"slug": "senaiye",
+"lat": 40.62614,
+"lon": 29.68493,
+"rakim": 610
+},
+{
+"ilce": "karamursel",
+"ad": "Suludere",
+"osm": "Suludere Mahallesi",
+"slug": "suludere",
+"lat": 40.64249,
+"lon": 29.64867,
+"rakim": 449
+},
+{
+"ilce": "karamursel",
+"ad": "Tahtalı",
+"osm": "Tahtalı Mahallesi",
+"slug": "tahtali",
+"lat": 40.5782,
+"lon": 29.64131,
+"rakim": 658
+},
+{
+"ilce": "karamursel",
+"ad": "Tepeköy",
+"osm": "Tepeköy Mahallesi",
+"slug": "tepekoy",
+"lat": 40.68603,
+"lon": 29.6492,
+"rakim": 219
+},
+{
+"ilce": "karamursel",
+"ad": "Yalakdere",
+"osm": "Yalakdere Mahallesi",
+"slug": "yalakdere",
+"lat": 40.60692,
+"lon": 29.54632,
+"rakim": 147
+},
+{
+"ilce": "kartepe",
+"ad": "Acısu",
+"osm": "Acısu Mahallesi",
+"slug": "acisu",
+"lat": 40.72212,
+"lon": 30.09852,
+"rakim": 33
+},
+{
+"ilce": "kartepe",
+"ad": "Arslanbey",
+"osm": "Arslanbey Mahallesi",
+"slug": "arslanbey",
+"lat": 40.69017,
+"lon": 30.03478,
+"rakim": 136
+},
+{
+"ilce": "kartepe",
+"ad": "Ataevler",
+"osm": "Ataevler Mahallesi",
+"slug": "ataevler",
+"lat": 40.74338,
+"lon": 30.04196,
+"rakim": 23
+},
+{
+"ilce": "kartepe",
+"ad": "Ataşehir",
+"osm": "Ataşehir Mahallesi",
+"slug": "atasehir",
+"lat": 40.70786,
+"lon": 30.02379,
+"rakim": 80
+},
+{
+"ilce": "kartepe",
+"ad": "Balaban",
+"osm": "Balaban Mahallesi",
+"slug": "balaban",
+"lat": 40.68357,
+"lon": 30.0851,
+"rakim": 269
+},
+{
+"ilce": "kartepe",
+"ad": "Çepni",
+"osm": "Çepni Mahallesi",
+"slug": "cepni",
+"lat": 40.68086,
+"lon": 30.0744,
+"rakim": 331
+},
+{
+"ilce": "kartepe",
+"ad": "Derbent",
+"osm": "Derbent Mahallesi",
+"slug": "derbent",
+"lat": 40.68483,
+"lon": 30.10622,
+"rakim": 363
+},
+{
+"ilce": "kartepe",
+"ad": "Dumlupınar",
+"osm": "Dumlupınar Mahallesi",
+"slug": "dumlupinar",
+"lat": 40.75943,
+"lon": 30.01296,
+"rakim": 19
+},
+{
+"ilce": "kartepe",
+"ad": "Emekevler",
+"osm": "Emekevler Mahallesi",
+"slug": "emekevler",
+"lat": 40.73735,
+"lon": 30.07919,
+"rakim": 48
+},
+{
+"ilce": "kartepe",
+"ad": "Ertuğrul Gazi",
+"osm": "Ertuğrul Gazi Mahallesi",
+"slug": "ertugrul-gazi",
+"lat": 40.75704,
+"lon": 30.03705,
+"rakim": 17
+},
+{
+"ilce": "kartepe",
+"ad": "Eşme",
+"osm": "Eşme Mahallesi",
+"slug": "esme",
+"lat": 40.74203,
+"lon": 30.21291,
+"rakim": 206
+},
+{
+"ilce": "kartepe",
+"ad": "Eşmeahmediye",
+"osm": "Eşmeahmediye Mahallesi",
+"slug": "esmeahmediye",
+"lat": 40.76856,
+"lon": 30.22965,
+"rakim": 354
+},
+{
+"ilce": "kartepe",
+"ad": "Fatih Sultan Mehmet",
+"osm": "Fatih Sultan Mehmet Mahallesi",
+"slug": "fatih-sultan-mehmet",
+"lat": 40.73606,
+"lon": 30.02823,
+"rakim": 27
+},
+{
+"ilce": "kartepe",
+"ad": "Havluburun",
+"osm": "Havluburun Mahallesi",
+"slug": "havluburun",
+"lat": 40.768,
+"lon": 30.19653,
+"rakim": 345
+},
+{
+"ilce": "kartepe",
+"ad": "İbrikdere",
+"osm": "İbrikdere Mahallesi",
+"slug": "ibrikdere",
+"lat": 40.73722,
+"lon": 30.12388,
+"rakim": 60
+},
+{
+"ilce": "kartepe",
+"ad": "İstasyon",
+"osm": "İstasyon Mahallesi",
+"slug": "istasyon",
+"lat": 40.75025,
+"lon": 30.02206,
+"rakim": 14
+},
+{
+"ilce": "kartepe",
+"ad": "Karatepe",
+"osm": "Karatepe Mahallesi",
+"slug": "karatepe",
+"lat": 40.68695,
+"lon": 30.01132,
+"rakim": 192
+},
+{
+"ilce": "kartepe",
+"ad": "Ketenciler",
+"osm": "Ketenciler Mahallesi",
+"slug": "ketenciler",
+"lat": 40.76736,
+"lon": 30.13544,
+"rakim": 79
+},
+{
+"ilce": "kartepe",
+"ad": "Köseköy",
+"osm": "Köseköy Mahallesi",
+"slug": "kosekoy",
+"lat": 40.74317,
+"lon": 30.00203,
+"rakim": 7
+},
+{
+"ilce": "kartepe",
+"ad": "Maşukiye",
+"osm": "Maşukiye Mahallesi",
+"slug": "masukiye",
+"lat": 40.68169,
+"lon": 30.13812,
+"rakim": 464
+},
+{
+"ilce": "kartepe",
+"ad": "Nusretiye",
+"osm": "Nusretiye Mahallesi",
+"slug": "nusretiye",
+"lat": 40.68091,
+"lon": 30.09774,
+"rakim": 484
+},
+{
+"ilce": "kartepe",
+"ad": "Pazarçayırı",
+"osm": "Pazarçayırı Mahallesi",
+"slug": "pazarcayiri",
+"lat": 40.62358,
+"lon": 30.04673,
+"rakim": 477
+},
+{
+"ilce": "kartepe",
+"ad": "Rahmiye",
+"osm": "Rahmiye Mahallesi",
+"slug": "rahmiye",
+"lat": 40.71923,
+"lon": 30.01469,
+"rakim": 26
+},
+{
+"ilce": "kartepe",
+"ad": "Sarımeşe",
+"osm": "Sarımeşe Mahallesi",
+"slug": "sarimese",
+"lat": 40.72954,
+"lon": 30.04952,
+"rakim": 41
+},
+{
+"ilce": "kartepe",
+"ad": "Serinlik",
+"osm": "Serinlik Mahallesi",
+"slug": "serinlik",
+"lat": 40.64946,
+"lon": 30.02477,
+"rakim": 452
+},
+{
+"ilce": "kartepe",
+"ad": "Şevkatiye",
+"osm": "Şevkatiye Mahallesi",
+"slug": "sevkatiye",
+"lat": 40.68369,
+"lon": 30.04165,
+"rakim": 322
+},
+{
+"ilce": "kartepe",
+"ad": "Şirinsulhiye",
+"osm": "Şirinsulhiye Mahallesi",
+"slug": "sirinsulhiye",
+"lat": 40.68023,
+"lon": 30.10274,
+"rakim": 560
+},
+{
+"ilce": "kartepe",
+"ad": "Suadiye",
+"osm": "Suadiye Mahallesi",
+"slug": "suadiye",
+"lat": 40.68491,
+"lon": 30.07501,
+"rakim": 218
+},
+{
+"ilce": "kartepe",
+"ad": "Sultaniye",
+"osm": "Sultaniye Mahallesi",
+"slug": "sultaniye",
+"lat": 40.62203,
+"lon": 30.09141,
+"rakim": 1104
+},
+{
+"ilce": "kartepe",
+"ad": "Uzunbey",
+"osm": "Uzunbey Mahallesi",
+"slug": "uzunbey",
+"lat": 40.75673,
+"lon": 30.06819,
+"rakim": 24
+},
+{
+"ilce": "kartepe",
+"ad": "Uzunçiftlik",
+"osm": "Uzunçiftlik Mahallesi",
+"slug": "uzunciftlik",
+"lat": 40.75144,
+"lon": 30.0651,
+"rakim": 26
+},
+{
+"ilce": "kartepe",
+"ad": "Uzuntarla",
+"osm": "Uzuntarla Mahallesi",
+"slug": "uzuntarla",
+"lat": 40.74369,
+"lon": 30.14974,
+"rakim": 169
+},
+{
+"ilce": "korfez",
+"ad": "17 Ağustos",
+"osm": "17 Ağustos Mahallesi",
+"slug": "17-agustos",
+"lat": 40.79487,
+"lon": 29.63933,
+"rakim": 333
+},
+{
+"ilce": "korfez",
+"ad": "Agah Ateş",
+"osm": "Agah Ateş Mahallesi",
+"slug": "agah-ates",
+"lat": 40.7937,
+"lon": 29.61898,
+"rakim": 177
+},
+{
+"ilce": "korfez",
+"ad": "Alihocalar",
+"osm": "Alihocalar Mahallesi",
+"slug": "alihocalar",
+"lat": 40.959,
+"lon": 29.76345,
+"rakim": 212
+},
+{
+"ilce": "korfez",
+"ad": "Atalar",
+"osm": "Atalar Mahallesi",
+"slug": "atalar",
+"lat": 40.77446,
+"lon": 29.72774,
+"rakim": 13
+},
+{
+"ilce": "korfez",
+"ad": "Barbaros",
+"osm": "Barbaros Mahallesi",
+"slug": "barbaros",
+"lat": 40.76259,
+"lon": 29.77532,
+"rakim": 33
+},
+{
+"ilce": "korfez",
+"ad": "Belen",
+"osm": "Belen Mahallesi",
+"slug": "belen",
+"lat": 40.81599,
+"lon": 29.75121,
+"rakim": 445
+},
+{
+"ilce": "korfez",
+"ad": "Çamlıtepe",
+"osm": "Çamlıtepe Mahallesi",
+"slug": "camlitepe",
+"lat": 40.77465,
+"lon": 29.7687,
+"rakim": 77
+},
+{
+"ilce": "korfez",
+"ad": "Çıraklı",
+"osm": "Çıraklı Mahallesi",
+"slug": "cirakli",
+"lat": 40.90316,
+"lon": 29.81166,
+"rakim": 227
+},
+{
+"ilce": "korfez",
+"ad": "Cuma",
+"osm": "Cuma Mahallesi",
+"slug": "cuma",
+"lat": 40.93287,
+"lon": 29.79197,
+"rakim": 253
+},
+{
+"ilce": "korfez",
+"ad": "Cumhuriyet",
+"osm": "Cumhuriyet Mahallesi",
+"slug": "cumhuriyet",
+"lat": 40.81913,
+"lon": 29.66277,
+"rakim": 476
+},
+{
+"ilce": "korfez",
+"ad": "Dere",
+"osm": "Dere Mahallesi",
+"slug": "dere",
+"lat": 40.83842,
+"lon": 29.77581,
+"rakim": 347
+},
+{
+"ilce": "korfez",
+"ad": "Dikenli",
+"osm": "Dikenli Mahallesi",
+"slug": "dikenli",
+"lat": 41.01214,
+"lon": 29.77112,
+"rakim": 288
+},
+{
+"ilce": "korfez",
+"ad": "Elmacık",
+"osm": "Elmacık Mahallesi",
+"slug": "elmacik",
+"lat": 40.84919,
+"lon": 29.69842,
+"rakim": 431
+},
+{
+"ilce": "korfez",
+"ad": "Esentepe",
+"osm": "Esentepe Mahallesi",
+"slug": "esentepe",
+"lat": 40.76526,
+"lon": 29.79562,
+"rakim": 61
+},
+{
+"ilce": "korfez",
+"ad": "Fatih",
+"osm": "Fatih Mahallesi",
+"slug": "fatih",
+"lat": 40.75359,
+"lon": 29.79477,
+"rakim": 41
+},
+{
+"ilce": "korfez",
+"ad": "Güney",
+"osm": "Güney Mahallesi",
+"slug": "guney",
+"lat": 40.75138,
+"lon": 29.7768,
+"rakim": 15
+},
+{
+"ilce": "korfez",
+"ad": "Hacı Akif",
+"osm": "Hacı Akif Mahallesi",
+"slug": "haci-akif",
+"lat": 40.79016,
+"lon": 29.607,
+"rakim": 195
+},
+{
+"ilce": "korfez",
+"ad": "Hacı Osman",
+"osm": "Hacı Osman Mahallesi",
+"slug": "haci-osman",
+"lat": 40.77777,
+"lon": 29.75206,
+"rakim": 107
+},
+{
+"ilce": "korfez",
+"ad": "Himmetli",
+"osm": "Himmetli Mahallesi",
+"slug": "himmetli",
+"lat": 40.88808,
+"lon": 29.83677,
+"rakim": 259
+},
+{
+"ilce": "korfez",
+"ad": "İlimtepe",
+"osm": "İlimtepe Mahallesi",
+"slug": "ilimtepe",
+"lat": 40.80433,
+"lon": 29.76581,
+"rakim": 409
+},
+{
+"ilce": "korfez",
+"ad": "Kalburcu",
+"osm": "Kalburcu Mahallesi",
+"slug": "kalburcu",
+"lat": 40.82946,
+"lon": 29.71623,
+"rakim": 428
+},
+{
+"ilce": "korfez",
+"ad": "Karayakuplu",
+"osm": "Karayakuplu Mahallesi",
+"slug": "karayakuplu",
+"lat": 40.88148,
+"lon": 29.81024,
+"rakim": 314
+},
+{
+"ilce": "korfez",
+"ad": "Kirazlıyalı",
+"osm": "Kirazlıyalı Mahallesi",
+"slug": "kirazliyali",
+"lat": 40.789,
+"lon": 29.70394,
+"rakim": 209
+},
+{
+"ilce": "korfez",
+"ad": "Kışladüzü",
+"osm": "Kışladüzü Mahallesi",
+"slug": "kisladuzu",
+"lat": 40.78369,
+"lon": 29.62921,
+"rakim": 178
+},
+{
+"ilce": "korfez",
+"ad": "Kutluca",
+"osm": "Kutluca Mahallesi",
+"slug": "kutluca",
+"lat": 40.90805,
+"lon": 29.72778,
+"rakim": 349
+},
+{
+"ilce": "korfez",
+"ad": "Kuzey",
+"osm": "Kuzey Mahallesi",
+"slug": "kuzey",
+"lat": 40.76165,
+"lon": 29.79219,
+"rakim": 45
+},
+{
+"ilce": "korfez",
+"ad": "Mimar Sinan",
+"osm": "Mimar Sinan Mahallesi",
+"slug": "mimar-sinan",
+"lat": 40.76361,
+"lon": 29.75458,
+"rakim": 9
+},
+{
+"ilce": "korfez",
+"ad": "Naip",
+"osm": "Naip Mahallesi",
+"slug": "naip",
+"lat": 40.86291,
+"lon": 29.71798,
+"rakim": 436
+},
+{
+"ilce": "korfez",
+"ad": "Osmanlı",
+"osm": "Osmanlı Mahallesi",
+"slug": "osmanli",
+"lat": 40.91572,
+"lon": 29.77702,
+"rakim": 256
+},
+{
+"ilce": "korfez",
+"ad": "Şemsettin",
+"osm": "Şemsettin Mahallesi",
+"slug": "semsettin",
+"lat": 40.87279,
+"lon": 29.72521,
+"rakim": 380
+},
+{
+"ilce": "korfez",
+"ad": "Sevindikli",
+"osm": "Sevindikli Mahallesi",
+"slug": "sevindikli",
+"lat": 40.89183,
+"lon": 29.76115,
+"rakim": 243
+},
+{
+"ilce": "korfez",
+"ad": "Sipahiler",
+"osm": "Sipahiler Mahallesi",
+"slug": "sipahiler",
+"lat": 40.84928,
+"lon": 29.79782,
+"rakim": 258
+},
+{
+"ilce": "korfez",
+"ad": "Şirinyalı",
+"osm": "Şirinyalı Mahallesi",
+"slug": "sirinyali",
+"lat": 40.78885,
+"lon": 29.66324,
+"rakim": 326
+},
+{
+"ilce": "korfez",
+"ad": "Yavuz Sultan Selim",
+"osm": "Yavuz Sultan Selim Mahallesi",
+"slug": "yavuz-sultan-selim",
+"lat": 40.78285,
+"lon": 29.79157,
+"rakim": 158
+},
+{
+"ilce": "korfez",
+"ad": "Yeniyalı",
+"osm": "Yeniyalı Mahallesi",
+"slug": "yeniyali",
+"lat": 40.76726,
+"lon": 29.78035,
+"rakim": 56
+},
+{
+"ilce": "korfez",
+"ad": "Yukarı Hereke",
+"osm": "Yukarı Hereke Mahallesi",
+"slug": "yukari-hereke",
+"lat": 40.81082,
+"lon": 29.63037,
+"rakim": 358
+}
+]
