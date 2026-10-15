@@ -12,7 +12,7 @@ Tarih SABİT (kullanıcı kararı 2026-10-15): günlük tazelik cron'u bu sayfal
 Yer tutucular: {M} "Cedit Mahallesi" · {Mloc} 'nde · {Mdat} 'ne · {Mgen} 'nin · {Mabl} 'nden · {Mkisa} "Cedit"
                {I} ilçe · {Iloc} {Idat} {Igen} {Iabl} · {km} · {yon} · {r} rakım · {k} kelime (küçük harf)
 """
-TARIH = "2026-10-15T09:00:00+00:00"
+TARIH = "2026-10-15T02:45:00+00:00"   # mahalle sayfalarının ilk yayın anı (commit af97330); ⛔ GELECEK zaman yazma
 
 # slug, H1'deki ad, cümle içi, ilgili hizmet sayfası, tip
 KELIMELER = [
