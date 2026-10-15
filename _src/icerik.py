@@ -342,3 +342,29 @@ USTA_DIKKAT = [
  ("Adresi ve telefonu belli birini seçin", "Sorun tekrar ederse ulaşabileceğiniz, adresi belli bir firmayla çalışın. Bizim ofisimiz Başiskele'de, Kılıçarslan Mah. Hürriyet Cad. No:1'de; isterseniz uğrayabilirsiniz."),
  ("Ödemeyi iş bitince yapın", "Suyun gittiğini kendi gözünüzle görmeden ödeme yapmayın. Biz de sorun tamamen giderilmeden ücret talep etmiyor, ödemeyi işlem tamamlandıktan sonra alıyoruz."),
 ]
+
+# ── Su kaçağı tespiti ve tamiri (5. hizmet, 2026-10-15) ─────────────────────
+# Kullanıcı teyidi: kırmadan, görüntülü su kaçağı tespiti + tamiri, 7/24. Elde termal kamera fotoğrafı var (cihazla-goruntuleme).
+# ⛔ Teyitsiz yöntem/iddia yazma (akustik dinleme, "nokta atışı", "%100 tespit" vb.). Kombi/musluk-batarya teyitli DEĞİL.
+HIZMET_METIN["su-kacagi-tespiti"] = {
+ "neden_giris": "Su kaçağı çoğu zaman sessizdir: aylarca duvarın içinde ya da şapın altında sızar, siz onu bir leke, bir koku ya da kabaran bir fatura olarak fark edersiniz. Ne kadar erken bulunursa o kadar az hasar verir.",
+ "nedenler": [
+  ("Eskiyen boru ve bağlantılar", "Eski galvaniz borular içten paslanır; plastik boruların ek yerleri de yıllar içinde gevşeyebilir."),
+  ("Yüksek su basıncı", "Şebeke basıncı yüksekse bağlantılar ve fleks hortumlar zamanla zorlanıp sızdırmaya başlar."),
+  ("Tadilatta zarar gören boru", "Duvara çakılan bir dübel ya da fayans değişiminde zedelenen bir boru, aylar sonra kaçak olarak ortaya çıkabilir."),
+  ("Küvet ve duş teknesi bağlantısı", "Bazen sızan şey boru değil küvet ya da duş teknesinin bağlantısıdır; su alt kata buradan iner."),
+  ("Gider hattındaki çatlak", "Her nem temiz su borusundan gelmez; çatlak bir gider borusu da duvarda leke ve koku yapar."),
+ ],
+ "yontem": "Önce sızıntının temiz su hattından mı yoksa gider hattından mı geldiğini ayırıyoruz. Temiz su tarafında termal kamerayla duvar ve zemindeki ısı izine bakıyoruz; sıcak su hattındaki kaçak ekranda net bir iz bırakır. Sızıntı gider hattından geliyorsa hattı kamerayla görüntülüyoruz. Kaçağın yerini kırmadan belirledikten sonra yalnızca o noktayı açıp tamir ediyor, suyu açıp sızdırmazlığı sizinle birlikte kontrol ediyoruz.",
+ "belediye": "{ad}{loc} evinizdeki su kaçağı için belediye ya da İSU ekip göndermez; su sayacından sonraki tesisat mülk sahibinin sorumluluğundadır. Kaçak sayaçtan önce, yani sokaktaki şebeke hattında ya da sayaç bağlantısındaysa İSU'yu ALO 185'ten arayın; sayaçtan sonraysa bizi arayın.",
+}
+SU_YEREL = {
+ "izmit": "İzmit'in eski merkez mahallelerindeki apartmanlarda temiz su tesisatı çoğu zaman binayla aynı yaşta; eski galvaniz borular içten paslanıp ek yerlerinden sızdırmaya başlıyor. Bu binalarda kaçağı çoğunlukla alt kattaki komşunun tavanındaki lekeden öğreniyoruz. Kaçağın hangi dairede ve hangi noktada olduğunu kırmadan bulup yalnızca orayı açıyoruz.",
+ "basiskele": "Başiskele'de bahçeli evlerde su kaçağı bazen evin içinde değil, sayaçtan eve gelen bahçe hattında oluyor; bahçede hep ıslak kalan bir yer ya da birden yükselen fatura buna işaret edebiliyor. Yeni sitelerde ise daha sık gördüğümüz şey, banyo tadilatında zedelenen bir borunun duvarın içinde sızdırması. Ofisimiz ilçenin içinde olduğu için kaçak çağrısına da çabuk ulaşıyoruz.",
+ "golcuk": "Gölcük'te sahile yakın binalarda duvarlar zaten nem almaya yatkın; bu yüzden her lekenin kaçak olmadığını, bazen dışarıdan gelen rutubet olduğunu baştan ayırmak gerekiyor. Önce gerçekten bir kaçak olup olmadığına bakıyor, varsa yerini kırmadan buluyoruz. Gereksiz yere duvar açtırmamak bizim için önemli.",
+ "derince": "Derince'nin sahil kesimindeki eski apartmanlarda dükkânlar ve daireler aynı tesisatı paylaşabiliyor; alttaki dükkânın tavanındaki leke üstteki bir dairenin kaçağından geliyor olabiliyor. Kuzeydeki müstakil evlerde ise kaçak çoğu zaman bahçe hattında. Önce suyun nereden geldiğini ayırıyor, sonra kaçağı kırmadan bulup tamir ediyoruz.",
+ "korfez": "Körfez'de çok daireli eski apartmanlarda su kaçağı genellikle bir dairenin banyosunda başlayıp alt kata iniyor ve komşular arasında \"su kimden geliyor\" sorusu çıkıyor. Kaçağın hangi dairede ve hangi boruda olduğunu kırmadan gösteriyoruz; bu hem tamiri hem de komşularla konuşmayı kolaylaştırıyor.",
+ "kartepe": "Kartepe'de villa ve dağ evlerinde kışın donan borular bahar geldiğinde kaçak olarak ortaya çıkabiliyor. Hafta sonu kullanılan evlerde kaçak bazen günlerce fark edilmiyor; eve geldiğinizde duvarda leke ya da zeminde ıslaklık görürseniz beklemeyin. Kaçağın yerini kırmadan bulup tamir ediyoruz.",
+ "karamursel": "Karamürsel'deki yazlık sitelerde kışın kapalı kalan dairelerde sezon başında su açılınca kaçak ortaya çıkabiliyor; kışın soğuğa maruz kalan borular ve gevşeyen bağlantılar en sık sebep. Daireye uzun süre sonra ilk kez geldiyseniz bütün muslukları kapatıp sayaca bir bakın. Kaçak varsa yerini kırmadan bulup tamir ediyoruz.",
+}
+for _k, _v in SU_YEREL.items(): ILCE_METIN[_k]["yerel"]["su-kacagi-tespiti"] = _v

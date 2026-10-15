@@ -78,13 +78,13 @@ def kume(s):
     return {" ".join(k[i:i+5]) for i in range(len(k) - 4)}
 grup = defaultdict(list)
 for yol, s in sayfalar.items():
-    m = re.match(r"([a-z]+)-(tikali-gider-acma|tuvalet-tikanikligi-acma|rogar-temizleme|kamerali-goruntuleme)/", yol)
+    m = re.match(r"([a-z]+)-(tikali-gider-acma|tuvalet-tikanikligi-acma|rogar-temizleme|kamerali-goruntuleme|su-kacagi-tespiti)/", yol)
     if m: grup[m.group(2)].append((yol, kume(s)))
 for hiz, liste in grup.items():
     oranlar = [len(a & b) / len(a | b) for (_, a), (_, b) in itertools.combinations(liste, 2)]
     print(f"benzerlik {hiz:18s} ort %{100*sum(oranlar)/len(oranlar):.0f}  en yüksek %{100*max(oranlar):.0f}")
 
-kelime = [len(govde_metni(s).split()) for y, s in sayfalar.items() if re.match(r"[a-z]+-(tikali|tuvalet|rogar|kamerali)", y)]
+kelime = [len(govde_metni(s).split()) for y, s in sayfalar.items() if re.match(r"[a-z]+-(tikali|tuvalet|rogar|kamerali|su-kacagi)", y)]
 print(f"ilçe sayfası gövde kelime: en az {min(kelime)}, ort {sum(kelime)//len(kelime)}, en çok {max(kelime)}")
 for u in uyari[:30]: print("UYARI", u)
 if len(uyari) > 30: print(f"... +{len(uyari)-30} uyarı")

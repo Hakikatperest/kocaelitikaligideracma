@@ -28,7 +28,8 @@ ADS = {"etiket": "AW-18498023870", "tel": "8uxFCKKJuZQdEL7jxfRE", "wa": ""}
 
 # ✅ ONAYLI — kullanıcı 2026-10-05'te seçti ("Teyitli") + aynı gün verdiği tanıtım metninden:
 ONAYLI = ["7/24 hizmet", "ortalama 30 dakikada ulaşım", "kırmadan kameralı tespit", "fiyat işe başlamadan söylenir",
-          "sorun giderilmeden ücret alınmaz, ödeme iş bitince", "yılların tecrübesi", "Başiskele ofisi ziyaret edilebilir"]
+          "sorun giderilmeden ücret alınmaz, ödeme iş bitince", "yılların tecrübesi", "Başiskele ofisi ziyaret edilebilir",
+          "kırmadan, görüntülü su kaçağı tespiti + tamiri, 7/24 (2026-10-15)"]
 # ⚠️ Kullanıcının metninde "Hizmetlerimiz garantili" var ama garanti SÜRESİ/KAPSAMI verilmedi → Ticari Reklam Yönetmeliği
 #    garanti ifadesinde kapsam ister. Kapsam gelene kadar "garantili" YAZILMIYOR (TEYITSIZ'de), yerine "sorun giderilmeden ücret almıyoruz".
 
@@ -114,7 +115,7 @@ ILCELER = [
 ]
 
 
-# ── Hizmetler (kullanıcı kararı: 4 hizmet, her ilçede ayrı sayfa) ──────────
+# ── Hizmetler (kullanıcı kararı: 4 hizmet, her ilçede ayrı sayfa; 2026-10-15 5. hizmet su kaçağı tespiti+tamiri eklendi) ──
 # "alan": ilçe sayfasında hangi ilçe alanlarının öne çıkacağı.
 # "galeri": gerçek saha fotoğrafları (images/<ad>-480|960.webp) + dürüst alt metin (ilçe adı YAZILMAZ — o ilçede çekilmedi).
 HIZMETLER = [
@@ -275,6 +276,44 @@ HIZMETLER = [
    ("Görüntüyü bana verebilir misiniz?","Ekranda gördüğümüzü sizinle birlikte izliyoruz; isterseniz kaydı ya da ekran görüntüsünü telefonunuza gönderiyoruz."),
    ("Fiyatı önceden öğrenebilir miyim?","Evet. Usta yerinde hattı görüp işin kapsamını belirledikten sonra, işe başlamadan önce fiyatı söylüyor."),
   ]},
+ {"slug":"su-kacagi-tespiti","ad":"Su Kaçağı Tespiti","kisa":"Su kaçağı tespiti","ikon":"kacak","hero_sabit":True,
+  "h1":"{ad} Su Kaçağı Tespiti","title":"{ad} Su Kaçağı Tespiti ve Tamiri | Kırmadan · 7/24",
+  "hub_h1":"Kırmadan Su Kaçağı Tespiti ve Tamiri","hub_neden":"Su kaçağı neden olur, nasıl anlaşılır?",
+  "hub_title":"Kırmadan Su Kaçağı Tespiti ve Tamiri | Kocaeli 7/24",
+  "alan":["yapi"],
+  "ozet":"Duvarın ya da zeminin içindeki su kaçağını kırmadan, görüntülü cihazla buluyor, tamirini de yapıyoruz.",
+  "galeri":[("cihazla-goruntuleme","Banyo duvarında termal kamerayla tesisat kontrolü"),
+            ("tikaniklik-acma-cihazi","Banyo giderinde ekranlı kamerayla hat içinin izlenmesi"),
+            ("kocaeli-tikali-gider-acma-servisi","Ekipmanın taşındığı servis aracı")],
+  "isler":[
+   ("Termal kamerayla tespit","Sıcak su hattındaki kaçak duvarın ya da zeminin yüzeyinde ısı izi bırakır. Termal kamerayla bu izi görüp borunun geçtiği yolu ve kaçağın olduğu noktayı buluyoruz."),
+   ("Kırmadan yer tespiti","Kaçağın yerini kırmadan, cihazla belirliyoruz. Tamir için yalnızca o noktayı açıyoruz; bütün banyoyu ya da koridoru kırmak gerekmiyor."),
+   ("Kaçağın tamiri","Kaçağı bulduktan sonra açtığımız noktada boruyu ya da bağlantıyı tamir ediyor, suyu açıp sızdırmazlığı sizinle birlikte kontrol ediyoruz."),
+   ("Gider hattındaki sızıntı","Nem temiz su borusundan değil gider hattından geliyorsa hattı kamerayla görüntüleyip çatlak ya da kaçık bağlantıyı buluyoruz."),
+   ("Alt kata su sızması","Alt kattaki komşunun tavanında leke varsa sebep boru, küvet ya da duş teknesi bağlantısı olabilir; hangisi olduğunu ayırıyoruz."),
+   ("Faturası birden yükselen evler","Evde görünür bir sızıntı yok ama su faturası birden arttıysa sayaçtan sonraki tesisatta gizli bir kaçak olup olmadığına bakıyoruz."),
+  ],
+  "belirti":[
+   "Duvarda, tavanda ya da zeminde nem lekesi var ve büyüyor",
+   "Alt kattaki komşunun tavanında leke var ya da su damlıyor",
+   "Kullanımınız değişmediği hâlde su faturası birden yükseldi",
+   "Bütün musluklar kapalıyken su sayacı dönmeye devam ediyor",
+   "Fayans derzlerinde kararma, boyada kabarma ve dökülme var",
+   "Bir odada sebebi bilinmeyen rutubet ve küf kokusu var",
+  ],
+  "oneri":[
+   "Bütün muslukları kapatıp su sayacına bakın; sayaç dönüyorsa tesisatta kaçak var demektir. Ararken bunu söyleyin.",
+   "Sızıntı hızlıysa ana vanayı kapatın; ıslanan duvarın yakınındaki prizlere ve elektrikli cihazlara dikkat edin.",
+   "Lekenin ya da kabaran yerin fotoğrafını çekip WhatsApp'tan gönderin; nereden başlayacağımıza oradan karar veriyoruz.",
+   "Duvarı kendiniz açmayın: su boru boyunca ilerleyebildiği için kaçak, lekenin olduğu yerde olmayabilir.",
+  ],
+  "sss":[
+   ("{ad}{loc} su kaçağı tespiti yapıyor musunuz?","Evet. Su kaçağının yerini kırmadan, görüntülü cihazla buluyor, tamirini de yapıyoruz. 7 gün 24 saat arayabilirsiniz."),
+   ("Su kaçağını bulmak için duvar kırılıyor mu?","Hayır. Kaçağın yerini cihazla, kırmadan buluyoruz. Tamir için yalnızca kaçağın olduğu noktayı açıyoruz."),
+   ("Kaçağı bulduktan sonra tamirini de yapıyor musunuz?","Evet. Açtığımız noktada boruyu ya da bağlantıyı tamir ediyor, suyu açıp sızdırmazlığı birlikte kontrol ediyoruz."),
+   ("Evde su kaçağı olup olmadığını nasıl anlarım?","En kolay yol sayaç testi: bütün muslukları ve suyu kullanan cihazları kapatın, sayaca bakın. Sayaç dönmeye devam ediyorsa tesisatta bir kaçak var demektir."),
+   ("Fiyatı ne zaman söylüyorsunuz?","Usta yerinde durumu gördükten sonra, işe başlamadan önce fiyatı söylüyor. Sorun giderilmeden ücret almıyoruz."),
+  ]},
 ]
 
 # ── Hizmete göre ilçe sayfası köprü cümlesi (ilçe alanlarını hizmete bağlar) ──
@@ -283,6 +322,7 @@ KOPRU = {
  "tuvalet-tikanikligi-acma": "{ad}{loc} tuvalet tıkanıklığında önce sorunun klozetin kendi dirseğinde mi, daireden kolona giden hatta mı yoksa kolonun kendisinde mi olduğunu ayırıyoruz.",
  "rogar-temizleme":     "{ad}{loc} rögar çağrısında önce rögarı açıp suyun nereden geldiğine ve nereye gidemediğine bakıyor, sorun parsel içinde mi şehir hattında mı onu netleştiriyoruz.",
  "kamerali-goruntuleme":"{ad}{loc} kameralı görüntülemeyi en çok tekrarlayan tıkanıklıklarda ve kırma kararı verilmeden önce yapıyoruz; görüntü, gereksiz kırmanın önüne geçiyor.",
+ "su-kacagi-tespiti":   "{ad}{loc} su kaçağı çağrısında önce sızıntının temiz su hattından mı yoksa gider hattından mı geldiğini ayırıyoruz; tespit yöntemini buna göre seçiyoruz.",
 }
 
 # ── Müşteri yorumları ───────────────────────────────────────────────────────
