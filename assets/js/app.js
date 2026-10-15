@@ -252,3 +252,22 @@
   };
   baslat();
 })();
+
+/* 5) tazelik damgası: tarih alanlarını sayfanın açıldığı saniyeye çeker (yayın = an − 30 gün; build.py AN/YAYIN ile aynı kural) */
+(function () {
+  var f = function (d) { return d.toISOString().replace(/\.\d{3}Z$/, '+00:00'); };
+  var an = new Date(), guncel = f(an), yayin = f(new Date(an.getTime() - 2592e6));
+  var ayarla = function (sec, deger) { document.querySelectorAll(sec).forEach(function (m) { m.setAttribute('content', deger); }); };
+  ayarla('meta[property="article:modified_time"],meta[name="last-modified"]', guncel);
+  ayarla('meta[property="article:published_time"]', yayin);
+  ayarla('meta[name="date"]', guncel.slice(0, 10));
+  document.querySelectorAll('script[type="application/ld+json"]').forEach(function (s) {
+    try {
+      var j = JSON.parse(s.textContent);
+      if (!j.dateModified && !j.datePublished) return;
+      if (j.dateModified) j.dateModified = guncel;
+      if (j.datePublished) j.datePublished = yayin;
+      s.textContent = JSON.stringify(j);
+    } catch (e) {}
+  });
+})();

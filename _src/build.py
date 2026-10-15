@@ -27,6 +27,12 @@ ONEK = ""   # sayfa derinliğine göre göreli yol öneki
 HERO_KOYU = S.get("hero_tema", "koyu") == "koyu"
 HK = "koyu" if HERO_KOYU else "hero-acik"   # hero tema sınıfı
 BUGUN = datetime.date.today().isoformat()
+# Tazelik damgası (kullanıcı kararı 2026-10-15, tessatesisat.com.tr deseni, riski kabul edildi):
+# yayın = an − 30 gün, güncelleme = an. Günlük cron yeniden derleyip yayınlar (/root/kocaelitikaligideracma_tazelik.sh);
+# app.js sayfa açıldığında aynı alanları o saniyeye çeker.
+AN = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+GUNCEL = AN.isoformat()
+YAYIN = (AN - datetime.timedelta(days=30)).isoformat()
 
 # ── yardımcılar ─────────────────────────────────────────────────────────────
 def e(t): return html.escape(str(t), quote=True)
@@ -135,7 +141,9 @@ def ads_head():
 
 def head(baslik, aciklama, yol, sema=None, robots="index,follow", og="images/og-kocaeli-tikali-gider-acma.jpg"):
     kanonik = ALAN + "/" + yol
-    ld = "".join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>\n' for s in (sema or []))
+    sayfa_ld = [] if "noindex" in robots else [{"@context": "https://schema.org", "@type": "WebPage", "@id": kanonik + "#sayfa",
+                "url": kanonik, "name": baslik, "inLanguage": "tr", "datePublished": YAYIN, "dateModified": GUNCEL}]
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>\n' for s in (sema or []) + sayfa_ld)
     return f"""<!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -152,6 +160,10 @@ def head(baslik, aciklama, yol, sema=None, robots="index,follow", og="images/og-
 <meta property="og:description" content="{e(aciklama)}">
 <meta property="og:url" content="{kanonik}">
 <meta property="og:image" content="{ALAN}/{og}">
+<meta property="article:published_time" content="{YAYIN}">
+<meta property="article:modified_time" content="{GUNCEL}">
+<meta name="last-modified" content="{GUNCEL}">
+<meta name="date" content="{GUNCEL[:10]}">
 <meta name="theme-color" content="{"#060B14" if HERO_KOYU else "#FFFFFF"}">
 <link rel="icon" href="{ic('favicon.ico')}" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="{ic('images/favicon-192.png')}">
@@ -934,7 +946,7 @@ def rehber_sayfasi(r):
     diger = [x for x in IC.REHBER if x["slug"] != r["slug"]]
     kir_html, kir_ld = kirinti([("Anasayfa", ""), ("Rehber", "rehber/"), (r["h1"].split("?")[0] + "?", None)])
     makale = {"@context": "https://schema.org", "@type": "Article", "headline": r["h1"], "description": r["aciklama"],
-              "inLanguage": "tr", "datePublished": "2026-10-05", "dateModified": BUGUN,
+              "inLanguage": "tr", "datePublished": YAYIN, "dateModified": GUNCEL,
               "author": {"@type": "Organization", "name": S["marka"], "url": ALAN + "/"},
               "publisher": {"@id": ALAN + "/#isletme"}, "mainEntityOfPage": ALAN + "/" + yol,
               "image": ALAN + f"/images/{r['gorsel'][0]}-960.webp"}
@@ -1055,7 +1067,7 @@ def main():
                sayfa("gizlilik-politikasi/", gizlilik)]
     ONEK = "/"
     yaz("404.html", hata404())
-    sm = "".join(f"<url><loc>{ALAN}/{y}</loc><lastmod>{BUGUN}</lastmod></url>" for y in yollar if y != "gizlilik-politikasi/")
+    sm = "".join(f"<url><loc>{ALAN}/{y}</loc><lastmod>{GUNCEL}</lastmod></url>" for y in yollar if y != "gizlilik-politikasi/")
     yaz("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
     yaz("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {ALAN}/sitemap.xml\n")
     yaz("CNAME", S["cname"] + "\n")
