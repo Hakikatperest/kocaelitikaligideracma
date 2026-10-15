@@ -5,7 +5,7 @@ Veri: _src/mahalleler.json (OSM admin_level=8, 301 resmî mahalle; merkez koordi
 Sayfa: /<ilce>-<mahalle>-<kelime>/   ·   dizin: /<ilce>-mahalleleri/
 
 Farklılaştırma GERÇEK veriyle: ofise kuş uçuşu mesafe + yön, rakım kuşağı, en yakın 6 mahalle, ilçe metni.
-⛔ Uydurma vaka/rakam yok · ⛔ "su tesisatçısı" sayfaları dürüst: temiz su/kombi/su kaçağı YAPMIYORUZ
+⛔ Uydurma vaka/rakam yok · ⛔ "su tesisatçısı" sayfaları dürüst: boru tamiri/kombi YAPMIYORUZ · ✅ kırmadan, görüntülü su kaçağı TESPİTİ yapıyoruz (kullanıcı 2026-10-15)
 ⛔ aggregateRating yok · ⛔ gövdede yeni Ara/WhatsApp butonu yok (hero + #teklif + yüzen butonlar yeter)
 Tarih SABİT (kullanıcı kararı 2026-10-15): günlük tazelik cron'u bu sayfalara dokunmaz → depo şişmez.
 
@@ -40,8 +40,8 @@ GIRIS = {
   "{Mloc} giderden su gitmiyor, tuvalet ya da rögar doluyorsa arayın. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; 7/24 açığız.",
  ],
  "su": [
-  "{Mloc} {k} arıyorsanız önce şunu söyleyelim: biz gider tarafında çalışıyoruz. Tıkalı gider, tuvalet, rögar ve taşma için 7/24 geliyoruz; temiz su borusu, kombi ve su kaçağı işi yapmıyoruz.",
-  "{I} {M} için {k} mı lazım? Sorun tıkanıklıksa, yani su gitmiyor, geri geliyor ya da taşıyorsa doğru yerdesiniz; 7/24 geliyor, kırmadan açıyoruz. Su borusu ya da kombi işi yapmıyoruz.",
+  "{Mloc} {k} arıyorsanız önce şunu söyleyelim: biz gider tarafında çalışıyoruz. Tıkalı gider, tuvalet, rögar ve taşma için 7/24 geliyoruz; su kaçağını da kırmadan, görüntülü cihazla tespit ediyoruz. Boru tamiri ve kombi işi yapmıyoruz.",
+  "{I} {M} için {k} mı lazım? Sorun tıkanıklıksa, yani su gitmiyor, geri geliyor ya da taşıyorsa doğru yerdesiniz; 7/24 geliyor, kırmadan açıyoruz. Gizli bir su kaçağı varsa yerini de kırmadan buluyoruz. Boru tamiri ve kombi işi yapmıyoruz.",
  ],
  "acil": [
   "{Mloc} gece yarısı tuvalet taştı, gider geri tepiyor ya da rögar doldu mu? Acil tıkanıklık için 7 gün 24 saat açığız; aradığınızda önce suyu nasıl durduracağınızı anlatıyoruz.",
@@ -99,12 +99,13 @@ NE_H2 = {
 }
 SU_YAPIYORUZ = ["Lavabo, evye, duş, küvet ve yer süzgeci tıkanıklığı", "Tuvalet ve klozet tıkanıklığı, alaturka dahil",
                 "Bina kolonu ve bahçe hattı tıkanıklığı", "Rögar açma ve basınçlı suyla yıkama",
-                "Kameralı gider görüntüleme ile tıkanıklığın yerini ve sebebini bulma"]
+                "Kameralı gider görüntüleme ile tıkanıklığın yerini ve sebebini bulma",
+                "Kırmadan, görüntülü cihazla su kaçağı tespiti"]
 SU_YAPMIYORUZ = ["Temiz su borusu döşeme ya da patlak boru tamiri", "Musluk, batarya, rezervuar iç takımı değişimi",
-                 "Kombi, termosifon ve kalorifer tesisatı", "Su kaçağı tespiti"]
+                 "Kombi, termosifon ve kalorifer tesisatı"]
 SU_METIN = [
- "\"Su tesisatçısı\" diye arayanların önemli bir kısmı aslında giderin tıkanması, suyun geri gelmesi ya da tuvaletin taşması için arıyor. Bu işlerin hepsi bizim işimiz. Ama dürüst olalım: temiz su tarafında çalışmıyoruz. Patlak boru, musluk ya da kombi için başka bir ustaya ihtiyacınız var; o durumda önce ana vanayı kapatın.",
- "Tesisatın iki tarafı var: eve temiz suyu getiren hat ve kullanılmış suyu götüren gider hattı. Biz yalnızca ikincisinde, yani gider tarafında çalışıyoruz. Bu yüzden su gitmiyorsa, geri tepiyorsa ya da taşıyorsa bizi arayın; su sızıyor ya da basınç yoksa temiz su tesisatı yapan bir ustaya ulaşın.",
+ "\"Su tesisatçısı\" diye arayanların önemli bir kısmı aslında giderin tıkanması, suyun geri gelmesi ya da tuvaletin taşması için arıyor. Bu işlerin hepsi bizim işimiz. Temiz su tarafında ise su kaçağı tespiti yapıyoruz: duvarın ya da zeminin içindeki kaçağın yerini kırmadan, görüntülü cihazla buluyoruz. Ama dürüst olalım: patlak boru tamiri, musluk ya da kombi işi yapmıyoruz; o durumda önce ana vanayı kapatın ve temiz su tesisatı yapan bir ustaya ulaşın.",
+ "Tesisatın iki tarafı var: eve temiz suyu getiren hat ve kullanılmış suyu götüren gider hattı. Biz ağırlıklı olarak ikincisinde, yani gider tarafında çalışıyoruz: su gitmiyorsa, geri tepiyorsa ya da taşıyorsa bizi arayın. Temiz su tarafında ise su kaçağı tespiti yapıyoruz; duvarda nem, tavanda leke ya da sebebi belli olmayan bir sızıntı varsa kaçağın yerini kırmadan, görüntülü cihazla buluyoruz. Boru tamiri ve kombi için temiz su tesisatı yapan bir ustaya ulaşın.",
 ]
 ACIL_ADIM = {
  "Tuvalet taşıyorsa": "Sifonu bir daha çekmeyin; rezervuarın altındaki ara musluğu kapatın.",
@@ -114,7 +115,7 @@ ACIL_ADIM = {
 }
 ACIL_METIN = [
  "Acil tesisatçı aradığınız durum bir tıkanıklık, geri tepme ya da taşmaysa doğru yerdesiniz; 7/24 geliyoruz. Patlak su borusu ya da kombi arızasında ise önce ana vanayı kapatın ve temiz su tesisatı yapan bir ustaya ulaşın; o işleri yapmıyoruz.",
- "Bizim acil işimiz gider: taşan tuvalet, dolan rögar, geri tepen mutfak gideri. Bu durumlarda gece de hafta sonu da arayabilirsiniz. Su borusu patladıysa ya da kombi su kaçırıyorsa ana vanayı kapatıp temiz su tesisatçısı çağırın; biz o tarafta çalışmıyoruz.",
+ "Bizim acil işimiz gider: taşan tuvalet, dolan rögar, geri tepen mutfak gideri. Bu durumlarda gece de hafta sonu da arayabilirsiniz. Su borusu patladıysa ya da kombi su kaçırıyorsa ana vanayı kapatıp temiz su tesisatçısı çağırın; boru tamiri ve kombi işi yapmıyoruz.",
 ]
 BANYO_ISLER = ["Lavabo ve banyo gideri", "Duş ve küvet gideri", "Balkon ve yer süzgeci", "Tekrarlayan tıkanıklık"]
 MUTFAK_ISLER = ["Mutfak evyesi", "Kolon tıkanıklığı", "Tekrarlayan tıkanıklık"]
@@ -131,7 +132,7 @@ SSS = {
   ("Kırma yapmadan açabiliyor musunuz?", "Çoğu tıkanıklığı gider ağzından makineyle, kırmadan açıyoruz. Kırma ancak boru kırılmış ya da çökmüşse gündeme gelir; bunu da önce kamerayla size gösteriyoruz."),
   ("Telefonda fiyat verebilir misiniz?", "Kesin fiyatı telefonda vermiyoruz çünkü her tıkanıklık farklı. WhatsApp'tan fotoğraf ya da video atarsanız yaklaşık bilgi verebiliyoruz; kesin fiyatı usta yerinde görüp işe başlamadan söylüyor."),
  ],
- "su": [("Su borum patladı, geliyor musunuz?", "Hayır, temiz su tesisatında çalışmıyoruz. Hemen ana vanayı kapatın ve temiz su tesisatı yapan bir ustaya ulaşın. Gider tıkanıklığı, taşma ve rögar için ise 7/24 buradayız.")],
+ "su": [("Su borum patladı, geliyor musunuz?", "Boru tamiri yapmıyoruz; hemen ana vanayı kapatın ve temiz su tesisatı yapan bir ustaya ulaşın. Kaçak duvarın ya da zeminin içindeyse ve yeri belli değilse, yerini kırmadan, görüntülü cihazla tespit etmek için bizi arayabilirsiniz.")],
  "acil": [("Gece yarısı arasam gelir misiniz?", "Evet. Gece yarısı da sabaha karşı da arayabilirsiniz; telefonu bir usta açar, önce suyu nasıl durduracağınızı anlatır, sonra ekip yola çıkar.")],
  "tuvalet": [("Klozeti sökmeniz gerekir mi?", "Çoğu zaman hayır. Tıkanıklığı klozetin içinden makineyle açıyoruz; sert bir cisim sıkışmışsa ya da asma klozetse söküm gerekebilir, bunu işe başlamadan söylüyoruz.")],
  "mutfak": [("Bulaşık makinesinin suyu evyeden geri geliyor, sebep ne?", "Genelde evye ile kolon arasındaki hatta yağ birikmiştir; makine suyu bastığında gidecek yer bulamayıp evyeden geri gelir. Hattı açıp yağı temizliyoruz.")],

@@ -1072,8 +1072,8 @@ def mahalle_sayfasi(m, k):
     if len(baslik) > 70: baslik = H1
     uzak = "Ofisimiz bu mahallede." if m["km"] < 1 else f"Ofisimize ~{km_yazi(m['km'])} km."
     if tip == "su":
-        aciklama = (f"{i['ad']} {m['tam']} {k[2]} arayanlara: tıkalı gider, tuvalet ve rögar için 7/24 geliyoruz; "
-                    f"temiz su ve kombi işi yapmıyoruz. {uzak} {S['tel_goster']}")
+        aciklama = (f"{i['ad']} {m['tam']} {k[2]}: tıkalı gider, tuvalet, rögar için 7/24; kırmadan su kaçağı tespiti. "
+                    f"Boru tamiri ve kombi yapmıyoruz. {uzak} {S['tel_goster']}")
     else:
         aciklama = (f"{i['ad']} {m['tam']} {k[2]}: 7/24, kırmadan, fiyat işe başlamadan, ödeme iş bitince. "
                     f"{uzak} {S['tel_goster']}")
