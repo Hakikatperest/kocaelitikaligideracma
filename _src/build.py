@@ -319,7 +319,7 @@ def teklif_formu(h=None, i=None):
 def cta(baslik, metin, h=None, i=None):
     return f"""<section class="cta koyu" id="teklif"><div class="kap cta-ic">
  <div class="cta-sol">
-  <p class="durum-rozet"><span class="canli"></span>Şu an hizmet veriyoruz · <span class="durum-saat">7/24</span></p>
+  <p class="durum-rozet"><span class="canli"></span>Servis ekibimiz şu an müsait · <span class="durum-saat">7/24</span></p>
   <h2>{e(baslik)}</h2><p>{e(metin)}</p>
   <a class="cta-tel" href="tel:{S['tel_link']}"><span class="cta-tel-ik">{svg('tel')}</span><span><small>7/24 arayın</small><b>{S['tel_goster']}</b></span></a>
   <ul class="cta-liste"><li>{svg('tik')}Ortalama 30 dakikada adreste</li><li>{svg('tik')}Fiyat işe başlamadan söylenir</li><li>{svg('tik')}Kırmadan, gerekirse kameralı</li></ul>
@@ -451,7 +451,7 @@ def hero(etiket, h1, p, gorsel_html, kir="", h=None, i=None, sinif="hero-ic", wa
   <p class="ust-etiket"><span class="nokta"></span>{e(etiket)}</p>
   <h1>{h1}</h1>
   <p class="hero-p">{e(p)}</p>
-  <div class="hero-dg">{tel_btn()}{wa_btn(wa or wa_mesaj(h, i))}</div>
+  <div class="hero-dg">{tel_btn(sinif="dg dg-ara dg-mavi", ust="7/24 Ücretsiz Danışma ve Servis Hattı")}{wa_btn(wa or wa_mesaj(h, i))}</div>
  </div>
  <div class="hero-derin"><figure class="hero-gorsel" data-egim>{gorsel_html}</figure><span class="hero-golge"></span></div>
 </div></section>"""
@@ -861,10 +861,10 @@ def ana_hero(kam):
    <em>Nasıl çalışır? {svg('ok')}</em>
   </a>'''
     metin = f'''  <div class="hero-metin">
-   <p class="ust-etiket"><span class="canli"></span>Şu an hizmet veriyoruz · Kocaeli · 7/24</p>
+   <p class="ust-etiket"><span class="canli"></span>Servis ekibimiz şu an müsait · Kocaeli · 7/24</p>
    <h1><span class="ad">Kocaeli Tıkalı Gider Açma</span> <span class="vurgu">ortalama 30 dakikada</span> kapınızda</h1>
    <p class="hero-p">Lavabo, mutfak ve banyo gideri, tuvalet tıkanıklığı ve taşan rögar için 7 gün 24 saat ulaşabileceğiniz ekibiz. Tıkanıklığın yerini gerektiğinde kamerayla görüp kırmadan açıyoruz; fiyatı işe başlamadan söylüyoruz.</p>
-   <div class="hero-dg">{tel_btn()}{wa_btn(wa_mesaj())}</div>
+   <div class="hero-dg">{tel_btn(sinif="dg dg-ara dg-mavi", ust="7/24 Ücretsiz Danışma ve Servis Hattı")}{wa_btn(wa_mesaj())}</div>
   </div>'''
     if HERO_KOYU:
         return f'''<section class="hero koyu hero-ana">

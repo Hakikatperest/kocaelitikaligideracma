@@ -515,6 +515,11 @@ p{margin:0 0 1em}
   border:2px solid rgba(255,122,26,.75);animation:nabiz-halka 2s cubic-bezier(.3,.6,.4,1) infinite}
 .dg-wa::before{border-color:rgba(34,197,94,.7);animation-delay:1s}
 @keyframes nabiz-halka{0%{transform:scale(1);opacity:.9}75%,100%{transform:scale(1.12,1.35);opacity:0}}
+/* hero Ara düğmesi mavi; uzun üst etiket dar ekranda satır kırar */
+.dg-mavi{background:linear-gradient(180deg,#2EB4FF,#0A78D6);box-shadow:inset 0 -3px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.3),0 12px 30px -10px rgba(14,140,230,.8)}
+.dg-mavi::before{border-color:rgba(34,184,255,.75)}
+.dg-mavi:hover{box-shadow:0 0 0 1px rgba(120,210,255,.7),0 14px 38px -6px rgba(14,140,230,.85)}
+.dg-mavi,.dg-mavi small{white-space:normal}
 .dg-ara:hover,.dg-wa:hover{transform:translateY(-2px);filter:brightness(1.06)}
 /* ikon: telefon ara ara "çalar", WhatsApp ikonu hafifçe zıplar; ikon rozetinden de küçük halka yayılır */
 .dg-ara .dg-ik .ik{animation:cal 3s ease-in-out infinite;transform-origin:50% 60%}
